@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+[ "$EUID" -ne "0" ] && echo "Please re-run this script as root!" && exit 1
+
+CPUTHREADS=$(grep -c processor /proc/cpuinfo)
+CPUTHREADSPLUSONE=$((CPUTHREADS + 1))
+KERNELCONFIGLOCATION="/usr/src/linux/.config"
+KERNELCONFIGDESTINATION="/home/jackson/.local/repos/dotfiles/extra/kernelconfigs/"
+
+cd /usr/src/linux && make menuconfig
+
+clear
+read -r -p "Want to build the newly configured kernel [y/n]? " BUILDNEWKERNEL
+
+([ "$BUILDNEWKERNEL" = "y" ] || [ "$BUILDNEWKERNEL" = "Y" ]) && make -j$CPUTHREADSPLUSONE && make modules_install install && genkernel --install --kernel-config=/usr/src/linux/.config initramfs
+
+KERNELVERSION="$(grep 'Linux/x86' $KERNELCONFIGLOCATION | tr '-' ' ' | cut -d' ' -f3)"
+KERNELLOCALVERSION="$(grep '^CONFIG_LOCALVERSION' $KERNELCONFIGLOCATION | cut -d'=' -f2 | tr -d '"')"
+[ ! "$KERNELLOCALVERSION" ] && KERNELLOCALVERSION=""
+cp -f $KERNELCONFIGLOCATION "${KERNELCONFIGDESTINATION}${KERNELVERSION}-gentoo${KERNELLOCALVERSION}.config"
+
+clear
+read -r -p "Want to remove duplicate kernel image [y/n]? " REMOVEDUPLICATEIMAGE
+([ "$REMOVEDUPLICATEIMAGE" = "y" ] || [ "$REMOVEDUPLICATEIMAGE" = "Y" ]) && rm -f /boot/*.old
+
+clear
+read -r -p "Want to re-build modules [y/n]? " REBUILDMODULES
+([ "$REBUILDMODULES" = "y" ] || [ "$REBUILDMODULES" = "Y" ]) && emerge @module-rebuild
+
+clear
+read -r -p "Re-generate grub config [y/n]? " GRUBCONFIG
+([ "$GRUBCONFIG" = "y" ] || [ "$GRUBCONFIG" = "Y" ]) && grub-mkconfig -o /boot/grub/grub.cfg
+
+clear
+read -r -p "Reboot now [y/n]? " REBOOTNOW
+([ "$REBOOTNOW" = "y" ] || [ "$REBOOTNOW" = "Y" ]) && reboot

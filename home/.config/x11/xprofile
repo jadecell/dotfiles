@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+# Changes some X settings
+xset r rate 300 50 &
+xset s off -dpms &
+
+# Uses xrdb to set the colors
+xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources" &
+
+# Switch Capslock with L-CTRL for a better emacs experience
+xmodmap "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xmodmap" &
+
+# Fixes monitor placement and resolution
+~/.config/fixmonitors.sh &
+
+# Starts the emacs daemon
+killall emacs ; /usr/bin/emacs --daemon &
+
+# Starts the statusbar
+dwmblocks &
+
+# Compositor
+xcompmgr &
+
+# Sets wallpaper
+xwallpaper --center ~/.config/wallpaper &
+
+# Changes the window manager name to let Java IDE's to run
+wmname "LG3D" &

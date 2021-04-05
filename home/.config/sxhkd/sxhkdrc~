@@ -1,0 +1,108 @@
+#---BSPWM Bindings
+# Quit bspwm
+super + shift + q
+    bspc quit
+
+# Restart bspwm
+super + shift + r
+    bspc wm -r
+
+# Kill Window
+super + shift + c
+    crystal --close
+
+# Focus on window in direction
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+#	Send window to desktop
+super + shift + {0-9}
+    crystal --send {0-9}
+
+# Send window to desktop and swap to desktop
+super + control + {0-9}
+    bspc node -d {0-9} && bspunhide && bspc desktop -f {0-9}
+
+# Swap nodes the tree from the current nodes parent
+super + control + {Up, Down}
+    bspc node @parent -C {forward, backward}
+
+# Rotate the tree from the current nodes parent
+super + control + {Right, Left}
+	bspc node @parent --rotate {90,270}
+
+# Flip the tree from the current nodes parent
+super + control + {h,j,k,l}
+    bspc node @parent -F {vertical,horizontal,horizontal,vertical}
+
+# Toggle fullscreen on and off
+super + space
+    crystal --fullscreen
+
+# Toggle floating on and off
+super + o
+    bspc node focused.tiled -t floating || bspc node focused.floating -t tiled
+
+# Swap window with direction
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# Focus on desktop
+super + {0-9}
+	crystal --focus {0-9}
+
+# Cycle through desktops super + alt + {Left, Right}
+    crystal --focus {prev, next}
+
+# Expand a window by moving one of its side outward
+ctrl + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Contract a window by moving one of its side inward
+ctrl + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# Move a floating window
+ctrl + alt + {Left,Right,Up,Down}
+    xdo move {-x -20, -x +20, -y -20, -y +20}
+
+# Dropdown terminal
+super + alt + Return
+	tdrop -ma -w 1916 -y 0 st
+
+#---System Control---#
+
+# Pulse Controls
+XF86Audio{LowerVolume,RaiseVolume}
+    pulsemixer --change-volume {-2, +2}
+
+XF86AudioMute
+    pulsemixer --toggle-mute
+
+XF86Audio{Play,Prev,Next,Stop}
+    playerctl -p spotify {play-pause,previous,next,stop}
+
+#---Application Launchers---#
+super + shift + Return
+    dmenu_run -h $DMENU_CUSTOM_HEIGHT -p "Run: " -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n
+
+super + F{6,7,8,9,10,11,12}
+    ~/.config/dmenu/scripts/{dmenu-power,dmenu-ssh,dmenu-sysmon,dmenumount,dmenuumount,dmenu-scrot,dmenu-edit-configs}.sh
+
+super + Return
+    $TERMINAL -e fish
+
+super + w
+    firefox
+
+super + u
+    $TERMINAL -e yay -Syu
+
+super + shift + w
+    st -e ranger ~/.local/repos/wallpapers/
+
+super + shift + s
+    spotify
+
+super + n
+    $TERMINAL -e newsboat

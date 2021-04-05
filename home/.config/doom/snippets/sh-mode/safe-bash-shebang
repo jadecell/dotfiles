@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: safe bash shebang
+# key: sbash
+# --
+#!/usr/bin/env bash
+set -euo pipefall
+
+$0

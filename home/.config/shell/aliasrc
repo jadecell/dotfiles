@@ -1,0 +1,98 @@
+#!/usr/bin/env sh
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+# sudo not required for some system commands
+for x in mount umount sv emerge updatedb su rc-update rc-service; do
+    alias $x="sudo $x"
+done
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+    cp="cp -iv" \
+    mv="mv -iv" \
+    rm="rm -vI" \
+    bc="bc -ql" \
+    mkdir="mkdir -pv" \
+    ffmpeg="ffmpeg -hide_banner"
+
+# Pacman stuff
+# alias \
+#     unlock="sudo rm /var/lib/pacman/db.lck" \
+#     cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
+#     p="sudo pacman"
+
+# Portage stuff
+alias \
+    eu="sudo emerge -vuDU --with-bdeps=y @world" \
+    eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
+    es="sudo eix-sync" \
+    e="sudo emerge" \
+    em="sudo emerge --autounmask-continue"
+
+# Flaggie
+alias \
+    f="sudo flaggie"
+
+# CD stuff
+alias \
+    ..='cd ..' \
+    ...='cd ../..' \
+    .3='cd ../../..' \
+    .4='cd ../../..' \
+    .5='cd ../../../..' \
+    .6='cd ../../../../..'
+
+# Colorize commands when possible.
+alias \
+    ls="ls -hN --color=auto --group-directories-first" \
+    grep="grep --color=auto" \
+    diff="diff --color=auto" \
+    egrep='egrep --color=auto' \
+    fgrep='fgrep --color=auto'
+
+# These common commands are just too long! Abbreviate them.
+alias \
+    ka="killall" \
+    sdn="sudo shutdown -h now" \
+    v="nvim"
+
+# LS aliases
+alias \
+    ls='lsd -al --color=always --group-dirs first' \
+    la='lsd -a --color=always --group-dirs first' \
+    ll='lsd -l --color=always --group-dirs first' \
+    lt='lsd -aT --color=always --group-dirs first' \
+    l.='lsd -a | egrep "^\."'
+
+# Git aliases
+alias \
+    g='/usr/bin/git' \
+    gs='/usr/bin/git status' \
+    ga='/usr/bin/git add -u' \
+    gaa='/usr/bin/git add .' \
+    gc='/usr/bin/git commit -m' \
+    gp="/usr/bin/git push origin master" \
+    gpa="/usr/bin/git push gitlab master && /usr/bin/git push github master" \
+    lg="lazygit"
+
+# University class folders
+alias \
+    m1140="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/MATH-1140/" \
+    m1115="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/MATH-1115/" \
+    i1113="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/INFO-1113/" \
+    i1213="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/INFO-1213/" \
+    i1214="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/"
+
+# Website updating
+# alias webup="rsync -vrP --delete-after ~/.local/www/mccroryxyz/ root@mccrory.xyz:/var/www/mccrory"
+webup() {
+    folder=$(pwd | cut -d'/' -f6)
+    /usr/bin/rsync -vrP --delete-after "$(pwd)/" root@mccrory.xyz:/var/www/$folder
+}
+
+# Make stuff
+alias \
+    smi="sudo make install" \
+    msmi="make && sudo make install"

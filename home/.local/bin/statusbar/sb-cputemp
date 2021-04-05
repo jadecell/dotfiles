@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+case $1 in
+    desktop) temp=$(sensors | grep Tctl | cut -d'+' -f2 | sed -e 's/\ //g') ;;
+    t490) temp=$(sensors | grep 'temp1:' | tail -2 | head -1 | cut -d'+' -f2 | sed -e 's/\ //g') ;;
+esac
+
+case $BLOCK_BUTTON in
+    1) $TERMINAL -e htop ;;
+    3) notify-send "🌡 CPU temperature module" "\- Left click to open htop
+- Right click to show this menu" ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+echo "🌡$temp"

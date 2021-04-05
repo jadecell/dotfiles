@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=application
+Name=torrent
+Exec=/usr/bin/env transadd %U

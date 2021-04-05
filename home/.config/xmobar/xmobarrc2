@@ -1,0 +1,28 @@
+Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:Sauce Code Pro Nerd Font:weight=bold:pixelsize=13:antialias=true:hinting=true"
+                           , "xft:Sauce Code Pro Nerd Font:weight=bold:pixelsize=16:antialias=true:hinting=true"
+                           , "xft:FontAwesome:pixelsize=13"
+                           ]
+       , bgColor = "#282c34"
+       , fgColor = "#bbc2cf"
+       , position = Static { xpos = 3840 , ypos = 0, width = 1920, height = 24 }
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , iconRoot = "/home/jackson/.xmonad/xpm/"  -- default: "."
+       , commands = [
+                      Run Date "<fn=1>\xf133 </fn> %b %d %Y (%H:%M:%S)" "date" 1
+                    , Run Uptime ["-t", "<fn=1>\xf062 </fn> <hours>h <minutes>m"] 60
+                    , Run Cpu ["-t", "<fn=1>\xf108 </fn> <total>%","-H","100","--high","red"] 20
+                    , Run DiskU [("/", "<fn=1>\xf0c7 </fn> <free> free")] [] 60
+                    , Run Com "uname" ["-r"] "" 3600
+                    , Run Com "/home/jackson/.local/bin/volume" [] "" 1
+                    , Run Com "/home/jackson/.local/bin/memory" [] "" 1
+                    , Run Com "/home/jackson/.local/bin/corona" [] "" 1
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " %UnsafeStdinReader% }{ <fc=#da8548><fn=2> </fn>%uname%</fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#ff6c6b> %cpu% </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#51afef><fn=1> %memory% </fn></fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#c678dd>  %disku%  </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#51afef> <fn=1> %volume% </fn> </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#98be65> <fn=1>%corona%</fn> </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#5699af> %date% </fc> "
+       }

@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+NERDICON=""
+EMOJI="🕘"
+
+case $1 in
+    dwm) ICON=$EMOJI ;;
+    nerd) ICON=$NERDICON ;;
+    *) ICON="" ;;
+esac
+
+case $BLOCK_BUTTON in
+    1) $TERMINAL -e calcurse ;;
+    3) notify-send "📅 Calendar and Time module" "\- Left click for calcurse
+- Right click to show this menu " ;;
+    6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+dte="$(date +"%a, %b %d %Y (%H:%M:%S)" | sed 's/  / /g')"
+printf "%s%s\n" "$ICON" "$dte"

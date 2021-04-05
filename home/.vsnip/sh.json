@@ -1,0 +1,120 @@
+{
+  "shebang": {
+    "prefix": "#!",
+    "body": ["#!/usr/bin/env sh"],
+    "description": "Adds the shebang"
+  },
+
+  "safe shebang": {
+    "prefix": "s#!",
+    "body": ["#!/usr/bin/env sh", "set -eu"],
+    "description": "Adds the shebang and safety flags"
+  },
+
+  "safe flags": {
+    "prefix": "safe",
+    "body": ["set -eu"],
+    "description": "Adds the safe flags"
+  },
+
+  "bash shebang": {
+    "prefix": "bash",
+    "body": ["#!/usr/bin/env bash"],
+    "description": "Bash shebang"
+  },
+
+  "safe bash shebang": {
+    "prefix": "sbash",
+    "body": ["#!/usr/bin/env bash", "set -euo pipefall", "IFS=$'\n\t'"],
+    "description": "Safe bash shebang"
+  },
+
+  "if block": {
+    "prefix": "if",
+    "body": ["if [ ${1:condition} ]; then", "\t${0:code}", "fi"],
+    "description": "If block"
+  },
+
+  "elif block": {
+    "prefix": "elif",
+    "body": ["elif [ ${1:condition} ]; then", "\t${0:code}"],
+    "description": "Elif block"
+  },
+
+  "for loop": {
+    "prefix": "for",
+    "body": [
+      "for ( ${2:i} = 0; $2 < ${1:count}; $2++ ); do",
+      "\t${0:code}",
+      "done"
+    ],
+    "description": "For loop"
+  },
+
+  "for item loop": {
+    "prefix": "fori",
+    "body": ["for ${1:needle} in ${2:haystack} ; do", "\t${0:code}", "done"],
+    "description": "for item loop"
+  },
+
+  "while loop": {
+    "prefix": "wh",
+    "body": ["while [ ${1:condition} ]; do", "\t${0:code}", "done"],
+    "description": "While loop"
+  },
+
+  "until loop": {
+    "prefix": "until",
+    "body": ["until [ ${1:condition} ]; do", "\t${0:code}", "done"],
+    "description": "Until loop"
+  },
+
+  "case": {
+    "prefix": "case",
+    "body": [
+      "case ${1:word} in",
+      "\t${2:pattern})",
+      "\t\t${0:code} ;;",
+      "esac"
+    ],
+    "description": "Case statement"
+  },
+
+  "get opts": {
+    "prefix": "getopts",
+    "body": [
+      "while getopts '${1:o}' ${2:opts};",
+      "do",
+      "\tcase$$2 in",
+      "\t${3:o0})",
+      "\t\t${0:#statements};;",
+      "\tesac",
+      "done"
+    ],
+    "description": "Get opts"
+  },
+
+  "run as root": {
+    "prefix": "root",
+    "body": ["if [ \\$(id -u) -ne 0 ]; then exec sudo \\$0; fi"],
+    "description": "run the following command as root"
+  },
+
+  "function for a posix shell": {
+    "prefix": "fun-sh",
+    "body": ["${1:function_name}() {", "\t${0:#function_body}", "}"],
+    "description": "Function for a posix shell"
+  },
+
+  "function for the bash shell": {
+    "prefix": "fun",
+    "body": ["function ${1:function_name}() {", "\t${0:#function_body}", "}"],
+    "description": "Function for the bash shell"
+  },
+
+  "printf": {
+    "prefix": "prf",
+    "body": ["printf \"${1:message}\" \"${0:var}\""],
+    "description": "printf formatting"
+  }
+}

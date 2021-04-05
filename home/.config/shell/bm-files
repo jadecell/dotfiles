@@ -1,0 +1,24 @@
+# These files automatically update when edited/saved in vim:
+
+# keys	filename				description
+bf	${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-files	# This file, a list of bookmarked files
+bd	${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs		# A list of bookmarked directories similar to this file
+cfx	${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources	# Colors, themes and variables for X11
+cfb	~/.local/src/dwmblocks/config.h				        # dwmblocks: the status bar for dwm
+cfB ${XDG_CONFIG_HOME:-$HOME/.config}/bspwm/bspwmrc
+cfd ${XDG_CONFIG_HOME:-$HOME/.config}/dunst/dunstrc
+cff ${XDG_CONFIG_HOME:-$HOME/.config}/fish/config.fish
+cfP ${XDG_CONFIG_HOME:-$HOME/.config}/picom/picom.conf
+cfpp ${XDG_CONFIG_HOME:-$HOME/.config}/polybar/config
+cfq ${XDG_CONFIG_HOME:-$HOME/.config}/qtile/config.py
+cfQ ${XDG_CONFIG_HOME:-$HOME/.config}/qutebrowser/config.py
+cfr ${XDG_CONFIG_HOME:-$HOME/.config}/ranger/rc.conf
+cfs ${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml
+cfS ${XDG_CONFIG_HOME:-$HOME/.config}/sxhkd/sxhkdrc
+cfz	$ZDOTDIR/.zshrc						                # zsh (shell) config
+cfZ ${XDG_CONFIG_HOME:-$HOME/.config}/zathura/zathurarc
+cfa	${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc		# aliases used by zsh (and potentially other shells)
+cfp	${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile		# profile file for login settings for zsh
+cfn	${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/config	# newsboat (RSS reader)
+cfu	${XDG_CONFIG_HOME:-$HOME/.config}/newsboat/urls		# RSS urls for newsboat
+cfX	${XDG_CONFIG_HOME:-$HOME/.config}/sxiv/exec/key-handler	# sxiv (image viewer) key/script handler

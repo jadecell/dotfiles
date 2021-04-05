@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: elif expression (posix)
+# key: elif
+# --
+elif [ ${1:condition} ]; then
+  $0

@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+[ "$1" = "8" ] && sudo eselect java-vm set system "openjdk-bin-8" && eselect java-vm set user "openjdk-bin-8" && exit 0
+[ "$1" = "11" ] && sudo eselect java-vm set system "openjdk-bin-11" && eselect java-vm set user "openjdk-bin-11" && exit 0
+[ "$1" = "15" ] && sudo eselect java-vm set system "openjdk-bin-15" && eselect java-vm set user "openjdk-bin-15" && exit 0

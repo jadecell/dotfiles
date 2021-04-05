@@ -1,0 +1,55 @@
+#!/usr/bin/env sh
+
+case $1 in
+    dwm) ICONS="dwm" ;;
+    nerd) ICONS="nerd" ;;
+    *) ICONS="none" ;;
+esac
+
+# between() {
+#   if [[ "$1" -lt $2 ]] && [[ "$1" -gt $3 ]]; then
+#     true
+#   else
+#     false
+#   fi
+# }
+
+findIcon() {
+    cap=$1
+    stat=$2
+
+    if [ "$ICONS" = "dwm" ]; then
+
+        case $stat in
+            "Discharging") ICON="🔋" ;;
+            "Charging") ICON="🔌" ;;
+            "Unknown") ICON="♻" ;;
+        esac
+
+        if [ "$cap" -eq 100 ]; then
+            ICON="🌕"
+        fi
+
+    elif [ "$ICONS" = "nerd" ]; then
+
+        case $stat in
+            "Discharging") ICON="" ;;
+            "Charging") ICON="" ;;
+            "Unknown") ICON="" ;;
+        esac
+
+        if [ "$cap" -eq 100 ]; then
+            ICON=""
+        fi
+
+    fi
+}
+
+for battery in /sys/class/power_supply/BAT?; do
+    # Get its remaining capacity and charge status.
+    capacity=$(cat "$battery"/capacity 2> /dev/null) || break
+    status=$(cat "$battery"/status 2> /dev/null) || break
+
+    findIcon "$capacity" "$status"
+    echo "$ICON${capacity}%"
+done

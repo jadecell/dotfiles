@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+export DMENU_CUSTOM_HEIGHT=20
+export DMENU_CUSTOM_FONT="JetBrains Mono Nerd Font:size=10"
+export DMENU_CUSTOM_FONT_MONO="JetBrains Mono Nerd Font Mono:size=10"
+export DMENU_CUSTOM_NF="#ffffff"
+export DMENU_CUSTOM_NB="$(gethex background)"
+export DMENU_CUSTOM_SB="#303030"
+export DMENU_CUSTOM_SF="$(gethex green)"
+export DMENU_PROMPT_COLOR="$(gethex green)"

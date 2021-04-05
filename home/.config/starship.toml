@@ -1,0 +1,11 @@
+# Gets rid of the new line at the top of the prompt
+add_newline = false
+
+# Makes the prompt be a single line prompt
+[line_break]
+disabled = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[ﰲ](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[ﰲ](bold red)"         # The "error_symbol" segment is being set to "➜" with the color "bold red"

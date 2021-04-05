@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Run as root check (bash)
+# key: runasroot
+# --
+[ "$EUID" -ne "0" ] && echo "Please re-run this script as root!" && exit 1

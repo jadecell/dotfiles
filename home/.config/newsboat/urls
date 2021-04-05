@@ -1,0 +1,15 @@
+---REDDIT---
+https://www.reddit.com/r/archlinux.rss "~r/archlinux"
+https://www.reddit.com/r/gentoo.rss "~r/gentoo"
+https://www.reddit.com/r/linuxmasterrace.rss "~r/linuxmasterrace"
+https://www.reddit.com/r/linuxmemes.rss "~r/linuxmemes"
+https://www.reddit.com/r/unixporn.rss "~r/unixporn"
+
+---ARCH---
+https://www.archlinux.org/feeds/news/ "tech"
+https://archlinux.org/feeds/packages/ "tech"
+https://aur.archlinux.org/rss/ "tech"
+
+---GENTOO---
+https://bugs.gentoo.org/buglist.cgi?chfield=%5BBug%20creation%5D&chfieldfrom=7d&ctype=atom&title=Bugs%20reported%20in%20the%20last%207%20days "tech"
+https://bugs.gentoo.org/buglist.cgi?chfieldfrom=7d&ctype=atom&title=Bugs%20changed%20in%20the%20last%207%20days "tech"

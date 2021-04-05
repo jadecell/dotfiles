@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: safe shebang
+# key: s#!
+# --
+#!/usr/bin/env sh
+set -eu
+
+$0

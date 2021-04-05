@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# This script is the SUDO_ASKPASS variable, meaning that it will be used as a
+# password prompt if needed.
+
+dmenu -fn "Fira Code Nerd Font:size=10" -P -p "$1" <&- && echo

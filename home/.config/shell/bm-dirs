@@ -1,0 +1,10 @@
+# You can add comments to these files with #
+cac ~/.cache
+cf  ~/.config
+D   ~/Downloads
+dt  ~/.local/share
+h   ~
+md  ~/md
+sc  ~/.local/bin
+rp  ~/.local/repos
+cn  ~/.config/nvim

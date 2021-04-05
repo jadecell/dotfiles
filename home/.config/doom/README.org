@@ -1,0 +1,628 @@
+#+TITLE: JadeCell's Doom Emacs Configuration
+#+AUTHOR: JadeCell
+#+PROPERTY: header-args:emacs-lisp :tangle ~/.config/doom/config.el
+#+STARTUP: overview
+
+* About This Config
+
+This is my configuration tuned to my needs as a computer science student. There arfe various plugins, language servers, and more. I try to do as much stuff I can in emacs and sometimes I can not do that. I love emacs because it is very extensible. I hope to learn emacs more and more overtime.
+
+* Command Commands
+
+Here is a table of all the commands that will be used for this config to configure the packages correctly.
+
+| Command        | Purpose                                              |
+|----------------+------------------------------------------------------|
+| load!          | for loading external *.el files relative to this one |
+| use-package!   | for configuring packages                             |
+| after!         | for running code after a package has loaded          |
+| add-load-path! | for adding directories to the "load-path"            |
+| map!           | for binding new keys                                 |
+
+* Basic Info
+
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Jackson McCrory"
+      user-mail-address "jackson@mccrory.xyz")
+#+END_SRC
+
+* Keep Folders Clean
+
+#+begin_src emacs-lisp
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+#+end_src
+
+* UI Configuration
+** Font Configuration
+
+Sets the default font for all the emacs things.
+
+| Variable                 | Description             |
+|--------------------------+-------------------------|
+| doom-font                | Standard font           |
+| doom-variable-pitch-font | The variable width font |
+
+Each font variable above has these following properties.
+
+| Property | Description | Value                    | Optional |
+|----------+-------------+--------------------------+----------|
+| family   | Font name   | "SauceCodePro Nerd Font" | False    |
+| size     | Font size   | 14                       | False    |
+| weight   | Font weight | 'semi-light              | True     |
+
+#+BEGIN_SRC emacs-lisp
+(setq doom-font (font-spec :family "Hack Nerd Font" :size 14))
+#+END_SRC
+
+** Line numbers
+
+Sets the type of line numbers.
+
+| Value    | Description           |
+|----------+-----------------------|
+| nil      | Disable line numbers  |
+| relative | Relative line numbers |
+| t        | Normal line numbers   |
+
+#+BEGIN_SRC emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+END_SRC
+
+Disables line numbers in some modes that do not need them.
+
+#+begin_src emacs-lisp
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                markdown-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+
+** Modeline and Theme
+*** Theme
+
+Sets the theme to the flagship theme. [[https://github.com/hlissner/emacs-doom-themes][Full list of themes]].
+
+#+BEGIN_SRC emacs-lisp
+(setq doom-theme 'doom-snazzy)
+#+END_SRC
+
+*** Mode Indicator
+
+#+begin_src emacs-lisp
+(setq doom-modeline-modal-icon nil)
+(setq evil-echo-state nil)
+(setq evil-normal-state-tag   (propertize "[Normal]" 'face '((:background "green" :foreground "black")))
+      evil-emacs-state-tag    (propertize "[Emacs]" 'face '((:background "orange" :foreground "black")))
+      evil-insert-state-tag   (propertize "[Insert]" 'face '((:background "red") :foreground "white"))
+      evil-motion-state-tag   (propertize "[Motion]" 'face '((:background "blue") :foreground "white"))
+      evil-visual-state-tag   (propertize "[Visual]" 'face '((:background "grey80" :foreground "black")))
+      evil-operator-state-tag (propertize "[Operator]" 'face '((:background "purple"))))
+#+end_src
+
+** Truncate Lines
+
+This creates a wrapping effect when text hits the far edge of the window. Add a keybinding to toggle truncated lines without having to type =M-x toggle-truncate-lines=.
+
+#+begin_src emacs-lisp
+(map! :leader
+      :desc "Truncate lines"
+      "t t" #'toggle-truncate-lines)
+#+end_src
+
+** Ivy Posframe
+
+Ivy-posframe is an ivy extension, which lets ivy use posframe to show its candidate menu.  Some of the settings below involve:
+
+  - ivy-posframe-display-functions-alist – sets the display position for specific programs
+  - ivy-posframe-height-alist – sets the height of the list displayed for specific programs
+
+Available functions (positions) for ‘ivy-posframe-display-functions-alist’
+
+  - ivy-posframe-display-at-frame-center
+  - ivy-posframe-display-at-window-center
+  - ivy-posframe-display-at-frame-bottom-left
+  - ivy-posframe-display-at-window-bottom-left
+  - ivy-posframe-display-at-frame-bottom-window-center
+  - ivy-posframe-display-at-point
+  - ivy-posframe-display-at-frame-top-center
+
+=NOTE:= If the setting for ‘ivy-posframe-display’ is set to ‘nil’ (false), anything that is set to ‘ivy-display-function-fallback’ will just default to their normal position in Doom Emacs (usually a bottom split).  However, if this is set to ‘t’ (true), then the fallback position will be centered in the window.
+
+#+begin_src emacs-lisp
+(setq ivy-posframe-display-functions-alist
+      '((swiper                     . ivy-posframe-display-at-point)
+        (complete-symbol            . ivy-posframe-display-at-point)
+        (counsel-M-x                . ivy-display-function-fallback)
+        (counsel-esh-history        . ivy-posframe-display-at-window-center)
+        (ivy-switch-buffer          . ivy-posframe-display-at-window-center)
+        (counsel-describe-function  . ivy-display-function-fallback)
+        (counsel-describe-variable  . ivy-display-function-fallback)
+        (counsel-find-file          . ivy-display-function-fallback)
+        (counsel-recentf            . ivy-display-function-fallback)
+        (counsel-register           . ivy-posframe-display-at-frame-bottom-window-center)
+        (dmenu                      . ivy-posframe-display-at-frame-top-center)
+        (nil                        . ivy-posframe-display))
+      ivy-posframe-height-alist
+      '((swiper . 20)
+        (dmenu . 20)
+        (t . 10)))
+#+end_src
+
+Enables/Disables the ivy-posframe mode.
+
+| Value | State |
+|-------+-------|
+|     0 | off   |
+|     1 | on    |
+
+#+begin_src emacs-lisp
+(ivy-posframe-mode 1)
+#+end_src
+
+** Doom Buffer
+*** Menu Items
+
+#+begin_src emacs-lisp
+(setq +doom-dashboard-menu-sections
+      '(("Find or create file"
+      :icon (all-the-icons-faicon "file-o" :face 'doom-dashboard-menu-title)
+      :action find-file)
+        ("Reload last session"
+         :icon (all-the-icons-octicon "history" :face 'doom-dashboard-menu-title)
+         :when (cond ((require 'persp-mode nil t)
+                  (file-exists-p (expand-file-name persp-auto-save-fname persp-save-dir)))
+                 ((require 'desktop nil t)
+                  (file-exists-p (desktop-full-file-name))))
+         :face (:inherit (doom-dashboard-menu-title bold))
+         :action doom/quickload-session)
+        ("Recently opened files"
+         :icon (all-the-icons-octicon "file-text" :face 'doom-dashboard-menu-title)
+         :action recentf-open-files)
+        ("Open project"
+         :icon (all-the-icons-octicon "briefcase" :face 'doom-dashboard-menu-title)
+         :action projectile-switch-project)
+        ("Open private configuration"
+         :icon (all-the-icons-octicon "tools" :face 'doom-dashboard-menu-title)
+         :when (file-directory-p doom-private-dir)
+         :action doom/open-private-config)
+        ("Open documentation"
+         :icon (all-the-icons-octicon "book" :face 'doom-dashboard-menu-title)
+         :action doom/help)))
+#+end_src
+
+*** Splash Image
+
+Sets the splash image to a DNA image rather than the standard doom ascii art.
+
+#+begin_src emacs-lisp
+(setq fancy-splash-image "~/.local/share/doom/splash.png")
+#+end_src
+
+* Org Mode
+** Directory
+
+Sets the directory that all the org files are saved at.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/org/")
+#+END_SRC
+
+** General Settings
+
+Sets up all the settings to run when org mode starts. This includes the drop down arrow at the end of headings, indent mode, [[https://github.com/sabof/org-bullets][better header symbols]], and visual line mode.
+
+#+begin_src emacs-lisp
+(defun jade/org-mode-setup ()
+  (org-indent-mode)
+  (org-bullets-mode)
+  (visual-line-mode 1))
+
+(add-hook 'org-mode-hook 'jade/org-mode-setup)
+
+(setq org-ellipsis " ▾")
+#+end_src
+
+** Org Bullets Symbols
+
+Sets the bullets for the headings to better symbols.
+
+#+begin_src emacs-lisp
+(custom-set-variables '(org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+#+end_src
+
+** Org templates
+
+Setup templates for source code blocks.
+
+| Command | Description |
+|---------+-------------|
+| <el     | emacs-lisp  |
+| <py     | python      |
+| <sh     | shell       |
+| <ja     | java        |
+| <js     | javascript  |
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("ja" . "src java"))
+(add-to-list 'org-structure-template-alist '("js" . "src js"))
+(add-to-list 'org-structure-template-alist '("ha" . "src haskell"))
+(add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+
+#+END_SRC
+
+* Development
+** Languages
+*** Language Servers
+**** lsp-mode
+
+The [[https://github.com/emacs-lsp/lsp-mode/][Language Server Protocol]] allows language servers to run natively in Emacs to allow the user to use syntax highlighting, error correction, and much more.
+
+#+begin_src emacs-lisp
+(defun jade/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(add-hook 'lsp-mode 'jade/lsp-mode-setup)
+(setq lsp-keymap-prefix "C-c l")
+(setq lsp-enable-which-key-integration t)
+
+#+end_src
+
+**** lsp-ui
+
+[[https://github.com/emacs-lsp/lsp-ui][LSP-UI]] contains all the higher level UI modules of lsp-mode, like flycheck support and code lenses.
+
+#+begin_src emacs-lisp
+(add-hook 'lsp-mode 'lsp-ui-mode)
+
+(setq lsp-ui-doc-position 'bottom)
+#+end_src
+
+*** HTML
+**** Auto Rename Tag
+
+[[https://github.com/jcs-elpa/auto-rename-tag][Auto rename tag]] automatically renames the opposing tag while editing html.
+
+#+begin_src emacs-lisp
+(add-hook 'web-mode-hook 'auto-rename-tag-mode)
+#+end_src
+
+*** LaTeX
+**** Preview Pane
+
+Adds a hook to launch a [[https://github.com/jsinglet/latex-preview-pane][preview pane]] for LaTeX.
+
+#+begin_src emacs-lisp
+(add-hook 'LaTeX-mode-hook 'latex-preview-pane-mode)
+#+end_src
+
+*** Shell
+**** Formatting
+
+This Emacs library provides commands and a minor mode for easily reformatting shell script source code using the [[https://github.com/mvdan/sh][shfmt]] program.
+
+*Note*: You must install the /shfmt/ package with your package manager.
+
+List of shfmt flags and their purpose:
+
+| Switch | Description                                    |
+|--------+------------------------------------------------|
+| -bn    | Binary Operators may start a line              |
+| -sr    | Redirect operators will be followed by a space |
+| -ci    | Indent switch case statements                  |
+| -i 4   | Indent with 4 spaces                           |
+| -s     | Simplify the code                              |
+| -p     | Parse for posix compliance                     |
+
+#+begin_src emacs-lisp
+(add-hook 'sh-mode-hook 'shfmt-on-save-mode)
+
+(custom-set-variables
+ '(shfmt-arguments '("-bn" "-ci" "-i" "4" "-sr" "-s" "-p")))
+#+end_src
+
+This adds a keybinding to format sheel scripts to *SPC-c-s*
+
+#+begin_src emacs-lisp
+(map!
+    :leader
+    :desc "Format shell code"
+    "c s" #'shfmt-buffer)
+#+end_src
+
+*** Markdown
+**** Grip mode
+
+[[https://github.com/seagle0128/grip-mode][Grip Mode]] provides instant Github-flavored Markdown/Org preview using [[https://github.com/joeyespo/grip][Grip]] (GitHub Readme Instant Preview).
+
+| Variable                 | Description                                                  |
+|--------------------------+--------------------------------------------------------------|
+| grip-binary-path         | Path to the grip binary                                      |
+| grip-update-after-change | Set if the server live updates the file or only after a save |
+| grip-preview-use-webkit  | Use embedded webkit to preview                               |
+
+#+begin_src emacs-lisp
+(load! "~/.config/doom/private/grip-mode-credentials.el")
+(setq grip-binary-path "/usr/bin/grip")
+(setq grip-update-after-change nil)
+(setq grip-preview-use-webkit nil)
+#+end_src
+
+Adds a keybinding to start the markdown live preview to *SPC-c-m*
+
+#+begin_src emacs-lisp
+(map!
+    :leader
+    (:prefix ("c" . "code")
+     (:prefix ("m" . "markdown")
+     :desc "Mardown live preview" "p" #'grip-mode)))
+#+end_src
+
+** Emmet
+
+Sets the self closing character style. Example: <br/> -> <br />
+
+#+begin_src emacs-lisp
+(setq emmet-self-closing-tag-style " /")
+#+end_src
+
+** Git Gutter
+
+[[https://github.com/emacsorphanage/git-gutter][Git gutter]] shows the git diff status of every changed line on the far left of the screen next to the line numbers. 
+
+*** Global Mode
+
+Sets the mode to appear on every buffer thats a git repository.
+
+#+begin_src emacs-lisp
+(global-git-gutter-mode t)
+#+end_src
+
+*** Update Interval
+
+Sets the update interval to one second instead of the zero.
+
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(git-gutter:update-interval 1))
+#+end_src
+
+** Company Mode
+*** Misc
+
+#+begin_src emacs-lisp
+(use-package! company
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  )
+#+end_src
+
+*** Backends
+
+Setting up company backends to work maybe.
+
+#+begin_src emacs-lisp
+(after! js2-mode
+  (set-company-backend! 'js2-mode 'company-tide 'company-yasnippet))
+
+(after! python-mode
+  (set-company-backend! 'python-mode 'company-anaconda 'company-yasnippet))
+
+(after! haskell-mode
+  (set-company-backend! 'haskell-mode 'company-yasnippet))
+
+(after! sh-mode
+  (set-company-backend! 'sh-mode 
+    '(company-shell :with company-yasnippet)))
+
+(after! web-mode
+  (set-company-backend! 'web-mode
+    '(company-web-html :with company-yasnippet)))
+
+(after! css-mode
+  (set-company-backend! 'css-mode
+    '(company-css :with company-yasnippet)))
+
+(after! cc-mode
+  (set-company-backend! 'c-mode
+    '(:separate company-irony-c-headers company-irony)))
+#+end_src
+
+** Prettier
+
+[[https://github.com/jscheid/prettier.el][Prettier.el]] is a code formatting engine. It is ported from VSCode to Emacs and is used to format all kinds of code to industry standards on save or when invoking the =prettier-prettify= command to prettify the current buffer if the minor mode is not selected.
+
+=Note=: Prettier.el requires prettier to be installed via npm using the command below
+
+=sudo npm i -g prettier=
+
+Adding a hook to start prettier in all the buffer that prettier supports (HTML, CSS, JS, XHTML, etc)
+
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'global-prettier-mode)
+#+end_src
+
+Setting a keybinding to prettify code. The keybinding is set to =SPC-c-p=.
+
+#+begin_src emacs-lisp
+(map! :leader
+      :desc "Prettify Code"
+      "c p" #'prettier-prettify)
+#+end_src
+
+** Send to repl 
+
+Re-bind the default send region to repl binding to SPC-c-S so that it is still bound but shfmt can use the lowercase 's'.
+
+#+begin_src emacs-lisp
+(map!
+    :leader
+    :desc "Send to repl"
+    "c S" #'eval/send-region-to-repl)
+#+end_src
+
+* File Management
+** Dired
+*** Basic Configuration
+
+Adds a keybinding that jumps to the dired buffer corresponding to current buffer.
+
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("d" . "dired")
+      :desc "Dired Jump" "j" #'dired-jump))
+#+end_src
+
+Sets whats switches are passed the the command "ls" when dired is run.
+
+| Switch | Description                         |
+|--------+-------------------------------------|
+| -A     | all files except '.' and '..'       |
+| -l     | long listing format                 |
+| -h     | human readable                      |
+| -1     | one file per line                   |
+| -v     | natural sort of numbers within text |
+| -D     | generate output designed for dired  |
+
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(dired-listing-switches "-Alh1vD --group-directories-first"))
+#+end_src
+
+Turns on asynchronous operations for dired.
+
+#+begin_src emacs-lisp
+(dired-async-mode 1)
+#+end_src
+
+Sets the "h" and "l" keys to go back and forward through a directory respectively.
+
+#+begin_src emacs-lisp
+(evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer)
+#+end_src
+
+*** Dired Peep
+
+#+begin_src emacs-lisp
+(map! (:after dired
+       (:map dired-mode-map
+        :leader
+        :desc "Peep-dired image previews"
+        "d p" #'peep-dired
+        :leader
+        :desc "Dired view file"
+        "d v" #'dired-view-file)))
+                
+(evil-collection-define-key 'normal 'peep-dired-mode-map
+  "j" 'peep-dired-next-file
+  "k" 'peep-dired-prev-file)
+#+end_src
+
+*** Dired Icons
+
+Adds [[https://github.com/jtbm37/all-the-icons-dired][icons]] to dired. This is a hook to start the icons whenever dired starts.
+
+#+begin_src emacs-lisp
+;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+#+end_src
+
+* Miscellaneous
+** Emojify
+
+[[https://github.com/iqbalansari/emacs-emojify][Emojify]] allows for the rendering of emoji characters within emacs.
+
+*Usage:* =:<name>:=
+
+Some common ones include the following:
+
+- :smile:
+- :angry:
+- :dollar:
+- :flag-ca:
+- :flag-us:
+
+There are 5490 emojis to choose from. Type 'M-x emojify-list-emojis' to list all of them in a seperate buffer.
+
+This adds the emoji global mode to start after emacs is initialized.
+
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'global-emojify-mode)
+#+end_src
+
+** Elfeed
+
+An RSS newsfeed reader for Emacs.
+
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(elfeed-feeds
+   (quote
+    (("https://www.reddit.com/r/linux.rss" reddit linux)
+     ("https://www.reddit.com/r/archlinux.rss" reddit linux)
+     ("https://www.reddit.com/r/gentoo.rss" reddit linux)
+     ("https://www.archlinux.org/feeds/news" arch linux)
+     ("https://itsfoss.com/feed/" itsfoss linux)
+     ("https://techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
+     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
+     ("https://opensource.com/feed" opensource linux)
+     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
+     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
+#+end_src
+
+** Auto-tangle Configuration Files
+
+I am tired of forgetting to tangle literate configuration files when I save, this function will auto-tangle the file that is open if it is one of the following files:
+
+ - =~/.config/doom/README.org=
+ - =~/.xmonad/README.org=
+
+#+begin_src emacs-lisp
+(defun jade/org-babel-tangle-config ()
+
+  ;; Doom Emacs
+  (when (string-equal (file-name-directory (buffer-file-name))
+                      (expand-file-name "~/.local/repos/dotfiles/home/.config/doom/"))
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle)))
+  
+  ;; Xmonad
+  (when (string-equal (file-name-directory (buffer-file-name))
+                      (expand-file-name "~/.local/repos/dotfiles/home/.config/xmonad/"))
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle)))
+  )
+
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'jade/org-babel-tangle-config)))
+#+end_src
+
+
+** Visual Fill
+
+[[https://github.com/joostkremers/visual-fill-column][Visual fill column]] sets a padding on either side of the org mode document so you don't have to always look left.
+
+| Command                        | Description          | Value  |
+|--------------------------------+----------------------+--------|
+| visual-fill-column-width       | Sets padding value   | 100    |
+| visual-fill-column-center-text | Sets if it is center | t, nil |
+
+#+begin_src emacs-lisp
+(defun jade/set-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(add-hook 'org-mode-hook 'jade/set-visual-fill)
+(add-hook 'markdown-mode-hook 'jade/set-visual-fill)
+#+end_src
+
