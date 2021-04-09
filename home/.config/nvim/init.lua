@@ -53,7 +53,6 @@ vim.cmd('source ~/.config/nvim/vimscript/nv-whichkey/init.vim')
 
 -- Git
 require('nv-gitsigns')
-require('nv-neogit')
 
 -- Easymotion
 require('nv-easymotion')
