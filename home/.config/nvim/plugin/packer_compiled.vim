@@ -60,6 +60,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
   },
+  ["lazygit.nvim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lazygit.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
@@ -71,10 +75,6 @@ _G.packer_plugins = {
   neoformat = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/neoformat"
-  },
-  neogit = {
-    loaded = true,
-    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/neogit"
   },
   ["nvim-autopairs"] = {
     loaded = true,

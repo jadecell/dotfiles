@@ -20,26 +20,18 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-color listnormal cyan default
-color listfocus black yellow standout bold
+color listnormal green default
+color listfocus black default bold
 color listnormal_unread blue default
-color listfocus_unread yellow default bold
-color info red black bold
+color listfocus_unread magenta default bold
+color info red default bold
 color article white default bold
 
 browser linkhandler
 macro , open-in-browser
-macro t set browser "qndl" ; open-in-browser ; set browser linkhandler
-macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
-macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
 macro w set browser "firefox" ; open-in-browser ; set browser linkhandler
-macro d set browser "dmenuhandler" ; open-in-browser ; set browser linkhandler
-macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkhandler
-macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser linkhandler
-macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
-macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser linkhandler
 
-highlight all "---.*---" yellow
+highlight all "---.*---" red
 highlight feedlist ".*(0/0))" black
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default

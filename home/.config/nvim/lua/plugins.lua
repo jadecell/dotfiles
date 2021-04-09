@@ -90,6 +90,7 @@ return require('packer').startup(function()
 
     -- Git plugins
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use 'kdheepak/lazygit.nvim'
 
     -- Comments
     use 'terrortylor/nvim-comment'
