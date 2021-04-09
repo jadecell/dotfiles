@@ -18,3 +18,4 @@ fi
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
 
 eval "$(starship init bash)"
+export PATH=$HOME/.config/nvcode/utils/bin:$PATH

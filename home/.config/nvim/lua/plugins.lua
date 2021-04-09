@@ -4,8 +4,9 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  execute 'packadd packer.nvim'
+    execute('!git clone https://github.com/wbthomason/packer.nvim ' ..
+                install_path)
+    execute 'packadd packer.nvim'
 end
 
 vim.cmd [[packadd packer.nvim]]
@@ -14,16 +15,16 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when th
 local use = require('packer').use
 return require('packer').startup(function()
 
-  	-- Packer can manage itself as an optional plugin
-  	use {'wbthomason/packer.nvim', opt = true}
+    -- Packer can manage itself as an optional plugin
+    use {'wbthomason/packer.nvim', opt = true}
 
-  	-- NvimTree
-  	use 'kyazdani42/nvim-tree.lua'
+    -- NvimTree
+    use 'kyazdani42/nvim-tree.lua'
 
-  	-- Autocomplete
-  	use 'neovim/nvim-lspconfig'
-  	use 'hrsh7th/nvim-compe'
-  	use 'onsails/lspkind-nvim'
+    -- Autocomplete
+    use 'neovim/nvim-lspconfig'
+    use 'hrsh7th/nvim-compe'
+    use 'onsails/lspkind-nvim'
     use 'mattn/emmet-vim'
     use 'glepnir/lspsaga.nvim'
     -- use 'SirVer/ultisnips'
@@ -39,24 +40,38 @@ return require('packer').startup(function()
     use 'cstrap/python-snippets'
     -- use 'ylcnfrht/vscode-python-snippet-pack'
 
+    -- Surround
+    use 'tpope/vim-surround'
+
+    -- Formatting
+    use 'sbdchd/neoformat'
+
     -- Startify
     use 'mhinz/vim-startify'
 
     -- Tabs at the top
     use 'romgrk/barbar.nvim'
 
-  	-- Galaxyline
-	use {
-	  'glepnir/galaxyline.nvim',
-		branch = 'main',
-		-- some optional icons
-		requires = {'kyazdani42/nvim-web-devicons', opt = true}
-	}
+    -- Treesitter
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use 'p00f/nvim-ts-rainbow'
+    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
+    use 'nvim-treesitter/playground'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+    use 'windwp/nvim-ts-autotag'
+
+    -- Galaxyline
+    use {
+        'glepnir/galaxyline.nvim',
+        branch = 'main',
+        -- some optional icons
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
 
     -- Telescope
     use {
-      'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+        'nvim-telescope/telescope.nvim',
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
 
     use 'nvim-telescope/telescope-media-files.nvim'
@@ -73,13 +88,8 @@ return require('packer').startup(function()
     -- Whichkey
     use 'liuchengxu/vim-which-key'
 
-	-- Git plugins
-	use {
-	  'lewis6991/gitsigns.nvim',
-	  requires = {
-		'nvim-lua/plenary.nvim'
-	  }
-    }
+    -- Git plugins
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
     use 'TimUntersberger/neogit'
 
     -- Comments

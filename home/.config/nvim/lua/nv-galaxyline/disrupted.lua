@@ -261,6 +261,12 @@ gls.right[6] = {
     }
 }
 gls.right[7] = {
+    Space = {
+        provider = function() return ' ' end,
+        highlight = {colors.section_bg, colors.bg}
+    }
+}
+gls.right[8] = {
     GitRoot = {
         provider = {GetGitRoot, function() return ' ' end},
         condition = function()
@@ -269,7 +275,7 @@ gls.right[7] = {
         highlight = {colors.middlegrey, colors.bg}
     }
 }
-gls.right[8] = {
+gls.right[9] = {
     PerCent = {
         provider = 'LinePercent',
         separator = ' ',

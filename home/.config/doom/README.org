@@ -25,7 +25,7 @@ Here is a table of all the commands that will be used for this config to configu
 (setq user-full-name "Jackson McCrory"
       user-mail-address "jackson@mccrory.xyz")
 #+END_SRC
-
+    
 * Keep Folders Clean
 
 #+begin_src emacs-lisp
@@ -45,14 +45,14 @@ Sets the default font for all the emacs things.
 
 Each font variable above has these following properties.
 
-| Property | Description | Value                    | Optional |
-|----------+-------------+--------------------------+----------|
-| family   | Font name   | "SauceCodePro Nerd Font" | False    |
-| size     | Font size   | 14                       | False    |
-| weight   | Font weight | 'semi-light              | True     |
+| Property | Description | Value                      | Optional |
+|----------+-------------+----------------------------+----------|
+| family   | Font name   | "JetBrains Mono Nerd Font" | False    |
+| size     | Font size   | 14                         | False    |
+| weight   | Font weight | 'semi-light                | True     |
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "Hack Nerd Font" :size 14))
+(setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 14))
 #+END_SRC
 
 ** Line numbers
@@ -86,7 +86,7 @@ Disables line numbers in some modes that do not need them.
 Sets the theme to the flagship theme. [[https://github.com/hlissner/emacs-doom-themes][Full list of themes]].
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-snazzy)
+(setq doom-theme 'doom-nvcode)
 #+END_SRC
 
 *** Mode Indicator
@@ -376,7 +376,7 @@ Sets the self closing character style. Example: <br/> -> <br />
 
 ** Git Gutter
 
-[[https://github.com/emacsorphanage/git-gutter][Git gutter]] shows the git diff status of every changed line on the far left of the screen next to the line numbers. 
+[[https://github.com/emacsorphanage/git-gutter][Git gutter]] shows the git diff status of every changed line on the far left of the screen next to the line numbers.
 
 *** Global Mode
 
@@ -421,7 +421,7 @@ Setting up company backends to work maybe.
   (set-company-backend! 'haskell-mode 'company-yasnippet))
 
 (after! sh-mode
-  (set-company-backend! 'sh-mode 
+  (set-company-backend! 'sh-mode
     '(company-shell :with company-yasnippet)))
 
 (after! web-mode
@@ -459,7 +459,7 @@ Setting a keybinding to prettify code. The keybinding is set to =SPC-c-p=.
       "c p" #'prettier-prettify)
 #+end_src
 
-** Send to repl 
+** Send to repl
 
 Re-bind the default send region to repl binding to SPC-c-S so that it is still bound but shfmt can use the lowercase 's'.
 
@@ -523,7 +523,7 @@ Sets the "h" and "l" keys to go back and forward through a directory respectivel
         :leader
         :desc "Dired view file"
         "d v" #'dired-view-file)))
-                
+
 (evil-collection-define-key 'normal 'peep-dired-mode-map
   "j" 'peep-dired-next-file
   "k" 'peep-dired-prev-file)
@@ -595,7 +595,7 @@ I am tired of forgetting to tangle literate configuration files when I save, thi
                       (expand-file-name "~/.local/repos/dotfiles/home/.config/doom/"))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle)))
-  
+
   ;; Xmonad
   (when (string-equal (file-name-directory (buffer-file-name))
                       (expand-file-name "~/.local/repos/dotfiles/home/.config/xmonad/"))
@@ -605,7 +605,6 @@ I am tired of forgetting to tangle literate configuration files when I save, thi
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'jade/org-babel-tangle-config)))
 #+end_src
-
 
 ** Visual Fill
 

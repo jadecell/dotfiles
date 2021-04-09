@@ -56,6 +56,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
@@ -63,6 +67,10 @@ _G.packer_plugins = {
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
+  neoformat = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/neoformat"
   },
   neogit = {
     loaded = true,
@@ -96,6 +104,22 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-ts-autotag"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring"
+  },
+  ["nvim-ts-rainbow"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
@@ -108,6 +132,10 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/opt/packer.nvim"
+  },
+  playground = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -164,6 +192,10 @@ _G.packer_plugins = {
   ["vim-startify"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-startify"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   ["vim-toml"] = {
     loaded = true,

@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+alias v="nvim"
+
 # Use $XINITRC variable if file exists.
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
 
@@ -34,6 +36,11 @@ alias \
 # Flaggie
 alias \
     f="sudo flaggie"
+
+# Open-RC
+alias \
+    rcu="sudo rc-update" \
+    rcs="sudo rc-service"
 
 # CD stuff
 alias \

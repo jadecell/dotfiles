@@ -19,6 +19,12 @@ require('lsp.yaml-ls')
 require('lsp.vim-ls')
 require('lsp.python-ls')
 
+-- Treesitter
+require('nv-treesitter')
+
+-- Formatting
+vim.cmd('source ~/.config/nvim/vimscript/nv-neoformat/init.vim')
+
 -- Colors
 require('colorscheme')
 require('nv-colorizer')

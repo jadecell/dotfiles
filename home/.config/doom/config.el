@@ -4,7 +4,7 @@
 (setq auto-save-file-name-transforms
       `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
-(setq doom-font (font-spec :family "Hack Nerd Font" :size 14))
+(setq doom-font (font-spec :family "JetBrains Mono Nerd Font" :size 14))
 
 (setq display-line-numbers-type 'relative)
 
@@ -15,7 +15,7 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(setq doom-theme 'doom-snazzy)
+(setq doom-theme 'doom-nvcode)
 
 (setq doom-modeline-modal-icon nil)
 (setq evil-echo-state nil)
@@ -161,7 +161,7 @@
   (set-company-backend! 'haskell-mode 'company-yasnippet))
 
 (after! sh-mode
-  (set-company-backend! 'sh-mode 
+  (set-company-backend! 'sh-mode
     '(company-shell :with company-yasnippet)))
 
 (after! web-mode
@@ -208,7 +208,7 @@
         :leader
         :desc "Dired view file"
         "d v" #'dired-view-file)))
-                
+
 (evil-collection-define-key 'normal 'peep-dired-mode-map
   "j" 'peep-dired-next-file
   "k" 'peep-dired-prev-file)
@@ -238,7 +238,7 @@
                       (expand-file-name "~/.local/repos/dotfiles/home/.config/doom/"))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle)))
-  
+
   ;; Xmonad
   (when (string-equal (file-name-directory (buffer-file-name))
                       (expand-file-name "~/.local/repos/dotfiles/home/.config/xmonad/"))
