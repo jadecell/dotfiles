@@ -1,9 +1,12 @@
+---------------------------------------------------------
 ---LINUX---
 https://www.reddit.com/r/linux.rss "~r/linux"
-https://distrowatch.com/news/dwd.xml "distrowatch"
 https://www.reddit.com/r/archlinux.rss "~r/archlinux"
 https://www.reddit.com/r/gentoo.rss "~r/gentoo"
 https://www.reddit.com/r/linuxmasterrace.rss "~r/linuxmasterrace"
+https://www.gentoo.org/feeds/news.xml "~Gentoo Linux News"
+https://www.archlinux.org/feeds/news/ "tech"
+https://distrowatch.com/news/dwd.xml "distrowatch"
 ---------------------------------------------------------
 ---OPENSOURCE---
 https://itsfoss.com/feed/ "itsfoss"
@@ -11,15 +14,4 @@ https://techrepublic.com/rssfeeds/topic/open-source/
 http://feeds.feedburner.com/d0od
 https://opensource.com/feed
 https://www.zdnet.com/topic/linux/rss.xml
-
 ---------------------------------------------------------
----ARCH---
-https://www.archlinux.org/feeds/news/ "tech"
-https://archlinux.org/feeds/packages/ "tech"
-https://aur.archlinux.org/rss/ "tech"
-
----------------------------------------------------------
----GENTOO---
-https://www.gentoo.org/feeds/news.xml "~Gentoo Linux News"
-https://bugs.gentoo.org/buglist.cgi?chfield=%5BBug%20creation%5D&chfieldfrom=7d&ctype=atom&title=Bugs%20reported%20in%20the%20last%207%20days "tech"
-https://bugs.gentoo.org/buglist.cgi?chfieldfrom=7d&ctype=atom&title=Bugs%20changed%20in%20the%20last%207%20days "tech"
