@@ -27,8 +27,6 @@ let g:which_key_map['p'] = 'which_key_ignore'
 let g:which_key_map['P'] = 'which_key_ignore'
 let g:which_key_map['n'] = 'which_key_ignore'
 let g:which_key_map['N'] = 'which_key_ignore'
-let g:which_key_map['.'] = [':Clap filer', 'find file']
-" let g:which_key_map['e'] = [ ':NvimTreeToggle'                                 , 'Nvim Tree']
 
 " Group mappings
 " a is for actions
@@ -41,6 +39,7 @@ let g:which_key_map.a = {
             \ 'r' : [':set norelativenumber!'  , 'relative line nums'],
             \ 'b' : [':Bracey'                 , 'start the bracey server'],
             \ 'B' : [':BraceyStop'             , 'stop the bracey server'],
+            \ 't' : [ ':NvimTreeToggle'        , 'Nvim Tree'],
             \ }
 
 " b is for buffer

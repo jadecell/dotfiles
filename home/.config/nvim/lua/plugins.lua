@@ -46,9 +46,6 @@ return require('packer').startup(function()
     -- Formatting
     use 'sbdchd/neoformat'
 
-    -- Startify
-    use 'mhinz/vim-startify'
-
     -- Tabs at the top
     use 'romgrk/barbar.nvim'
 
@@ -117,8 +114,5 @@ return require('packer').startup(function()
     -- Ranger
     use 'francoiscabrol/ranger.vim'
     use 'rbgrouleff/bclose.vim'
-
-    -- Vim clap
-    use 'liuchengxu/vim-clap'
 
 end)

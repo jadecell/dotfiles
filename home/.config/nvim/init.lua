@@ -30,9 +30,6 @@ require('colorscheme')
 require('nv-colorizer')
 vim.cmd('source ~/.config/nvim/vimscript/nv-rainbow/init.vim')
 
--- Startify
-require('nv-startify')
-
 -- Tabs
 require('nv-barbar')
 
@@ -65,4 +62,3 @@ require('nv-utils')
 
 -- Ranger
 require('nv-ranger')
-require('nv-clap')
