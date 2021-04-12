@@ -2,7 +2,7 @@
 
 case $1 in
     desktop) temp=$(sensors | grep Tctl | cut -d'+' -f2 | sed -e 's/\ //g') ;;
-    t490) temp=$(sensors | grep 'Core\ 0:' | awk '{print $3}' | tr -d '+') ;;
+    t490) temp=$(sensors | grep 'temp1:' | head -1 | cut -d'+' -f2) ;;
 esac
 
 case $BLOCK_BUTTON in
