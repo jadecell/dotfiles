@@ -13,5 +13,5 @@ bgloc="$HOME/.config/wallpaper"
 
 [ -d "$1" ] && ln -sf "$(find "$(readlink -f "$1")" -iregex '.*.\(jpg\|jpeg\|png\|gif\)' -type f | shuf -n 1)" "$bgloc" && notify-send -i "$bgloc" "Random Wallpaper chosen."
 
-xwallpaper --center "$bgloc"
+xwallpaper --stretch "$bgloc"
 notify-send "Wallpaper changed!"
