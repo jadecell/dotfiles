@@ -9,6 +9,7 @@ fi
 # # Installs all the language servers with npm
 sudo npm install -g bash-language-server vscode-css-languageserver-bin vscode-html-languageserver-bin typescript typescript-language-server vscode-json-languageserver pyright vim-language-server yaml-language-server
 
+mkdir ~/.config/nvim/ls
 cd ~/.config/nvim/ls || exit 1
 rm -rf lua-language-server
 git clone https://github.com/sumneko/lua-language-server
