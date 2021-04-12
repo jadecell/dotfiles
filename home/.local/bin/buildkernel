@@ -5,19 +5,28 @@
 CPUTHREADS=$(grep -c processor /proc/cpuinfo)
 CPUTHREADSPLUSONE=$((CPUTHREADS + 1))
 KERNELCONFIGLOCATION="/usr/src/linux/.config"
-KERNELCONFIGDESTINATION="/home/jackson/.local/repos/dotfiles/extra/kernelconfigs/"
+KERNELCONFIGDIRECTORY="$(echo $KERNELCONFIGLOCATION | cut -d'.' -f1)"
+KERNELCONFIGDESTINATION="/home/jackson/.local/repos/dotfiles/extra/kernelconfigs"
+NEWKERNELVERSION="$(eselect kernel list | tail -1 | cut -d'-' -f2)"
+CURRENTKERNELVERSION="$(uname -r | tr '-' ' ' | cut -d' ' -f1)"
 
-cd /usr/src/linux && make menuconfig
+if [ "$NEWKERNELVERSION" != "$CURRENTKERNELVERSION" ]; then
+    eselect kernel set "linux-$NEWKERNELVERSION-gentoo"
+    cd "$KERNELCONFIGDIRECTORY" || exit 1
+    make mrproper
+    cp "$KERNELCONFIGDESTINATION/$CURRENTKERNELVERSION-gentoo-$(hostname).config" "$KERNELCONFIGLOCATION"
+    make olddefconfig
+fi
+
+cd "$KERNELCONFIGDIRECTORY" && make menuconfig
 
 clear
 read -r -p "Want to build the newly configured kernel [y/n]? " BUILDNEWKERNEL
 
 { [ "$BUILDNEWKERNEL" = "y" ] || [ "$BUILDNEWKERNEL" = "Y" ]; } && make -j$CPUTHREADSPLUSONE && make modules_install install && genkernel --install --kernel-config=$KERNELCONFIGLOCATION initramfs
 
-KERNELVERSION="$(grep 'Linux/x86' $KERNELCONFIGLOCATION | tr '-' ' ' | cut -d' ' -f3)"
-KERNELLOCALVERSION="$(grep '^CONFIG_LOCALVERSION' $KERNELCONFIGLOCATION | cut -d'=' -f2 | tr -d '"')"
-[ ! "$KERNELLOCALVERSION" ] && KERNELLOCALVERSION=""
-cp -f $KERNELCONFIGLOCATION "${KERNELCONFIGDESTINATION}${KERNELVERSION}-gentoo${KERNELLOCALVERSION}.config"
+BUILTKERNELVERSION="$(grep 'Linux/x86' $KERNELCONFIGLOCATION | tr '-' ' ' | cut -d' ' -f3)"
+cp -f $KERNELCONFIGLOCATION "${KERNELCONFIGDESTINATION}/${BUILTKERNELVERSION}-gentoo-$(hostname).config"
 
 clear
 read -r -p "Want to remove duplicate kernel image [y/n]? " REMOVEDUPLICATEIMAGE
@@ -30,8 +39,11 @@ read -r -p "Want to re-build modules [y/n]? " REBUILDMODULES
 if [ "$(find /boot -name 'vmlinuz*' | wc -l)" -gt "1" ]; then
     clear
     read -r -p "Want to remove old kernel files in /boot [y/n]? " REMOVEOLDKERNELFILES
-    CURRENTKERNELVERSION="$(uname -r | tr '-' ' ' | cut -d' ' -f1)"
     { [ "$REMOVEOLDKERNELFILES" = "y" ] || [ "$REMOVEOLDKERNELFILES" = "Y" ]; } && rm -f /boot/*"$CURRENTKERNELVERSION"*
+
+    clear
+    read -r -p "Want to remove the old kernel's ebuild [y/n]? " REMOVEOLDKERNELEBUILD
+    { [ "$REMOVEOLDKERNELEBUILD" = "y" ] || [ "$REMOVEOLDKERNELEBUILD" = "Y" ]; } && emerge -cv "=sys-kernel/gentoo-sources-$CURRENTKERNELVERSION"
 fi
 
 clear
