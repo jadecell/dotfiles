@@ -14,7 +14,8 @@ xmodmap "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xmodmap" &
 ~/.config/fixmonitors.sh &
 
 # Starts the emacs daemon
-killall emacs ; /usr/bin/emacs --daemon &
+killall emacs
+/usr/bin/emacs --daemon &
 
 # Starts the statusbar
 dwmblocks &
@@ -23,7 +24,7 @@ dwmblocks &
 xcompmgr &
 
 # Sets wallpaper
-xwallpaper --center ~/.config/wallpaper &
+setbg &
 
 # Changes the window manager name to let Java IDE's to run
 wmname "LG3D" &
