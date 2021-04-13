@@ -27,6 +27,8 @@ let g:which_key_map['p'] = 'which_key_ignore'
 let g:which_key_map['P'] = 'which_key_ignore'
 let g:which_key_map['n'] = 'which_key_ignore'
 let g:which_key_map['N'] = 'which_key_ignore'
+let g:which_key_map['M'] = [ ':MarkdownPreviewToggle' , 'markdown preview']
+let g:which_key_map['z'] = [ ':Goyo' , 'zen mode']
 
 " Group mappings
 " a is for actions
