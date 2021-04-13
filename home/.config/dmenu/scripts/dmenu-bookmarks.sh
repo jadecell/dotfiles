@@ -12,6 +12,7 @@ gl
 kb
 mw
 mp
+ne
 wm
 ")
 
@@ -36,6 +37,8 @@ case $url in
 		link="https://wallet.mymonero.com/" ;;
 	"mp")
 		link="https://www.f2pool.com/xmr/47xzEa9zMKea5Ec4iFyJZbHMAwheh5RjHcaGvPd4TH2PT799qD1t7KZgKdKhSKZPmr6kuFRLNK3s1W6SuxA1oYYkNC2r678" ;;
+    "ne")
+        link="https://www.watchnebula.com" ;;
 	"wm")
 		link="https://mail.ionos.com/" ;;
 esac
