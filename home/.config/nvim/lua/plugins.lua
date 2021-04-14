@@ -57,6 +57,9 @@ return require('packer').startup(function()
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use 'windwp/nvim-ts-autotag'
 
+    -- Markdown live preview
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'}
+
     -- Galaxyline
     use {
         'glepnir/galaxyline.nvim',
@@ -115,4 +118,5 @@ return require('packer').startup(function()
     use 'francoiscabrol/ranger.vim'
     use 'rbgrouleff/bclose.vim'
 
+    use 'junegunn/goyo.vim'
 end)

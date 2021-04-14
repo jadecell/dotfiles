@@ -72,6 +72,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
+  ["markdown-preview.nvim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"
+  },
   neoformat = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/neoformat"
@@ -165,10 +169,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
-  ["vim-clap"] = {
-    loaded = true,
-    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-clap"
-  },
   ["vim-easymotion"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-easymotion"
@@ -188,10 +188,6 @@ _G.packer_plugins = {
   ["vim-snippets"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-snippets"
-  },
-  ["vim-startify"] = {
-    loaded = true,
-    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-startify"
   },
   ["vim-surround"] = {
     loaded = true,

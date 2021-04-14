@@ -1,14 +1,12 @@
-#+TITLE: JadeCell's Dotfiles
-
-* About the Configurations
+# About the Configurations
 
 These configuration files are for my main desktop machine. It includes many application specific configs for a variety of software that I use in the day-to-day operations. I am a college student and all the software that I use are in my workflow. I am experimenting with Doom Emacs and I am transitioning more and more software over to the Emacs equilivents.
 
-* Some software I use
+# Some software I use
 
-=Note:= The following list is not a complete list of the configuration files I have, but contains some of the more important ones.
+`Note:` The following list is not a complete list of the configuration files I have, but contains some of the more important ones.
 
-All configurations that can be in the =~/.config/= directory, is in there. The rest are in the =~= directory.
+All configurations that can be in the `~/.config/` directory, is in there. The rest are in the `~` directory.
 
 - Doom Emacs
 - Xmonad
@@ -23,11 +21,11 @@ All configurations that can be in the =~/.config/= directory, is in there. The r
 - Xmobar
 - Zathura
 
-* Scripts I made
+# Scripts I made
 
-=Note:= I made some more but these are just a list of some of the more interesting scripts.
+`Note:` I made some more but these are just a list of some of the more interesting scripts.
 
-All scripts are located in =~/.local/bin/=.
+All scripts are located in `~/.local/bin/`.
 
 - CoronaVirus Ticker
 - cpu percent

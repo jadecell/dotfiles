@@ -220,4 +220,19 @@ sys-devel/clang-runtime -sanitize
 >=virtual/ruby-ssl-11 ruby_targets_ruby30
 media-libs/gegl cairo
 media-gfx/gimp webp xpm
-net-print/hplip libnotify
+net-print/hplip libnotify static-ppds scanner
+# required by x11-misc/pcmanfm-1.3.2::gentoo
+# required by pcmanfm (argument)
+>=x11-libs/libfm-1.3.2 gtk
+# required by dev-python/reportlab-3.5.66::gentoo
+# required by net-print/hplip-3.21.2::gentoo[-minimal,python_single_target_python3_8,scanner]
+# required by @selected
+# required by @world (argument)
+>=dev-python/pillow-8.2.0 tiff truetype jpeg
+# required by dev-python/pillow-8.2.0::gentoo[tiff,-test]
+# required by dev-python/reportlab-3.5.66::gentoo
+# required by net-print/hplip-3.21.2::gentoo[-minimal,python_single_target_python3_8,scanner]
+# required by @selected
+# required by @world (argument)
+>=media-libs/tiff-4.2.0 jpeg
+app-emulation/virtualbox qt5
