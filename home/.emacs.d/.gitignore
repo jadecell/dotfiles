@@ -1,6 +1,9 @@
-*
-!config.org
-!init.org
-!emacs-dash.png
-!**/doom-nvcode-theme.el
-!.gitignore
+auto-save-list/**
+elpa/**
+transient/**
+eshell/**
+.lsp-session-v1
+config.el
+*\~
+projectile-bookmarks.eld
+recentf*

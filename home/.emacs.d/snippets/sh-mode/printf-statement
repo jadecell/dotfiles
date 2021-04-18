@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: printf statement
+# key: prf
+# --
+printf "${1:message}" ${0:variable}

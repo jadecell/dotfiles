@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for item loop
+# key: fori
+# --
+for ${1:needle} in ${2:haystack} ; do
+  $0
+done

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: safe flags 
+# key: safe
+# --
+set -eu
+
+$0

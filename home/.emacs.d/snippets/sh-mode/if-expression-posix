@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: if expression (posix)
+# key: if
+# --
+if [ ${cond} ]; then
+  $0
+fi
