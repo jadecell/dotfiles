@@ -4,7 +4,7 @@
 
 * About This Config
 
-This is my configuration tuned to my needs as a computer science student. There arfe various plugins, language servers, and more. I try to do as much stuff I can in emacs and sometimes I can not do that. I love emacs because it is very extensible. I hope to learn emacs more and more overtime.
+This is my configuration tuned to my needs as a computer science student. There are various plugins, language servers, and more. I try to do as much stuff I can in emacs and sometimes I can not do that. I love emacs because it is very extensible. I hope to learn emacs more and more overtime.
 
 * Setup package.el to work with MELPA
 
@@ -111,6 +111,16 @@ This is my configuration tuned to my needs as a computer science student. There 
 "g F"   '(magit-fetch-all :which-key "Fetch All")
 "g r"   '(magit-rebase :which-key "Rebase")
 
+;; Dired
+"d"   '(:ignore t :which-key "dired")
+"d d" '(dired :which-key "Open dired")
+"d j" '(dired-jump :which-key "Dired jump to current")
+
+;; Code
+"c"   '(:ignore t :which-key "code")
+"c p" '(prettier-prettify :which-key "Prettify")
+"c s" '(shfmt-buffer :which-key "Shfmt Buffer")
+
 ;; Help
 "h"     '(:ignore t :which-key "help")
 "h RET" '(info-emacs-manual :which-key "Emacs Manual")
@@ -130,111 +140,6 @@ This is my configuration tuned to my needs as a computer science student. There 
 "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
 
 )
-
-#+end_src
-
-** Dashboard
-    Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
-
-*** Configuring Dashboard
-
-#+begin_src emacs-lisp
-    (use-package dashboard
-     :ensure t  ;; install dashboard if not installed
-     :init      ;; tweak dashboard config before loading it
-     (setq dashboard-set-heading-icons t)
-     (setq dashboard-set-file-icons t)
-     (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
-     ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-     (setq dashboard-startup-banner "/home/jackson/.emacs.d/emacs-dash.png")  ;; use custom image as banner
-     (setq dashboard-center-content nil) ;; set to 't' for centered content
-     (setq dashboard-items '((recents . 5)
-                             (agenda . 5 )
-                             (bookmarks . 3)
-                             (projects . 3)
-                             (registers . 3)))
-     :config
-     (dashboard-setup-startup-hook)
-     (dashboard-modify-heading-icons '((recents . "file-text")
-                                       (bookmarks . "book"))))
-#+end_src
-
-*** Dashboard in Emacsclient
-
-      This setting ensures that emacsclient always opens on *dashboard* rather than *scratch*.
-
-#+begin_src emacs-lisp
-      (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-#+end_src
-
-** EVIL MODE
-
-      Evil is an extensible 'vi' layer for Emacs. It emulates the main features of Vim, and provides facilities for writing custom extensions.  Evil Collection is also installed since it adds 'evil' bindings to parts of Emacs that the standard Evil package does not cover, such as: calenda, help-mode adn ibuffer.
-
-#+begin_src emacs-lisp
-      (use-package evil
-       :ensure t  ;; install evil if not installed
-       :init      ;; tweak evil's configuration before loading it
-       (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-       (setq evil-want-keybinding nil)
-       (setq evil-vsplit-window-right t)
-       (setq evil-split-window-below t)
-       (evil-mode))
-      (use-package evil-collection
-       :after evil
-       :ensure t
-       :config
-       (evil-collection-init))
-#+end_src
-
-** FINDING FILES
-
-      Though 'recentf' is one way to find recent files although I prefer using 'counsel-recentf'.
-
-#+begin_src emacs-lisp
-      (use-package recentf
-       :ensure t
-       :config
-       (recentf-mode))
-#+end_src
-
-** DIRED
-      Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  I've chosen the format of 'SPC d' plus 'key'.
-      | COMMAND                                   | DESCRIPTION                                     | KEYBINDING |
-      |-------------------------------------------+-------------------------------------------------+------------|
-      | dired                                     | /Open dired file manager/                         | SPC d d    |
-      | dired-jump                                | /Jump to current directory in dired/              | SPC d j    |
-      | (in dired) peep-dired                     | /Toggle image previews within dired/              | SPC d p    |
-      | (in dired) dired-view-file                | /View file in dired/                              | SPC d v    |
-      | (in dired) dired-up-directory             | /Go up in the directory tree/                     | h          |
-      | (in dired) dired-find-file                | /Go down in the directory tree (or open if file)/ | l          |
-      | (in peep-dired-mode) peep-dired-next-file | /Move to next file in peep-dired-mode/            | j          |
-      | (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/        | k          |
-
-#+begin_src emacs-lisp
-(use-package dired-open
- :ensure t)
-(use-package peep-dired
- :ensure t)
-(nvmap :prefix "SPC"
- "d"   '(:ignore t :which-key "dired")
- "d d" '(dired :which-key "Open dired")
- "d j" '(dired-jump :which-key "Dired jump to current"))
-(with-eval-after-load 'dired
- (define-key dired-mode-map (kbd "M-p") 'peep-dired)
- (evil-define-key '(normal visual) dired-mode-map (kbd "h") 'dired-up-directory)
- (evil-define-key '(normal visual) dired-mode-map (kbd "l") 'dired-open-file)) ; use dired-find-file instead if not using dired-open package
-(evil-define-key '(normal visual) dired-mode-map (kbd "j") 'peep-dired-next-file)
-(evil-define-key '(normal visual) dired-mode-map (kbd "k") 'peep-dired-prev-file)
-;; Get file icons in dired
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-;; With dired-open plugin, you can launch external programs for certain extensions
-;; For example, I set all .png files to open in 'sxiv' and all .mp4 files to open in 'mpv'
-(setq dired-open-extensions '(("gif" . "sxiv")
-                              ("jpg" . "sxiv")
-                              ("png" . "sxiv")
-                              ("mkv" . "mpv")
-                              ("mp4" . "mpv")))
 #+end_src
 
 * UI Configuration
@@ -406,7 +311,7 @@ Sets the type of line numbers.
   (ivy-prescient-mode 1))
 #+end_src
 
-*** Ivy-Posframe
+*** Ivy-posframe
 
 #+begin_src emacs-lisp
 (use-package ivy-posframe
@@ -432,6 +337,37 @@ Sets the type of line numbers.
   (ivy-posframe-mode 1)) ; 1 enables posframe-mode, 0 disables it.
 #+end_src
 
+** Dashboard
+*** Configuring Dashboard
+
+#+begin_src emacs-lisp
+    (use-package dashboard
+     :ensure t  ;; install dashboard if not installed
+     :init      ;; tweak dashboard config before loading it
+     (setq dashboard-set-heading-icons t)
+     (setq dashboard-set-file-icons t)
+     (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
+     (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
+     (setq dashboard-center-content nil) ;; set to 't' for centered content
+     (setq dashboard-items '((recents . 5)
+                             (agenda . 5 )
+                             (bookmarks . 3)
+                             (projects . 3)
+                             (registers . 3)))
+     :config
+     (dashboard-setup-startup-hook)
+     (dashboard-modify-heading-icons '((recents . "file-text")
+                                       (bookmarks . "book"))))
+#+end_src
+
+*** Dashboard in Emacsclient
+
+      This setting ensures that emacsclient always opens on *dashboard* rather than *scratch*.
+
+#+begin_src emacs-lisp
+      (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+#+end_src
+
 ** Which Key
 
 #+begin_src emacs-lisp
@@ -454,6 +390,35 @@ Sets the type of line numbers.
   ([remap describe-command] . helpful-command)
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
+#+end_src
+
+* Evil Mode
+
+#+begin_src emacs-lisp
+      (use-package evil
+       :ensure t  ;; install evil if not installed
+       :init      ;; tweak evil's configuration before loading it
+       (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+       (setq evil-want-keybinding nil)
+       (setq evil-vsplit-window-right t)
+       (setq evil-split-window-below t)
+       (evil-mode))
+      (use-package evil-collection
+       :after evil
+       :ensure t
+       :config
+       (evil-collection-init))
+#+end_src
+
+** Finding Files
+
+      Though 'recentf' is one way to find recent files although I prefer using 'counsel-recentf'.
+
+#+begin_src emacs-lisp
+      (use-package recentf
+       :ensure t
+       :config
+       (recentf-mode))
 #+end_src
 
 * Org Mode
@@ -581,7 +546,8 @@ Sets the type of line numbers.
 
 #+begin_src emacs-lisp
 (defun jade/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols)
+        lsp-html-format-enable nil)
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-mode
@@ -592,12 +558,7 @@ Sets the type of line numbers.
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
-(add-hook 'prog-mode 'lsp-mode)
 
-(dolist (mode '(sh-mode-hook
-                web-mode-hook
-                c-mode-hook))
-  (add-hook mode (lambda () (lsp 1))))
 #+end_src
 
 **** lsp-ui
@@ -610,21 +571,17 @@ Sets the type of line numbers.
   (lsp-ui-doc-position 'bottom))
 #+end_src
  
-*** TypeScript
+**** Start lsp on hook
 
 #+begin_src emacs-lisp
-(use-package typescript-mode
-  :ensure t
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred)
-  :config
-  (setq typescript-indent-level 4))
-#+end_src
-
-Make sure to run this as well to install the language server and the language through npm.
-
-#+begin_src shell
-npm install -g typescript-language-server typescript
+(dolist (mode '(sh-mode-hook
+                web-mode-hook
+                sh-mode-hook
+                json-mode-hook
+                yaml-mode-hook
+                python-mode-hook
+                c-mode-hook))
+  (add-hook mode (lambda () (lsp 1))))
 #+end_src
 
 *** HTML 
@@ -677,6 +634,22 @@ npm install -g vscode-html-languageserver-bin
 (setq emmet-self-closing-tag-style " /")
 #+end_src
 
+*** Python
+
+#+begin_src shell
+pip install --user pyright
+#+end_src
+
+**** Lsp setup
+
+#+begin_src emacs-lisp
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred 1))))  ; or lsp-deferred
+#+end_src
+
 *** YAML
 
 #+begin_src emacs-lisp
@@ -684,11 +657,38 @@ npm install -g vscode-html-languageserver-bin
   :ensure t)
 #+end_src
 
+#+begin_src shell
+sudo npm i -g yaml-language-server
+#+end_src
+
 *** Ini
 
 #+begin_src emacs-lisp
 (use-package ini-mode
   :ensure t)
+#+end_src
+
+*** Shell
+
+#+begin_src emacs-lisp
+(use-package shfmt
+  :ensure t
+  :after lsp
+  :hook (sh-mode . shfmt-on-save-mode))
+
+(custom-set-variables
+ '(shfmt-arguments '("-bn" "-ci" "-i" "4" "-sr" "-s" "-p")))
+#+end_src
+
+*** Json
+
+#+begin_src emacs-lisp
+(use-package json-mode
+  :ensure t)
+#+end_src
+
+#+begin_src shell
+sudo npm i -g vscode-json-languageserver
 #+end_src
 
 *** Haskell 
@@ -745,9 +745,6 @@ npm install -g vscode-html-languageserver-bin
   :ensure t
   :bind (("C-c e" . yas-expand) 
          ("C-c n" . yas-next-field)))
-(add-hook 'prog-mode-hook 'yas-minor-mode)
-(add-hook 'latex-mode-hook 'yas-minor-mode)
-;; (add-hook 'yas-minor-mode-hook '(yas-load-directory "~/.emacs.d/snippets"))
 #+end_src
 
 *** Snippets
@@ -755,6 +752,8 @@ npm install -g vscode-html-languageserver-bin
 #+begin_src emacs-lisp
 (use-package yasnippet-snippets
   :ensure t)
+
+(add-to-list 'yas/root-directory "~/.emacs.d/snippets")
 #+end_src
 
 ** Magit
@@ -765,6 +764,28 @@ npm install -g vscode-html-languageserver-bin
         (use-package magit-todos
          :ensure t
          :config (magit-todos-mode))
+#+end_src
+
+** Prettier
+
+[[https://github.com/jscheid/prettier.el][Prettier.el]] is a code formatting engine. It is ported from VSCode to Emacs and is used to format all kinds of code to industry standards on save or when invoking the =prettier-prettify= command to prettify the current buffer if the minor mode is not selected.
+
+=Note=: Prettier.el requires prettier to be installed via npm using the command below
+
+=sudo npm i -g prettier=
+
+#+begin_src emacs-lisp
+(use-package prettier
+  :ensure t
+  :after lsp)
+#+end_src
+
+Adding a hook to start prettier in all the buffer that prettier supports (HTML, CSS, JS, XHTML, etc)
+
+#+begin_src emacs-lisp
+(dolist (mode '(web-mode-hook
+                css-mode-hook))
+  (add-hook mode (lambda () (prettier-mode 1))))
 #+end_src
 
 ** Flycheck 
@@ -825,7 +846,7 @@ npm install -g vscode-html-languageserver-bin
 *** Sign Colors
 
 #+begin_src emacs-lisp
-(set-face-background 'git-gutter:modified "purple")
+(set-face-foreground 'git-gutter:modified "magenta")
 (set-face-foreground 'git-gutter:added "green")
 (set-face-foreground 'git-gutter:deleted "red")
 #+end_src
@@ -873,12 +894,60 @@ npm install -g vscode-html-languageserver-bin
 #+end_src
 
 ** Vterm
-    Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.  By default, the shell is set to 'fish' but could change it to 'bash' or 'zsh' if you prefer.
+    Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.  By default, the shell is set to 'zsh' but could change it to 'bash' or 'zsh' if you prefer.
 
 #+begin_src emacs-lisp
     (use-package vterm
      :ensure t)
     (setq shell-file-name "/bin/zsh"
      vterm-max-scrollback 5000)
+#+end_src
+
+* Misc
+** Dired
+*** Dired-open
+
+#+begin_src emacs-lisp
+(use-package dired-open
+ :ensure t
+ :after dired)
+#+end_src
+
+**** File extensions
+
+#+begin_src emacs-lisp
+(setq dired-open-extensions '(("gif" . "sxiv")
+                              ("jpg" . "sxiv")
+                              ("png" . "sxiv")
+                              ("mkv" . "mpv")
+                              ("mp4" . "mpv")))
+#+end_src
+
+*** Peep Dired
+
+#+begin_src emacs-lisp
+(use-package peep-dired
+ :ensure t
+ :after dired)
+#+end_src
+
+*** Icons
+
+#+begin_src emacs-lisp
+(use-package all-the-icons-dired
+  :ensure t
+  :after dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+#+end_src
+
+*** Bindings
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'dired
+ (define-key dired-mode-map (kbd "M-p") 'peep-dired)
+ (evil-define-key '(normal visual) dired-mode-map (kbd "h") 'dired-up-directory)
+ (evil-define-key '(normal visual) dired-mode-map (kbd "l") 'dired-open-file)) ; use dired-find-file instead if not using dired-open package
+(evil-define-key '(normal visual) dired-mode-map (kbd "j") 'peep-dired-next-file)
+(evil-define-key '(normal visual) dired-mode-map (kbd "k") 'peep-dired-prev-file)
 #+end_src
 
