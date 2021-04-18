@@ -179,6 +179,12 @@ gls.left[3] = {
 --         highlight = {colors.fg, colors.bg}
 --     }
 -- }
+gls.left[8] = {
+    Space = {
+        provider = function() return ' ' end,
+        highlight = {colors.section_bg, colors.bg}
+    }
+}
 gls.left[9] = {
     DiagnosticError = {
         provider = 'DiagnosticError',

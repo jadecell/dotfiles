@@ -397,12 +397,14 @@ npm install -g vscode-html-languageserver-bin
 #+end_src
 
 **** Auto Rename Tag
+
 #+begin_src emacs-lisp
 (use-package auto-rename-tag)
 (add-hook 'web-mode-hook 'auto-rename-tag-mode)
 #+end_src
 
 **** Impatient-Mode 
+
 #+begin_src emacs-lisp
 (use-package impatient-mode)
 #+end_src

@@ -1,11 +1,5 @@
--- npm i -g pyright
-require'lspconfig'.pyright.setup {
-
-    cmd = {
-        DATA_PATH .. "/lspinstall/python/node_modules/.bin/pyright-langserver",
-        "--stdio"
-    },
-
+require'lspconfig'.clangd.setup {
+    cmd = {DATA_PATH .. "/lspinstall/cpp/clangd/bin/clangd"},
     on_attach = require'lsp'.common_on_attach,
     handlers = {
         ["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -17,5 +11,4 @@ require'lspconfig'.pyright.setup {
 
             })
     }
-
 }

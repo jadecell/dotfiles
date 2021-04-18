@@ -4,22 +4,14 @@
 
 [ "$(id -u)" -ne "0" ] && echo "Please re-run this script as root!" && exit 1
 
-# MAKEOPTS="-j9 -l8"
-# EMERGE_DEFAULT_OPTS="--jobs=9 --load-average=8"
-
 if [ "$1" = "day" ]; then
-
     THREADS=8
     THREADSPLUSONE=9
-
-    sed -i -e "s/MAKEOPTS=\"-j2\ -l2\"/MAKEOPTS=\"-j$THREADSPLUSONE\ -l$THREADS\"/g" /etc/portage/make.conf 
-    sed -i -e "s/EMERGE_DEFAULT_OPTS=\"--jobs=2\ --load-average=2\"/EMERGE_DEFAULT_OPTS=\"--jobs=$THREADSPLUSONE\ --load-average=$THREADS\"/g" /etc/portage/make.conf 
-
+    sed -i -e "s/MAKEOPTS=\"-j2\ -l2\"/MAKEOPTS=\"-j$THREADSPLUSONE\ -l$THREADS\"/g" /etc/portage/make.conf
+    sed -i -e "s/EMERGE_DEFAULT_OPTS=\"--jobs=2\ --load-average=2\"/EMERGE_DEFAULT_OPTS=\"--jobs=$THREADSPLUSONE\ --load-average=$THREADS\"/g" /etc/portage/make.conf
 elif [ "$1" = "night" ]; then
-
     THREADS=2
     THREADSPLUSONE=2
-
-    sed -i -e "s/MAKEOPTS=\"-j9\ -l8\"/MAKEOPTS=\"-j$THREADSPLUSONE -l$THREADS\"/g" /etc/portage/make.conf 
-    sed -i -e "s/EMERGE_DEFAULT_OPTS=\"--jobs=9\ --load-average=8\"/EMERGE_DEFAULT_OPTS=\"--jobs=$THREADSPLUSONE\ --load-average=$THREADS\"/g" /etc/portage/make.conf 
+    sed -i -e "s/MAKEOPTS=\"-j9\ -l8\"/MAKEOPTS=\"-j$THREADSPLUSONE -l$THREADS\"/g" /etc/portage/make.conf
+    sed -i -e "s/EMERGE_DEFAULT_OPTS=\"--jobs=9\ --load-average=8\"/EMERGE_DEFAULT_OPTS=\"--jobs=$THREADSPLUSONE\ --load-average=$THREADS\"/g" /etc/portage/make.conf
 fi

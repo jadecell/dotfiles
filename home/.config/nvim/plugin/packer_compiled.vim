@@ -56,6 +56,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
   },
+  ["goyo.vim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/goyo.vim"
+  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"

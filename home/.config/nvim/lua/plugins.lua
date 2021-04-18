@@ -30,7 +30,7 @@ return require('packer').startup(function()
     -- use 'SirVer/ultisnips'
     -- use 'norcalli/snippets.nvim'
     use 'prettier/vim-prettier'
-    use 'anott03/nvim-lspinstall'
+    use 'kabouzeid/nvim-lspinstall'
 
     -- Snippits
     use 'honza/vim-snippets'

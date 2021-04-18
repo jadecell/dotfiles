@@ -1,6 +1,7 @@
 require('plugins')
 require('keybindings')
 require('settings')
+require('globals')
 
 -- LSP
 require('nv-compe')
@@ -18,6 +19,9 @@ require('lsp.json-ls')
 require('lsp.yaml-ls')
 require('lsp.vim-ls')
 require('lsp.python-ls')
+require('lsp.emmet-ls')
+require('lsp.clangd-ls')
+        require('lsp.efm-general-ls')
 
 -- Treesitter
 require('nv-treesitter')
