@@ -165,6 +165,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/ranger.vim"
   },
+  ["suda.vim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/suda.vim"
+  },
   ["telescope-media-files.nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/telescope-media-files.nvim"

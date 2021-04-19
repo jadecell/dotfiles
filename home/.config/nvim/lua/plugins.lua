@@ -82,6 +82,9 @@ return require('packer').startup(function()
     -- Colorizer
     use 'norcalli/nvim-colorizer.lua'
 
+    -- Suda
+    use 'lambdalisue/suda.vim'
+
     -- Autopairs
     use 'windwp/nvim-autopairs'
 

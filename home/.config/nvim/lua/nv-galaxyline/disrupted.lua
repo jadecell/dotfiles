@@ -7,21 +7,21 @@ local gls = gl.section
 gl.short_line_list = {'defx', 'packager', 'vista', 'NvimTree'}
 
 local colors = {
-    bg = '#2a2a2a',
-    fg = '#d8dee9',
+    bg = '#282828',
+    fg = '#ebdbb2',
     section_bg = '#38393f',
-    blue = '#569CD6',
-    green = '#23D18B',
-    purple = '#C586C0',
-    orange = '#D7BA7D',
-    red = '#D54646',
-    yellow = '#D7BA7D',
-    gray1 = '#5c6370',
-    gray2 = '#2c323d',
-    gray3 = '#3e4452',
-    darkgrey = '#5c6370',
-    grey = '#848586',
-    middlegrey = '#8791A5'
+    blue = '#83a598',
+    green = '#b8bb26',
+    purple = '#d3869b',
+    orange = '#fe8019',
+    red = '#fb4934',
+    yellow = '#fabd2f',
+    gray1 = '#7c6f64',
+    gray2 = '#665c54',
+    gray3 = '#504945',
+    darkgrey = '#3c3836',
+    grey = '#928374',
+    middlegrey = '#a89984'
 }
 
 -- Local helper functions

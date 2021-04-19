@@ -1,2 +1,1 @@
-vim.cmd("colorscheme nvcode")
-
+vim.cmd("colorscheme gruvbox")
