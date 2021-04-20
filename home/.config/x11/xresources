@@ -1,22 +1,22 @@
-Gruvbox
-*.foreground: #ebdbb2
-*.background: #282828
-*.color0:     #282828
-*.color8:     #928374
-*.color1:     #cc241d
-*.color9:     #fb4934
-*.color2:     #98971a
-*.color10:    #b8bb26
-*.color3:     #d79921
-*.color11:    #fabd2f
-*.color4:     #458588
-*.color12:    #83a598
-*.color5:     #b16286
-*.color13:    #d3869b
-*.color6:     #689d6a
-*.color14:    #8ec07c
-*.color7:     #928374
-*.color15:    #a89984
+! Gruvbox
+! *.foreground: #ebdbb2
+! *.color0:     #282828
+! *.background: #282828
+! *.color8:     #928374
+! *.color1:     #cc241d
+! *.color9:     #fb4934
+! *.color2:     #98971a
+! *.color10:    #b8bb26
+! *.color3:     #d79921
+! *.color11:    #fabd2f
+! *.color4:     #458588
+! *.color12:    #83a598
+! *.color5:     #b16286
+! *.color13:    #d3869b
+! *.color6:     #689d6a
+! *.color14:    #8ec07c
+! *.color7:     #928374
+! *.color15:    #a89984
 
 ! Dracula
 ! *.foreground: #F8F8F2
@@ -39,25 +39,25 @@ Gruvbox
 ! *.color15:    #E6E6E6
 
 ! NVcode colorscheme
-! *.foreground:   #d8dee9
-! *.background:   #1e1e1e
-! *.cursorColor:  #d8dee9
-! *.color0:       #3B4252
-! *.color8:       #3B4252
-! *.color1:       #D54646
-! *.color9:       #D54646
-! *.color2:       #23D18B
-! *.color10:      #23D18B
-! *.color3:       #D7BA7D
-! *.color11:      #D7BA7D
-! *.color4:       #569CD6
-! *.color12:      #569CD6
-! *.color5:       #C586C0
-! *.color13:      #C586C0
-! *.color6:       #29B8DB
-! *.color14:      #29B8DB
-! *.color7:       #abb2bf
-! *.color15:      #abb2bf
+*.foreground:   #d8dee9
+*.background:   #1e1e1e
+*.cursorColor:  #d8dee9
+*.color0:       #3B4252
+*.color8:       #3B4252
+*.color1:       #D54646
+*.color9:       #D54646
+*.color2:       #23D18B
+*.color10:      #23D18B
+*.color3:       #D7BA7D
+*.color11:      #D7BA7D
+*.color4:       #569CD6
+*.color12:      #569CD6
+*.color5:       #C586C0
+*.color13:      #C586C0
+*.color6:       #29B8DB
+*.color14:      #29B8DB
+*.color7:       #abb2bf
+*.color15:      #abb2bf
 
 
 ! DT's Colorscheme

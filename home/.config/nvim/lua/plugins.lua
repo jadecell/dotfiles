@@ -61,12 +61,15 @@ return require('packer').startup(function()
     use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'}
 
     -- Galaxyline
-    use {
-        'glepnir/galaxyline.nvim',
-        branch = 'main',
-        -- some optional icons
-        requires = {'kyazdani42/nvim-web-devicons', opt = true}
-    }
+    -- use {
+    --     'glepnir/galaxyline.nvim',
+    --     branch = 'main',
+    --     -- some optional icons
+    --     requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    -- }
+
+    use 'kyazdani42/nvim-web-devicons'
+    use 'famiu/feline.nvim'
 
     -- Telescope
     use {

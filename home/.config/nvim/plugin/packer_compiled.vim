@@ -48,9 +48,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/emmet-vim"
   },
-  ["galaxyline.nvim"] = {
+  ["feline.nvim"] = {
     loaded = true,
-    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/galaxyline.nvim"
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/feline.nvim"
   },
   ["gitsigns.nvim"] = {
     loaded = true,

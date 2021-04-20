@@ -21,7 +21,7 @@ require('lsp.vim-ls')
 require('lsp.python-ls')
 require('lsp.emmet-ls')
 require('lsp.clangd-ls')
-        require('lsp.efm-general-ls')
+require('lsp.efm-general-ls')
 
 -- Treesitter
 require('nv-treesitter')
@@ -44,7 +44,9 @@ require('nv-floaterm')
 require('nv-telescope')
 
 -- Modeline
-require('nv-galaxyline.disrupted')
+-- require('nv-feline.6cdh')
+require('nv-feline.crivotz')
+-- require('nv-feline.luizcoro')
 
 -- Autopairs
 require('nv-autopairs')

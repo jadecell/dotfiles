@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 
 ### "bat" as manpager
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+### "nvim" as manpager
+export MANPAGER="nvim -c 'set ft=man' -"
 
 # XDG Exports
 export XDG_CONFIG_HOME="$HOME/.config"
