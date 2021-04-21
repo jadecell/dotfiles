@@ -75,6 +75,7 @@ PAC:xdo                   XBP:xdo
 PAC:ttf-ubuntu-font-family    XBP:ttf-ubuntu-font-family
 PAC:lazygit
 PAC:shfmt
+AUR:lua-format
 AUR:nerd-fonts-jetbrains-mono
 AUR:starship-bin              XBP:starship
 AUR:dmenu-jadecell-git
