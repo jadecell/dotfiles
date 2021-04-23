@@ -229,7 +229,7 @@ myEditor :: String
 myEditor = "emacsclient -c -n -a 'emacs'"
 
 myGUIBrowser :: String
-myGUIBrowser = "librewolf" 
+myGUIBrowser = "firefox" 
 
 myBorderWidth :: Dimension
 myBorderWidth = 2         
@@ -568,7 +568,9 @@ What the letters mean:
 
 #+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
 myKeys :: [(String, X ())]
-myKeys =
+myKeys = [ ("M-C-r", spawn "xmonad --recompile")      
+        , ("M-S-r", spawn "xmonad --restart")       
+        , ("M-S-q", spawn "~/.config/dmenu/scripts/dmenu-prompt.sh 'Quit XMonad?' 'killall xinit'")
 #+end_src
 
 ** Xmonad
@@ -582,9 +584,6 @@ General Xmonad-related keybindings.
 | M-S-q       | Quits the Xmonad session |
 
 #+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        [ ("M-C-r", spawn "xmonad --recompile")      
-        , ("M-S-r", spawn "xmonad --restart")       
-        , ("M-S-q", spawn "~/.config/dmenu/scripts/dmenu-prompt.sh 'Quit XMonad?' 'killall xinit'")
 #+end_src
 
 ** Personal Applications

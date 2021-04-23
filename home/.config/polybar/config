@@ -46,13 +46,13 @@ foreground = ${colors.foreground}
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = SauceCodeProNerdFont:pixelsize=10;
+font-0 = JetBrainsMonoNerdFont:pixelsize=10;
 font-1 = HackNerdFont:pixelsize=10;
-font-2 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;
+font-2 = JoyPixels:fontformat=truetype:scale=10:antialias=false;
 font-3 = IPAGothic:fontformat=truetype:pixelsize=10:antialias=false;
 
 modules-left = bspwm xwindow
-modules-right = pacupdate cpu-usage memory weather volume up-time clock
+modules-right = pacupdate cpu-usage memory forecase volume up-time clock
 
 tray-position = right
 tray-padding = 1
@@ -92,13 +92,13 @@ foreground = ${colors.foreground}
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = SauceCodeProNerdFont:pixelsize=10;
+font-0 = JetBrainsMonoNerdFont:pixelsize=10;
 font-1 = HackNerdFont:pixelsize=10;
 font-2 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;
 font-3 = IPAGothic:fontformat=truetype:pixelsize=10:antialias=false;
 
 modules-left = bspwm xwindow
-modules-right = kernel cpu-usage memory weather volume up-time clock
+modules-right = kernel cpu-usage memory forecast volume up-time clock
 
 tray-position = right
 tray-padding = 1
@@ -123,7 +123,7 @@ bottom = false
 separator = /
 
 width = 100%
-height = 24
+height = 20
 offset-x = 0
 offset-y = 0
 radius = 0.0
@@ -138,7 +138,7 @@ foreground = ${colors.foreground}
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = SauceCodeProNerdFont:pixelsize=11;
+font-0 = JetBrainsMonoNerdFont:pixelsize=11;
 font-1 = HackNerdFont:pixelsize=10;
 font-2 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;
 font-3 = IPAGothic:fontformat=truetype:pixelsize=10:antialias=false;
@@ -197,56 +197,55 @@ label-separator = /
 
 [module/kernel]
 type = custom/script
-exec = kernel
+exec = sb-kernel dwm
 interval = 3600
 
 [module/pacupdate]
 type = custom/script
-exec = pacupdate
+exec = sb-pacupdate dwm
 interval = 3600
 
 [module/up-time]
 type = custom/script
-exec = upt
-format-prefix = " "
+exec = sb-upt dwm
 interval = 60
 
 [module/volume]
 type = custom/script
-exec = volume
+exec = sb-volume dwm
 interval = 1
 format-underline = ${colors.red}
 label = "%output%"
 
 [module/memory]
 type = custom/script
-exec = memory
+exec = sb-memory dwm
 label = "%output%"
 click-left = $TERMINAL -e htop &
 interval = 10
 
 [module/battery]
 type = custom/script
-exec = battery
+exec = sb-battery dwm
 label = "%output%"
 
 [module/cpu-usage]
 type = custom/script
-exec = cpuperc
+exec = sb-cpuperc dwm
 label = "%output%"
 click-left = $TERMINAL -e htop &
 interval = 10
 
-[module/weather]
+[module/forecast]
 type = custom/script
-exec = weather
+exec = sb-forecast
 label = "%output%"
 interval = 1800
 
 [module/clock]
 type = custom/script
-exec = clock
+exec = sb-clock dwm
 label = "%output%"
-interval = 60
+interval = 1
 
 ; vim:ft=dosini

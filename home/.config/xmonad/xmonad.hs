@@ -2,7 +2,7 @@ import XMonad
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
- 
+
 import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
@@ -75,16 +75,16 @@ myEditor :: String
 myEditor = "emacsclient -c -n -a 'emacs'"
 
 myGUIBrowser :: String
-myGUIBrowser = "librewolf" 
+myGUIBrowser = "firefox" 
 
 myBorderWidth :: Dimension
 myBorderWidth = 2         
 
 myNormColor :: String
-myNormColor   = "#1c1f24" 
+myNormColor   = "#3B4252" 
 
 myFocusColor :: String
-myFocusColor  = "#ff6c6b" 
+myFocusColor  = "#D54646" 
 
 altMask :: KeyMask
 altMask = mod1Mask
@@ -92,7 +92,7 @@ altMask = mod1Mask
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "feh --bg-scale /home/jackson/.config/wallpaper &"
-          spawnOnce "trayer --edge top --align right --widthtype request --monitor 1 --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x282c34 --height 24 &"
+          spawnOnce "trayer --edge top --align right --widthtype request --monitor 1 --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x1e1e1e --height 24 &"
           spawnOnce "xset s off -dpms &"
           spawnOnce "xset r rate 300 50 &"
           spawnOnce "xmodmap /home/jackson/.Xmodmap &"
@@ -253,119 +253,119 @@ myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
 
 myKeys :: [(String, X ())]
-myKeys =
-
-        [ ("M-C-r", spawn "xmonad --recompile")      
+myKeys = [ ("M-C-r", spawn "xmonad --recompile")      
         , ("M-S-r", spawn "xmonad --restart")       
         , ("M-S-q", spawn "~/.config/dmenu/scripts/dmenu-prompt.sh 'Quit XMonad?' 'killall xinit'")
 
-        , ("M-<Return>", spawn myTerminal)
-        , ("M-w", spawn myGUIBrowser)
-        , ("M-S-s", spawn "spotify")
-        , ("M-u", spawn (myTerminal ++ "-e paru -Syu"))
-        , ("M-m", spawn (myTerminal ++ "-e neomutt"))
-        , ("M-r", spawn "st -e ranger")
-        , ("M-S-w", spawn "st -e ranger ~/.local/repos/wallpapers")
 
-        , ("M-S-<Return>", shellPrompt jacksonXPConfig)
 
-        , ("M-S-c", kill1)
+, ("M-<Return>", spawn myTerminal)
+, ("M-w", spawn myGUIBrowser)
+, ("M-S-s", spawn "spotify")
+, ("M-u", spawn (myTerminal ++ "-e paru -Syu"))
+, ("M-m", spawn (myTerminal ++ "-e neomutt"))
+, ("M-r", spawn "st -e ranger")
+, ("M-S-w", spawn "st -e ranger ~/.local/repos/wallpapers")
 
-        , ("M-f", sendMessage (T.Toggle "floats"))       
-        , ("M-<Delete>", withFocused $ windows . W.sink) 
-        , ("M-S-<Delete>", sinkAll)
+, ("M-S-<Return>", shellPrompt jacksonXPConfig)
 
-        , ("M-j", windows W.focusDown)       
-        , ("M-k", windows W.focusUp)        
-        , ("M-S-j", windows W.swapDown)    
-        , ("M-S-k", windows W.swapUp)     
-        , ("M-<Backspace>", promote)     
-        , ("M1-S-<Tab>", rotSlavesDown) 
-        , ("M1-C-<Tab>", rotAllDown)
+, ("M-S-c", kill1)
 
-        , ("M-<Tab>", sendMessage NextLayout)  
-        , ("M-C-M1-<Up>", sendMessage Arrange)
-        , ("M-C-M1-<Down>", sendMessage DeArrange)
-        , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
-        , ("M-S-<Space>", sendMessage ToggleStruts)     
-        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS) 
-        , ("M-<KP_Multiply>", sendMessage (IncMasterN 1))
-        , ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))
-        , ("M-S-<KP_Multiply>", increaseLimit)          
-        , ("M-S-<KP_Divide>", decreaseLimit)           
-        , ("M-h", sendMessage Shrink)     
-        , ("M-l", sendMessage Expand)
+, ("M-f", sendMessage (T.Toggle "floats"))       
+, ("M-<Delete>", withFocused $ windows . W.sink) 
+, ("M-S-<Delete>", sinkAll)
 
-        , ("M-.", nextScreen)  -- Switch focus to next monitor
-        , ("M-,", prevScreen)  -- Switch focus to prev monitor
+, ("M-j", windows W.focusDown)       
+, ("M-k", windows W.focusUp)        
+, ("M-S-j", windows W.swapDown)    
+, ("M-S-k", windows W.swapUp)     
+, ("M-<Backspace>", promote)     
+, ("M1-S-<Tab>", rotSlavesDown) 
+, ("M1-C-<Tab>", rotAllDown)
 
-        , ("M-C-p", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-power.sh")
-        , ("M-C-t", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-timer.sh")
-        , ("M-C-s", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-ssh.sh")
-        , ("M-C-y", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-sysmon.sh")
-        , ("M-C-m", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-mount.sh")
-        , ("M-C-S-m", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-umount.sh")
-        , ("M-C-e", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-edit-configs.sh")
-        , ("M-C-c", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-calc.sh")
-        , ("M-C-S-s", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-scrot.sh")
-        , ("M-C-u", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-unicode.sh")
+, ("M-<Tab>", sendMessage NextLayout)  
+, ("M-C-M1-<Up>", sendMessage Arrange)
+, ("M-C-M1-<Down>", sendMessage DeArrange)
+, ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+, ("M-S-<Space>", sendMessage ToggleStruts)     
+, ("M-S-n", sendMessage $ MT.Toggle NOBORDERS) 
+, ("M-<KP_Multiply>", sendMessage (IncMasterN 1))
+, ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))
+, ("M-S-<KP_Multiply>", increaseLimit)          
+, ("M-S-<KP_Divide>", decreaseLimit)           
+, ("M-h", sendMessage Shrink)     
+, ("M-l", sendMessage Expand)
 
-        , ("C-e e", spawn "emacsclient -c -a 'emacs'")       
-        , ("C-e b", spawn "emacsclient -c -a 'emacs' --eval '(ibuffer)'") 
-        , ("C-e d", spawn "emacsclient -c -a 'emacs' --eval '(dired nil)'")
-        , ("C-e n", spawn "emacsclient -c -a 'emacs' --eval '(elfeed)'")  
-        , ("C-e s", spawn "emacsclient -c -a 'emacs' --eval '(eshell)'")
+, ("M-.", nextScreen)  -- Switch focus to next monitor
+, ("M-,", prevScreen)  -- Switch focus to prev monitor
 
-        , ("<XF86AudioMute>",   spawn "pulsemixer --toggle-mute")
-        , ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -2")
-        , ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +2 && pulsemixer --max-volume 100")
-        , ("<XF86AudioPlay>", spawn "playerctl -p spotify play-pause")
-        , ("<XF86AudioStop>", spawn "playerctl -p spotify stop")
-        , ("<XF86AudioPrev>", spawn "playerctl -p spotify previous")
-        , ("<XF86AudioNext>", spawn "playerctl -p spotify next")
-        ]
+, ("M-C-p", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-power.sh")
+, ("M-C-t", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-timer.sh")
+, ("M-C-s", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-ssh.sh")
+, ("M-C-y", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-sysmon.sh")
+, ("M-C-m", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-mount.sh")
+, ("M-C-S-m", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-umount.sh")
+, ("M-C-e", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-edit-configs.sh")
+, ("M-C-c", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-calc.sh")
+, ("M-C-S-s", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-scrot.sh")
+, ("M-C-u", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-unicode.sh")
 
-          ++ [("M-S-" ++ k, S.promptSearch jacksonXPConfig' f) | (k,f) <- searchList ]
-        -- ++ [("M-S-s-" ++ k, S.selectSearch f) | (k,f) <- searchList ]
+, ("C-e e", spawn "emacsclient -c -a 'emacs'")       
+, ("C-e b", spawn "emacsclient -c -a 'emacs' --eval '(ibuffer)'") 
+, ("C-e d", spawn "emacsclient -c -a 'emacs' --eval '(dired nil)'")
+, ("C-e n", spawn "emacsclient -c -a 'emacs' --eval '(elfeed)'")  
+, ("C-e s", spawn "emacsclient -c -a 'emacs' --eval '(eshell)'")
+
+, ("<XF86AudioMute>",   spawn "pulsemixer --toggle-mute")
+, ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -2")
+, ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +2 && pulsemixer --max-volume 100")
+, ("<XF86AudioPlay>", spawn "playerctl -p spotify play-pause")
+, ("<XF86AudioStop>", spawn "playerctl -p spotify stop")
+, ("<XF86AudioPrev>", spawn "playerctl -p spotify previous")
+, ("<XF86AudioNext>", spawn "playerctl -p spotify next")
+]
+
+++ [("M-S-" ++ k, S.promptSearch jacksonXPConfig' f) | (k,f) <- searchList ]
+-- ++ [("M-S-s-" ++ k, S.selectSearch f) | (k,f) <- searchList ]
 
 main :: IO ()
 main = do
 
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/jackson/.config/xmobar/xmobarrc0"
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/jackson/.config/xmobar/xmobarrc1"
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/jackson/.config/xmobar/xmobarrc2"
+xmproc0 <- spawnPipe "xmobar -x 0 /home/jackson/.config/xmobar/xmobarrc0"
+xmproc1 <- spawnPipe "xmobar -x 1 /home/jackson/.config/xmobar/xmobarrc1"
+xmproc2 <- spawnPipe "xmobar -x 2 /home/jackson/.config/xmobar/xmobarrc2"
 
-    xmonad $ ewmh def
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
-        -- Run xmonad commands from command line with "xmonadctl command". Commands include:
-        -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
-        -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
+xmonad $ ewmh def
+    { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
+    -- Run xmonad commands from command line with "xmonadctl command". Commands include:
+    -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
+    -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
+    -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
 
-    -- Launching three instances of xmobar on their monitors.
-    -- the xmonad, ya know...what the WM is named after!
-        , handleEventHook    = serverModeEventHookCmd
-                               <+> serverModeEventHook
-                               <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-                               <+> docksEventHook
-        , modMask            = myModMask
-        , terminal           = myTerminal
-        , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook
-        , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = myNormColor
-        , focusedBorderColor = myFocusColor
+-- Launching three instances of xmobar on their monitors.
+-- the xmonad, ya know...what the WM is named after!
+    , handleEventHook    = serverModeEventHookCmd
+                           <+> serverModeEventHook
+                           <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
+                           <+> docksEventHook
+    , modMask            = myModMask
+    , terminal           = myTerminal
+    , startupHook        = myStartupHook
+    , layoutHook         = myLayoutHook
+    , workspaces         = myWorkspaces
+    , borderWidth        = myBorderWidth
+    , normalBorderColor  = myNormColor
+    , focusedBorderColor = myFocusColor
 
-        , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#51afef" "" . wrap "[" "]"
-                        , ppVisible = xmobarColor "#c678dd" ""
-                        , ppHidden = xmobarColor "#98be65" "" . wrap "*" ""
-                        , ppHiddenNoWindows = xmobarColor "#dfdfdf" ""
-                        , ppTitle = xmobarColor "#ff6c6b" "" . shorten 60 
-                        , ppSep =  "<fc=#bbc2cf> <fn=2>|</fn></fc> "
-                        , ppUrgent = xmobarColor "#ff6c6b" "" . wrap "!" "!"
-                        , ppOrder  = \(ws:l:t) -> [ws]++t
-                        }
-        } `additionalKeysP` myKeys
+, logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
+                { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x >> hPutStrLn xmproc2 x
+                , ppCurrent = xmobarColor "#569CD6" "" . wrap "[" "]"
+                , ppVisible = xmobarColor "#C586C0" ""
+                , ppHidden = xmobarColor "#23D18B" "" . wrap "*" ""
+                , ppHiddenNoWindows = xmobarColor "#abb2bf" ""
+                , ppTitle = xmobarColor "#D54646" "" . shorten 60 
+                , ppSep =  "<fc=#d8dee9> <fn=2>|</fn></fc> "
+                , ppUrgent = xmobarColor "#D54646" "" . wrap "!" "!"
+                , ppOrder  = \(ws:l:t) -> [ws]++t
+                }
+} `additionalKeysP` myKeys

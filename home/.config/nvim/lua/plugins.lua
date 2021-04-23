@@ -38,7 +38,7 @@ return require('packer').startup(function()
     use 'hrsh7th/vim-vsnip-integ'
     use 'xabikos/vscode-javascript'
     use 'cstrap/python-snippets'
-    -- use 'ylcnfrht/vscode-python-snippet-pack'
+    use 'ylcnfrht/vscode-python-snippet-pack'
 
     -- Surround
     use 'tpope/vim-surround'

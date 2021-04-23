@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-alias v="nvim"
-
 # Use $XINITRC variable if file exists.
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
 
@@ -20,27 +18,32 @@ alias \
     ffmpeg="ffmpeg -hide_banner"
 
 # Pacman stuff
-# alias \
-#     unlock="sudo rm /var/lib/pacman/db.lck" \
-#     cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
-#     p="sudo pacman"
+alias \
+    unlock="sudo rm /var/lib/pacman/db.lck" \
+    cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
+    p="sudo pacman" \
+    P="paru"
+
+# SoystemD
+alias \
+    S="sudo systemctl"
 
 # Portage stuff
-alias \
-    eu="sudo emerge -vuDU --with-bdeps=y @world" \
-    eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
-    es="sudo eix-sync" \
-    e="sudo emerge" \
-    em="sudo emerge --autounmask-continue"
+# alias \
+#     eu="sudo emerge -vuDU --with-bdeps=y @world" \
+#     eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
+#     es="sudo eix-sync" \
+#     e="sudo emerge" \
+#     em="sudo emerge --autounmask-continue"
 
 # Flaggie
-alias \
-    f="sudo flaggie"
+# alias \
+#     f="sudo flaggie"
 
 # Open-RC
-alias \
-    rcu="sudo rc-update" \
-    rcs="sudo rc-service"
+# alias \
+#     rcu="sudo rc-update" \
+#     rcs="sudo rc-service"
 
 # CD stuff
 alias \
@@ -96,7 +99,7 @@ alias \
 # alias webup="rsync -vrP --delete-after ~/.local/www/mccroryxyz/ root@mccrory.xyz:/var/www/mccrory"
 webup() {
     folder=$(pwd | cut -d'/' -f6)
-    /usr/bin/rsync -vrP --delete-after "$(pwd)/" root@mccrory.xyz:/var/www/$folder
+    /usr/bin/rsync -vrP --delete-after "$(pwd)/" "root@mccrory.xyz:/var/www/$folder"
 }
 
 # Make stuff

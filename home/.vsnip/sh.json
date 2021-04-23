@@ -97,7 +97,7 @@
   "run as root": {
     "prefix": "root",
     "body": ["if [ \\$(id -u) -ne 0 ]; then exec sudo \\$0; fi"],
-    "description": "run the following command as root"
+    "description": "run the following script as root"
   },
 
   "function for a posix shell": {

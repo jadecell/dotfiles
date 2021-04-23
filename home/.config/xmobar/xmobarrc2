@@ -3,8 +3,8 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
                            , "xft:Sauce Code Pro Nerd Font:weight=bold:pixelsize=16:antialias=true:hinting=true"
                            , "xft:FontAwesome:pixelsize=13"
                            ]
-       , bgColor = "#282c34"
-       , fgColor = "#bbc2cf"
+       , bgColor = "#1e1e1e"
+       , fgColor = "#d8dee9"
        , position = Static { xpos = 3840 , ypos = 0, width = 1920, height = 24 }
        , lowerOnStart = True
        , hideOnStart = False
@@ -24,5 +24,5 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader% }{ <fc=#da8548><fn=2> </fn>%uname%</fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#ff6c6b> %cpu% </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#51afef><fn=1> %memory% </fn></fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#c678dd>  %disku%  </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#51afef> <fn=1> %volume% </fn> </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#98be65> <fn=1>%corona%</fn> </fc> <fc=#bbc2cf> <fn=2>|</fn></fc> <fc=#5699af> %date% </fc> "
+       , template = " %UnsafeStdinReader% }{ <fc=#D7BA7D><fn=2> </fn>%uname%</fc> <fc=#d8dee9> <fn=2>|</fn></fc> <fc=#D54646> %cpu% </fc> <fc=#d8dee9> <fn=2>|</fn></fc> <fc=#569CD6><fn=1> %memory% </fn></fc> <fc=#d8dee9> <fn=2>|</fn></fc> <fc=#C586C0>  %disku%  </fc> <fc=#d8dee9> <fn=2>|</fn></fc> <fc=#569CD6> <fn=1> %volume% </fn> </fc> <fc=#d8dee9> <fn=2>|</fn></fc> <fc=#23D18B> <fn=1>%corona%</fn> </fc> <fc=#d8dee9> <fn=2>|</fn></fc> <fc=#29B8DB> %date% </fc> "
        }

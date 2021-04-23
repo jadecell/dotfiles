@@ -44,20 +44,20 @@ local vi_mode_colors = {
 }
 
 local vi_mode_text = {
-    NORMAL = '<|',
-    OP = '<|',
-    INSERT = '|>',
-    VISUAL = '<>',
-    BLOCK = '<>',
-    REPLACE = '<>',
-    ['V-REPLACE'] = '<>',
-    ENTER = '<>',
-    MORE = '<>',
-    SELECT = '<>',
-    COMMAND = '<|',
-    SHELL = '<|',
-    TERM = '<|',
-    NONE = '<>'
+    NORMAL = '| <- |',
+    OP = '| <- |',
+    INSERT = '| -> |',
+    VISUAL = '| <> |',
+    BLOCK = '| <> |',
+    REPLACE = '| <> |',
+    ['V-REPLACE'] = '| <> |',
+    ENTER = '| <> |',
+    MORE = '| <> |',
+    SELECT = '| <> |',
+    COMMAND = '| <- |',
+    SHELL = '| <- |',
+    TERM = '| <- |',
+    NONE = '| <> |'
 }
 
 local buffer_not_empty = function()

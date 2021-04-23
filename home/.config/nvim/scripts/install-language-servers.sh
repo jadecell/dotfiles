@@ -3,11 +3,11 @@ set -eu
 
 # Checks for npm and installs it if it is not present
 if [ ! "$(command -v npm)" ] > /dev/null 2>&1; then
-    sudo emerge --noreplace nodejs
+    sudo pacman -S --noconfirm --needed npm nodejs
 fi
 
 # Installs all the programs needed for nvim to not crash and start crying
-sudo npm install -g sudo npm install -g tree-sitter-cli pyright emmet-ls
+sudo npm install -g tree-sitter-cli pyright emmet-ls
 
 nvim -u $HOME/.config/nvim/init.lua "+PackerInstall"
 nvim -u $HOME/.config/nvim/init.lua "+TSInstall bash cpp c css html java javascript json lua python regex rust toml typescript"
