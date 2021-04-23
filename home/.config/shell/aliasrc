@@ -18,27 +18,27 @@ alias \
     ffmpeg="ffmpeg -hide_banner"
 
 # Pacman stuff
-alias \
-    unlock="sudo rm /var/lib/pacman/db.lck" \
-    cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
-    p="sudo pacman" \
-    P="paru"
+# alias \
+#     unlock="sudo rm /var/lib/pacman/db.lck" \
+#     cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
+#     p="sudo pacman" \
+#     P="paru"
 
 # SoystemD
-alias \
-    S="sudo systemctl"
+# alias \
+#     S="sudo systemctl"
 
 # Portage stuff
-# alias \
-#     eu="sudo emerge -vuDU --with-bdeps=y @world" \
-#     eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
-#     es="sudo eix-sync" \
-#     e="sudo emerge" \
-#     em="sudo emerge --autounmask-continue"
+alias \
+    eu="sudo emerge -vuDU --with-bdeps=y @world" \
+    eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
+    es="sudo eix-sync" \
+    e="sudo emerge" \
+    em="sudo emerge --autounmask-continue"
 
 # Flaggie
-# alias \
-#     f="sudo flaggie"
+alias \
+    f="sudo flaggie"
 
 # Open-RC
 # alias \
