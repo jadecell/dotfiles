@@ -1,9 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-[ "$EUID" -ne "0" ] && echo "Please re-run this script as root!" && exit 1
+if [ $(id -u) -ne 0 ]; then exec sudo $0; fi
 
 CPUTHREADS=$(grep -c processor /proc/cpuinfo)
-CPUTHREADSPLUSONE=$((CPUTHREADS + 1))
 KERNELCONFIGLOCATION="/usr/src/linux/.config"
 KERNELCONFIGDIRECTORY="$(echo $KERNELCONFIGLOCATION | cut -d'.' -f1)"
 KERNELCONFIGDESTINATION="/home/jackson/.local/repos/dotfiles/extra/kernelconfigs"
@@ -21,35 +20,160 @@ fi
 cd "$KERNELCONFIGDIRECTORY" && make menuconfig
 
 clear
-read -r -p "Want to build the newly configured kernel [y/n]? " BUILDNEWKERNEL
+printf "Want to build the newly configured kernel [Y/n]? "
+read -r BUILDNEWKERNEL
 
-{ [ "$BUILDNEWKERNEL" = "y" ] || [ "$BUILDNEWKERNEL" = "Y" ]; } && make -j$CPUTHREADSPLUSONE && make modules_install install && genkernel --install --kernel-config=$KERNELCONFIGLOCATION initramfs
+case $BUILDNEWKERNEL in
+    Y | y)
+        SWITCHBUILDKERNEL=true
+        ;;
+    N | n)
+        SWITCHBUILDKERNEL=false
+        ;;
+    "")
+        SWITCHBUILDKERNEL=true
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHBUILDKERNEL && make -j$CPUTHREADS && make modules_install install && genkernel --install --kernel-config=$KERNELCONFIGLOCATION initramfs
 
 BUILTKERNELVERSION="$(grep 'Linux/x86' $KERNELCONFIGLOCATION | tr '-' ' ' | cut -d' ' -f3)"
 cp -f $KERNELCONFIGLOCATION "${KERNELCONFIGDESTINATION}/${BUILTKERNELVERSION}-gentoo-$(hostname).config"
 
 clear
-read -r -p "Want to remove duplicate kernel image [y/n]? " REMOVEDUPLICATEIMAGE
-{ [ "$REMOVEDUPLICATEIMAGE" = "y" ] || [ "$REMOVEDUPLICATEIMAGE" = "Y" ]; } && rm -f /boot/*.old
+printf "Want to remove duplicate kernel image [Y/n]? "
+read -r REMOVEDUPLICATEIMAGE
+
+case $REMOVEDUPLICATEIMAGE in
+    Y | y)
+        SWITCHREMOVEKERNELIMAGES=true
+        ;;
+    N | n)
+        SWITCHREMOVEKERNELIMAGES=false
+        ;;
+    "")
+        SWITCHREMOVEKERNELIMAGES=true
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHREMOVEKERNELIMAGES && rm -f /boot/*.old
 
 clear
-read -r -p "Want to re-build modules [y/n]? " REBUILDMODULES
-{ [ "$REBUILDMODULES" = "y" ] || [ "$REBUILDMODULES" = "Y" ]; } && emerge @module-rebuild
+printf "Want to re-build modules [Y/n]?"
+read -r REBUILDMODULES
+
+case $REBUILDMODULES in
+    Y | y)
+        SWITCHREBUILDMODULES=true
+        ;;
+    N | n)
+        SWITCHREBUILDMODULES=false
+        ;;
+    "")
+        SWITCHREBUILDMODULES=true
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHREBUILDMODULES && emerge @module-rebuild
 
 if [ "$(find /boot -name 'vmlinuz*' | wc -l)" -gt "1" ]; then
     clear
-    read -r -p "Want to remove old kernel files in /boot [y/n]? " REMOVEOLDKERNELFILES
-    { [ "$REMOVEOLDKERNELFILES" = "y" ] || [ "$REMOVEOLDKERNELFILES" = "Y" ]; } && rm -f /boot/*"$CURRENTKERNELVERSION"*
+    printf "Want to remove old kernel files in /boot [Y/n]? "
+    read -r REMOVEOLDKERNELFILES
+
+    case $REMOVEOLDKERNELFILES in
+        Y | y)
+            SWITCHOLDKERNELFILESREMOVE=true
+            ;;
+        N | n)
+            SWITCHOLDKERNELFILESREMOVE=false
+            ;;
+        "")
+            SWITCHOLDKERNELFILESREMOVE=true
+            ;;
+        *)
+            echo "Invalid option"
+            exit 1
+            ;;
+    esac
+
+    $SWITCHOLDKERNELFILESREMOVE && rm -f /boot/*"$CURRENTKERNELVERSION"*
 
     clear
-    read -r -p "Want to remove the old kernel's ebuild [y/n]? " REMOVEOLDKERNELEBUILD
-    { [ "$REMOVEOLDKERNELEBUILD" = "y" ] || [ "$REMOVEOLDKERNELEBUILD" = "Y" ]; } && emerge -cv "=sys-kernel/gentoo-sources-$CURRENTKERNELVERSION"
+    printf "Want to remove the old kernel's ebuild [Y/n]? "
+    read -r REMOVEOLDKERNELEBUILD
+
+    case $REMOVEOLDKERNELEBUILD in
+        Y | y)
+            SWITCHREMOVEOLDKERNELBUILD=true
+            ;;
+        N | n)
+            SWITCHREMOVEOLDKERNELBUILD=false
+            ;;
+        "")
+            SWITCHREMOVEOLDKERNELBUILD=true
+            ;;
+        *)
+            echo "Invalid option"
+            exit 1
+            ;;
+    esac
+
+    $SWITCHREMOVEOLDKERNELBUILD && emerge -cv "=sys-kernel/gentoo-sources-$CURRENTKERNELVERSION"
 fi
 
 clear
-read -r -p "Re-generate grub config [y/n]? " GRUBCONFIG
-{ [ "$GRUBCONFIG" = "y" ] || [ "$GRUBCONFIG" = "Y" ]; } && grub-mkconfig -o /boot/grub/grub.cfg
+printf "Re-generate grub config [Y/n]? "
+read -r GRUBCONFIG
+
+case $GRUBCONFIG in
+    Y | y)
+        SWITCHGRUBCONFIG=true
+        ;;
+    N | n)
+        SWITCHGRUBCONFIG=false
+        ;;
+    "")
+        SWITCHGRUBCONFIG=true
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHGRUBCONFIG && grub-mkconfig -o /boot/grub/grub.cfg
 
 clear
-read -r -p "Reboot now [y/n]? " REBOOTNOW
-{ [ "$REBOOTNOW" = "y" ] || [ "$REBOOTNOW" = "Y" ]; } && reboot
+printf "Reboot now [y/N]? "
+read -r REBOOTNOW
+
+case $REBOOTNOW in
+    Y | y)
+        SWITCHREBOOTNOW=true
+        ;;
+    N | n)
+        SWITCHREBOOTNOW=false
+        ;;
+    "")
+        SWITCHREBOOTNOW=false
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHREBOOTNOW && reboot
