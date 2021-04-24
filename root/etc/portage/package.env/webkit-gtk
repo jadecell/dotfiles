@@ -1,1 +1,1 @@
-net-libs/webkit-gtk dual-make.conf
+net-libs/webkit-gtk half-make.conf
