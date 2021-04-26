@@ -14,5 +14,5 @@ compinit
 _comp_options+=(globdots)     # Include hidden files.
 
 eval "$(starship init zsh)"
-source $HOME/.local/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.local/share/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source $HOME/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

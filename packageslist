@@ -29,9 +29,7 @@ PAC:firefox               XBP:firefox
 PAC:fzf
 PAC:xwallpaper            XBP:xwallpaper
 PAC:sxiv                  XBP:sxiv
-# PAC:alacritty             XBP:alacritty
-PAC:texlive-most          XBP:texlive
-PAC:texlive-lang
+PAC:alacritty             XBP:alacritty
 PAC:lsd                   XBP:lsd
 PAC:nodejs                XBP:nodejs
 PAC:npm
