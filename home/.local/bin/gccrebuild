@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+if [ $(id -u) -ne 0 ]; then exec sudo $0; fi
+
+sudo emerge -1 --usepkg=n dev-libs/boost sys-devel/llvm sys-devel/clang sys-devel/libtool

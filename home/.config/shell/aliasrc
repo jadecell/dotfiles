@@ -40,10 +40,27 @@ alias \
 alias \
     f="sudo flaggie"
 
+# Equery shortening
+alias \
+    eqf='equery f' \
+    equ='equery u' \
+    eqh='equery h' \
+    eqa='equery a' \
+    eqb='equery b' \
+    eql='equery l' \
+    eqd='equery d' \
+    eqg='equery g' \
+    eqc='equery c' \
+    eqk='equery k' \
+    eqm='equery m' \
+    eqy='equery y' \
+    eqs='equery s' \
+    eqw='equery w'
+
 # Open-RC
-# alias \
-#     rcu="sudo rc-update" \
-#     rcs="sudo rc-service"
+alias \
+    rcu="sudo rc-update" \
+    rcs="sudo rc-service"
 
 # CD stuff
 alias \
@@ -89,11 +106,11 @@ alias \
 
 # University class folders
 alias \
-    m1140="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/MATH-1140/" \
-    m1115="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/MATH-1115/" \
-    i1113="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/INFO-1113/" \
-    i1213="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/INFO-1213/" \
-    i1214="cd /home/jackson/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/"
+    m1140="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1140/" \
+    m1115="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1115/" \
+    i1113="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1113/" \
+    i1213="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1213/" \
+    i1214="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/"
 
 # Website updating
 # alias webup="rsync -vrP --delete-after ~/.local/www/mccroryxyz/ root@mccrory.xyz:/var/www/mccrory"
