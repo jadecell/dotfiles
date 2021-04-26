@@ -112,6 +112,18 @@
     "description": "Function for the bash shell"
   },
 
+  "devnull": {
+    "prefix": "devnull",
+    "body": ["> /dev/null 2>&1"],
+    "description": "Send all to /dev/null"
+  },
+
+  "readinput": {
+    "prefix": "input",
+    "body": ["printf \"${1:message}\"", "read -r ${2:var}", "", "$0"],
+    "description": "Reads input from stdin"
+  },
+
   "printf": {
     "prefix": "prf",
     "body": ["printf \"${1:message}\" \"${0:var}\""],

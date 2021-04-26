@@ -289,8 +289,8 @@ superbbootstrap_Zypper() {
 superbbootstrap_AUR() {
     if [ ! -x "$(command -v 'paru')" ]; then
         $Pacman_COMMAND git base-devel
-        git clone 'https://aur.archlinux.org/paru.git' "$TEMPORARY/paru"
-        cd "$TEMPORARY/paru" || exit 1
+        git clone 'https://aur.archlinux.org/paru-bin.git' "$TEMPORARY/paru-bin"
+        cd "$TEMPORARY/paru-bin" || exit 1
         makepkg -si
         cd "$WD" || exit 1
     else
