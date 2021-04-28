@@ -4,7 +4,7 @@
 www-client/firefox hwaccel
 mail-client/thunderbird hwaccel
 x11-misc/xwallpaper jpeg png
-media-gfx/sxiv gif exif
+media-gfx/sxiv gif exif savedconfig
 app-office/libreoffice -branding
 app-admin/sysstat lm-sensors
 media-fonts/nerd-fonts -hack -firacode jetbrainsmono
