@@ -422,10 +422,10 @@ mouse_bindings:
 # at once.
 key_bindings:
   # (Windows, Linux, and BSD only)
-  - { key: P, mods: Control, action: Paste }
+  - { key: V, mods: Alt, action: Paste }
   - { key: Insert, mods: Shift, action: Paste }
   - { key: Slash, mods: Control, chars: "gc" }
-  - { key: Y, mods: Control, action: Copy }
+  - { key: C, mods: Alt, action: Copy }
   - { key: Key0, mods: Control, action: ResetFontSize }
   # Vi Mode
   - { key: Space, mods: Control, mode: Vi, action: ScrollToBottom }
