@@ -1,0 +1,21 @@
+# Src_prepare-overlay packages
+media-fonts/joypixels::src_prepare-overlay
+
+# Menelkir packages
+media-sound/pamixer::menelkir
+
+# Thegreatmcpain packages
+media-fonts/nerd-fonts::thegreatmcpain
+
+# Bobwya packages
+
+# Guru packages
+dev-vcs/lazygit::guru
+
+# Go-overlay packages
+dev-util/shfmt::go-overlay
+
+# TLP packages
+app-laptop/tlp::tlp
+
+# Gentoo-overlay packages

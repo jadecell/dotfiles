@@ -235,3 +235,5 @@ net-print/hplip libnotify static-ppds scanner
 # required by @selected
 # required by @world (argument)
 >=media-libs/tiff-4.2.0 jpeg
+app-emulation/virtualbox qt5
+

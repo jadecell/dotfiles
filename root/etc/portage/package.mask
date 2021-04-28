@@ -1,0 +1,9 @@
+# Mask all overlay packages intially
+*/*::guru
+*/*::src_prepare-overlay
+*/*::menelkir
+*/*::thegreatmcpain
+*/*::bobwya
+*/*::tlp
+
+=sys-libs/glibc-9999
