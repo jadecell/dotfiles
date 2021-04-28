@@ -3,7 +3,7 @@ set -eu
 
 # Checks for npm and installs it if it is not present
 if [ ! "$(command -v npm)" ] > /dev/null 2>&1; then
-    sudo pacman -S --noconfirm --needed npm nodejs
+    sudo emerge --noreplace nodejs
 fi
 
 # Installs all the programs needed for nvim to not crash and start crying

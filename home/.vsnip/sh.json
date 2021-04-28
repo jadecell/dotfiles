@@ -1,46 +1,59 @@
 {
   "shebang": {
     "prefix": "#!",
-    "body": ["#!/usr/bin/env sh"],
+    "body": [
+      "#!/usr/bin/env sh"
+    ],
     "description": "Adds the shebang"
   },
-
   "safe shebang": {
     "prefix": "s#!",
-    "body": ["#!/usr/bin/env sh", "set -eu"],
+    "body": [
+      "#!/usr/bin/env sh",
+      "set -eu"
+    ],
     "description": "Adds the shebang and safety flags"
   },
-
   "safe flags": {
     "prefix": "safe",
-    "body": ["set -eu"],
+    "body": [
+      "set -eu"
+    ],
     "description": "Adds the safe flags"
   },
-
   "bash shebang": {
     "prefix": "bash",
-    "body": ["#!/usr/bin/env bash"],
+    "body": [
+      "#!/usr/bin/env bash"
+    ],
     "description": "Bash shebang"
   },
-
   "safe bash shebang": {
     "prefix": "sbash",
-    "body": ["#!/usr/bin/env bash", "set -euo pipefall", "IFS=$'\n\t'"],
+    "body": [
+      "#!/usr/bin/env bash",
+      "set -euo pipefall",
+      "IFS=$'\n\t'"
+    ],
     "description": "Safe bash shebang"
   },
-
   "if block": {
     "prefix": "if",
-    "body": ["if [ ${1:condition} ]; then", "\t${0:code}", "fi"],
+    "body": [
+      "if [ ${1:condition} ]; then",
+      "\t${0:code}",
+      "fi"
+    ],
     "description": "If block"
   },
-
   "elif block": {
     "prefix": "elif",
-    "body": ["elif [ ${1:condition} ]; then", "\t${0:code}"],
+    "body": [
+      "elif [ ${1:condition} ]; then",
+      "\t${0:code}"
+    ],
     "description": "Elif block"
   },
-
   "for loop": {
     "prefix": "for",
     "body": [
@@ -50,25 +63,33 @@
     ],
     "description": "For loop"
   },
-
   "for item loop": {
     "prefix": "fori",
-    "body": ["for ${1:needle} in ${2:haystack} ; do", "\t${0:code}", "done"],
+    "body": [
+      "for ${1:needle} in ${2:haystack} ; do",
+      "\t${0:code}",
+      "done"
+    ],
     "description": "for item loop"
   },
-
   "while loop": {
     "prefix": "wh",
-    "body": ["while [ ${1:condition} ]; do", "\t${0:code}", "done"],
+    "body": [
+      "while [ ${1:condition} ]; do",
+      "\t${0:code}",
+      "done"
+    ],
     "description": "While loop"
   },
-
   "until loop": {
     "prefix": "until",
-    "body": ["until [ ${1:condition} ]; do", "\t${0:code}", "done"],
+    "body": [
+      "until [ ${1:condition} ]; do",
+      "\t${0:code}",
+      "done"
+    ],
     "description": "Until loop"
   },
-
   "case": {
     "prefix": "case",
     "body": [
@@ -79,7 +100,6 @@
     ],
     "description": "Case statement"
   },
-
   "get opts": {
     "prefix": "getopts",
     "body": [
@@ -93,40 +113,64 @@
     ],
     "description": "Get opts"
   },
-
   "run as root": {
     "prefix": "root",
-    "body": ["if [ \\$(id -u) -ne 0 ]; then exec sudo \\$0; fi"],
+    "body": [
+      "if [ \\$(id -u) -ne 0 ]; then exec sudo \\$0; fi",
+      "",
+      "$0"
+    ],
     "description": "run the following script as root"
   },
-
+  "No root": {
+    "prefix": "noroot",
+    "body": [
+      "if [ \\$(id -u) -eq 0 ]; echo 'Please re-run as a non root user.'; fi",
+      "",
+      "$0"
+    ],
+    "description": "run the following script as root"
+  },
   "function for a posix shell": {
     "prefix": "fun-sh",
-    "body": ["${1:function_name}() {", "\t${0:#function_body}", "}"],
+    "body": [
+      "${1:function_name}() {",
+      "\t${0:#function_body}",
+      "}"
+    ],
     "description": "Function for a posix shell"
   },
-
   "function for the bash shell": {
     "prefix": "fun",
-    "body": ["function ${1:function_name}() {", "\t${0:#function_body}", "}"],
+    "body": [
+      "function ${1:function_name}() {",
+      "\t${0:#function_body}",
+      "}"
+    ],
     "description": "Function for the bash shell"
   },
-
   "devnull": {
     "prefix": "devnull",
-    "body": ["> /dev/null 2>&1"],
+    "body": [
+      "> /dev/null 2>&1"
+    ],
     "description": "Send all to /dev/null"
   },
-
   "readinput": {
     "prefix": "input",
-    "body": ["printf \"${1:message}\"", "read -r ${2:var}", "", "$0"],
+    "body": [
+      "printf \"${1:message}\"",
+      "read -r ${2:var}",
+      "",
+      "$0"
+    ],
     "description": "Reads input from stdin"
   },
-
   "printf": {
     "prefix": "prf",
-    "body": ["printf \"${1:message}\" \"${0:var}\""],
+    "body": [
+      "printf \"${1:message}\" \"${0:var}\""
+    ],
     "description": "printf formatting"
   }
 }
