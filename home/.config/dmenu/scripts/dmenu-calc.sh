@@ -5,8 +5,8 @@
 
 answer=$(echo "$@" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
 
-action=$(printf "copy to clipboard\nclear\nclose" |
-dmenu -h $DMENU_CUSTOM_HEIGHT -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n -p "= $answer")
+action=$(printf "copy to clipboard\nclear\nclose" \
+    | dmenu $DMENU_ARGUMENTS -p "= $answer")
 
 case $action in
     "clear") $0 ;;

@@ -11,7 +11,7 @@ nmon
 s-tui
 quit")
 
-choice=$(echo -e "${options[@]}" | dmenu -h $DMENU_CUSTOM_HEIGHT -l 20 -p 'System monitors: ' -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n)
+choice=$(echo -e "${options[@]}" | dmenu $DMENU_ARGUMENTS -l 20 -p 'System monitors: ')
 
 case $choice in
 	quit)

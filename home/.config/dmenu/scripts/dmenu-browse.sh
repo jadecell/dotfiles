@@ -47,9 +47,9 @@ declare -a options=( "amazon - https://www.amazon.ca/s?k="
                      "youtube - https://www.youtube.com/results?search_query="
                      "quit" )
 
+echo $DMENU_ARGUMENTS
 while [ -z "$engine" ]; do
-  enginelist=$(printf '%s\n' "${options[@]}" | dmenu -h $DMENU_CUSTOM_HEIGHT -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n -l 20 -p 'Choose search engine:') || exit
-  engineurl=$(echo "$enginelist" | awk '{print $NF}')
+  enginelist=$(printf '%s\n' "${options[@]}" | dmenu $DMENU_ARGUMENTS -l 20 -p 'Choose search engine:') || exit engineurl=$(echo "$enginelist" | awk '{print $NF}')
   engine=$(echo "$enginelist" | awk '{print $1}')
 done
 
@@ -57,7 +57,7 @@ while [ -z "$query" ]; do
   if [[ "$engine" == "quit" ]]; then
     echo "Program terminated." && exit 0
   else
-    query=$(echo "$engine" | dmenu -h $DMENU_CUSTOM_HEIGHT -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -p 'Enter search query:') || exit
+    query=$(echo "$engine" | dmenu $DMENU_ARGUMENTS -p 'Enter search query:') || exit
   fi
 done
 

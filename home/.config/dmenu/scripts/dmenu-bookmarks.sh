@@ -16,7 +16,7 @@ ne
 wm
 ")
 
-url=$(echo -e "${bookmarks[@]}" | dmenu -h $DMENU_CUSTOM_HEIGHT -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n -l 20 -p 'Select bookmark')
+url=$(echo -e "${bookmarks[@]}" | dmenu $DMENU_ARGUMENTS -l 20 -p 'Select bookmark')
 
 case $url in
 	"yt")
@@ -43,4 +43,4 @@ case $url in
 		link="https://mail.ionos.com/" ;;
 esac
 
-$BROWSER $link
+[ -n "$link" ] && $BROWSER $link

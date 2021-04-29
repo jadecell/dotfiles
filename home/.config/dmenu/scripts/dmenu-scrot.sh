@@ -3,7 +3,7 @@
 # Source all the settings
 . $HOME/.config/dmenu/settings
 
-IMG_PATH=/home/jackson/scrot/
+IMG_PATH=$HOME/scrot/
 UL=fb
 EDIT=gimp
 TIME=3000 #Miliseconds notification should remain visible
@@ -22,7 +22,7 @@ s.upload_section
 p.edit_upload_section
 "
 
-cmd=$(dmenu -l 20 -h $DMENU_CUSTOM_HEIGHT -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n -p 'Choose Screenshot Type' <<<"$prog")
+cmd=$(dmenu $DMENU_ARGUMENTS -l 20 -p 'Choose Screenshot Type' <<<"$prog")
 
 cd $IMG_PATH || exit 1
 case ${cmd%% *} in

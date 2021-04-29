@@ -31,7 +31,7 @@ zathura
 zsh
 quit")
 
-choice=$(echo -e "${options[@]}" | dmenu -h $DMENU_CUSTOM_HEIGHT -p 'Edit config file: ' -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n)
+choice=$(echo -e "${options[@]}" | dmenu $DMENU_ARGUMENTS -p 'Edit config file: ')
 
 case "$choice" in
 	quit)

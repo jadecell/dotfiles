@@ -8,40 +8,39 @@
 . $HOME/.config/dmenu/settings
 
 unmountusb() {
-	[ -z "$drives" ] && exit
-	chosen="$(echo "$drives" | dmenu -p "Unmount which drive?" -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n)" || exit 1
-	chosen="$(echo "$chosen" | awk '{print $1}')"
-	[ -z "$chosen" ] && exit
-	sudo -A umount "$chosen" && notify-send "💻 USB unmounting" "$chosen unmounted."
-	}
+    [ -z "$drives" ] && exit
+    chosen="$(echo "$drives" | dmenu $DMENU_ARGUMENTS -p "Unmount which drive?")" || exit 1
+    chosen="$(echo "$chosen" | awk '{print $1}')"
+    [ -z "$chosen" ] && exit
+    sudo -A umount "$chosen" && notify-send "💻 USB unmounting" "$chosen unmounted."
+}
 
-unmountandroid() { \
-	chosen="$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | dmenu -i -p "Unmount which device?")" || exit 1
-	[ -z "$chosen" ] && exit
-	sudo -A umount -l "$chosen" && notify-send "🤖 Android unmounting" "$chosen unmounted."
-	}
+unmountandroid() {
+    chosen="$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | dmenu -i -p "Unmount which device?")" || exit 1
+    [ -z "$chosen" ] && exit
+    sudo -A umount -l "$chosen" && notify-send "🤖 Android unmounting" "$chosen unmounted."
+}
 
-asktype() { \
-	choice="$(printf "USB\\nAndroid" | dmenu -p "Unmount a USB drive or Android device?" -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s -n)" || exit 1
-	case "$choice" in
-		USB) unmountusb ;;
-		Android) unmountandroid ;;
-	esac
-	}
+asktype() {
+    choice="$(printf 'USB\nAndroid' | dmenu $DMENU_ARGUMENTS -p "Unmount a USB drive or Android device?")" || exit 1
+    case "$choice" in
+        USB) unmountusb ;;
+        Android) unmountandroid ;;
+    esac
+}
 
 drives=$(lsblk -nrpo "name,type,size,mountpoint" | awk '$4!~/\/boot|\/home$|SWAP/&&length($4)>1{printf "%s (%s)\n",$4,$3}')
 
 if ! grep simple-mtpfs /etc/mtab; then
-	[ -z "$drives" ] && echo "No drives to unmount." &&  exit
-	echo "Unmountable USB drive detected."
-	unmountusb
+    [ -z "$drives" ] && echo "No drives to unmount." && exit
+    echo "Unmountable USB drive detected."
+    unmountusb
 else
-	if [ -z "$drives" ]
-	then
-		echo "Unmountable Android device detected."
-	       	unmountandroid
-	else
-		echo "Unmountable USB drive(s) and Android device(s) detected."
-		asktype
-	fi
+    if [ -z "$drives" ]; then
+        echo "Unmountable Android device detected."
+        unmountandroid
+    else
+        echo "Unmountable USB drive(s) and Android device(s) detected."
+        asktype
+    fi
 fi

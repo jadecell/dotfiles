@@ -7,10 +7,10 @@
 # Takes one optional argument for a WAV file sound alert.
 # Requires a monospace font for dmenu to display the TIME'S UP text correctly.
 
-Duration=$(printf '' | dmenu -h $DMENU_CUSTOM_HEIGHT -p "Current time: $(date +"%H:%M - %A %Y/%m/%d") | Timer duration:" -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s)
+Duration=$(printf '' | dmenu $DMENU_ARGUMENTS -p "Current time: $(date +"%H:%M - %A %Y/%m/%d") | Timer duration:")
 [ -z "$Duration" ] && exit 1
 
-Name=$(printf '' | dmenu -h $DMENU_CUSTOM_HEIGHT -p 'Name your timer:' -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s)
+Name=$(printf '' | dmenu $DMENU_ARGUMENTS -p 'Name your timer:')
 
 TimesUpMessage="Name: $Name Duration: $Duration
                                                                                        ''''''
@@ -34,7 +34,7 @@ TTTTTT  T:::::T  TTTTTT  I::::I  M::::::::::M       M::::::::::M  E:::::E       
 
 if Error=$(sleep $Duration 2>&1); then
     [ "${1##*.}" = 'wav' ] && aplay "$1" &
-    printf '%s' "$TimesUpMessage" | dmenu -h $DMENU_CUSTOM_HEIGHT -l 30 -fn "$DMENU_CUSTOM_FONT_MONO" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s
+    printf '%s' "$TimesUpMessage" | dmenu $DMENU_ARGUMENTS -l 30 -fn "$DMENU_CUSTOM_FONT_MONO"
 else
-    printf '%s' "$Error" | dmenu -h $DMENU_CUSTOM_HEIGHT -l 30 -p 'ERROR:' -fn "$DMENU_CUSTOM_FONT" -nb "$DMENU_CUSTOM_NB" -nf "$DMENU_CUSTOM_NF" -sb "$DMENU_CUSTOM_SB" -sf "$DMENU_CUSTOM_SF" -s
+    printf '%s' "$Error" | dmenu $DMENU_ARGUMENTS -l 30 -p 'ERROR:'
 fi
