@@ -81,7 +81,7 @@ properties.force_inactive.buftypes = {'terminal'}
 
 -- vi-mode
 components.left.active[1] = {
-    provider = ' NV-IDE ',
+    provider = ' NVIM ',
     hl = function()
         local val = {}
 

@@ -1,7 +1,7 @@
 set background=dark
 hi clear
 if exists('syntax_on')
-	syntax reset
+    syntax reset
 endif
 let g:colors_name='nvcode'
 
@@ -213,10 +213,10 @@ hi StartifySlash guifg=#569cd6 ctermfg=74 guibg=NONE ctermbg=NONE gui=NONE cterm
 hi StartifyHeader guifg=#608b4e ctermfg=65 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi StartifySection guifg=#c586c0 ctermfg=175 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi StartifyFooter guifg=#608b4e ctermfg=65 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi WhichKey guifg=#c586c0 ctermfg=175 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi WhichKeySeperator guifg=#608b4e ctermfg=65 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi WhichKeyGroup guifg=#4fc1ff ctermfg=75 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi WhichKeyDesc guifg=#569cd6 ctermfg=74 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi WhichKey guifg=#f44747 ctermfg=175 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi WhichKeySeperator guifg=#c586c0 ctermfg=65 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi WhichKeyGroup guifg=#4ec9b0 ctermfg=75 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi WhichKeyDesc guifg=#ce9178 ctermfg=74 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi GitSignsAdd guifg=#4ec9b0 ctermfg=79 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi GitSignsChange guifg=#c586c0 ctermfg=175 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi GitSignsDelete guifg=#f44747 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE

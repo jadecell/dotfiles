@@ -92,7 +92,7 @@ return require('packer').startup(function()
     use 'windwp/nvim-autopairs'
 
     -- Whichkey
-    use 'liuchengxu/vim-which-key'
+    use 'folke/which-key.nvim'
 
     -- Git plugins
     use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}

@@ -107,6 +107,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lazygit.nvim"
   },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
@@ -256,10 +260,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
   },
-  ["vim-which-key"] = {
-    loaded = true,
-    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vim-which-key"
-  },
   ["vscode-javascript"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vscode-javascript"
@@ -267,6 +267,10 @@ _G.packer_plugins = {
   ["vscode-python-snippet-pack"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/vscode-python-snippet-pack"
+  },
+  ["which-key.nvim"] = {
+    loaded = true,
+    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/which-key.nvim"
   }
 }
 

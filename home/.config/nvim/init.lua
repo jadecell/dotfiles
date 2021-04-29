@@ -52,7 +52,9 @@ require('nv-feline.crivotz')
 require('nv-autopairs')
 
 -- Whichkey
-vim.cmd('source ~/.config/nvim/vimscript/nv-whichkey/init.vim')
+-- vim.cmd('source ~/.config/nvim/vimscript/nv-whichkey/init.vim')
+require('nv-whichkey')
+vim.cmd('set timeoutlen=500')
 
 -- Git
 require('nv-gitsigns')
