@@ -22,7 +22,7 @@ case $TYPE in
     3)
         printf "URL to shorten: "
         read -r URL
-        curl -F "shorten=$URL" https://0x0.st | tr -d '\n' | xclip -selection clipboard
+        curl -sF "shorten=$URL" https://0x0.st | tr -d '\n' | xclip -selection clipboard
         notify-send "📋 URL Copied to clipboard" "$URL"
         ;;
 esac
