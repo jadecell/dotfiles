@@ -119,14 +119,6 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
-# Allow websites to show notifications.
-# Type: BoolAsk
-# Valid values:
-#   - true
-#   - false
-#   - ask
-config.set('content.notifications', False, 'https://www.netflix.com')
-
 # Directory to save downloads to. If unset, a sensible OS-specific
 # default is used.
 # Type: Directory
@@ -173,7 +165,7 @@ c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'aw': 'https:/
 config.set("colors.webpage.darkmode.enabled", True)
 
 # Statusbar font
-c.fonts.statusbar = '11pt "Sauce Code Pro Nerd Font"'
+c.fonts.statusbar = '11pt "JetBrians Mono Nerd Font"'
 
 # Bindings for normal mode
 config.bind('xb', 'config-cycle statusbar.show never always')
