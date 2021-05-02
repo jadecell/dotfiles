@@ -1,14 +1,17 @@
 #!/usr/bin/env sh
 
+# Defining the icons to be used
 NERDICON=""
 EMOJI="🕘"
 
+# Determining the icon to show depending on the argument passed
 case $1 in
     dwm) ICON=$EMOJI ;;
     nerd) ICON=$NERDICON ;;
     *) ICON="" ;;
 esac
 
+# Dwmblocks mouse event handling
 case $BLOCK_BUTTON in
     1) $TERMINAL -e calcurse ;;
     3) notify-send "📅 Calendar and Time module" "\- Left click for calcurse
