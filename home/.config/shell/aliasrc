@@ -125,3 +125,8 @@ webup() {
 alias \
     smi="sudo make install" \
     msmi="make && sudo make install"
+
+# fzf
+se() {
+    du -a ~/.local/bin/* ~/.config/* | awk '{print $2}' | fzf | xargs -r $EDITOR
+}
