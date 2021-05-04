@@ -1,5 +1,2 @@
-# Make glibc use the 9999 ebuild
-sys-libs/glibc **
-
 # Make gcc run with the stable ebuild
 sys-devel/gcc -~amd64
