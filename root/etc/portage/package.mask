@@ -7,4 +7,3 @@
 */*::tlp
 
 =sys-libs/glibc-9999
-=x11-libs/pango-1.48.4

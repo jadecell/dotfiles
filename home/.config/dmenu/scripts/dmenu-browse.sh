@@ -49,7 +49,8 @@ declare -a options=( "amazon - https://www.amazon.ca/s?k="
 
 echo $DMENU_ARGUMENTS
 while [ -z "$engine" ]; do
-  enginelist=$(printf '%s\n' "${options[@]}" | dmenu $DMENU_ARGUMENTS -l 20 -p 'Choose search engine:') || exit engineurl=$(echo "$enginelist" | awk '{print $NF}')
+  enginelist=$(printf '%s\n' "${options[@]}" | dmenu $DMENU_ARGUMENTS -l 20 -p 'Choose search engine:') || exit
+  engineurl=$(echo "$enginelist" | awk '{print $NF}')
   engine=$(echo "$enginelist" | awk '{print $1}')
 done
 
