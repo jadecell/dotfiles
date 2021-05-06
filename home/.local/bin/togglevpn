@@ -1,3 +1,9 @@
 #!/usr/bin/env sh
 
-(sudo -A wg-quick up mullvad-us182 > /dev/null 2>&1 && notify-send "MullvadVPN Status" "✔️ Connected to mullvad-us182!" && echo "VPNCONNECTED=true" > ~/.cache/vpnconnection) || (sudo -A wg-quick down mullvad-us182 > /dev/null 2>&1 && notify-send "MullvadVPN Status" "❗ Disconnected from mullvad-us182!" && echo "VPNCONNECTED=false" > ~/.cache/vpnconnection)
+if [ -n "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2> /dev/null)" ]; then
+    mullvad disconnect
+    notify-send "MullvadVPN Status" "❗ Disconnected from us-sea-103!"
+else
+    mullvad connect
+    notify-send "MullvadVPN Status" "✔️ Connected to mullvad-us182!"
+fi

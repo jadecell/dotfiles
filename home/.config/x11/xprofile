@@ -30,4 +30,7 @@ setbg &
 wmname "LG3D" &
 
 # Starts the transmission daemon if not already started
-! pidof transmission-daemon > /dev/null 2>&1 && transmission-daemon
+! pidof transmission-daemon > /dev/null 2>&1 && transmission-daemon &
+
+# Start mullvad vpn if present
+which mullvad && mullvad connect &
