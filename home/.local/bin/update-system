@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+
+printf 'Beginning upgrade.\n'
+
+paru -Syu
+pkill -RTMIN+8 "dwmblocks"
+
+printf '\nUpgrade complete.\nPress \033[0;32m<Enter>\033[0m to exit window.\n\n'
+read -r _
