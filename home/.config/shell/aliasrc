@@ -104,7 +104,8 @@ alias \
 
 # Applications
 alias \
-    z="zathura"
+    z="zathura" \
+    cat="bat"
 
 # University class folders
 alias \
