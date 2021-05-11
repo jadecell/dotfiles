@@ -189,7 +189,7 @@ history_length = 20
 ### Misc/Advanced ###
 
 # dmenu path.
-dmenu = /usr/bin/dmenu -p dunst:
+dmenu = /usr/bin/local/dmenu -p dunst:
 
 # Browser for opening urls in context menu.
 browser = /usr/bin/firefox
@@ -294,13 +294,13 @@ context = ctrl+shift+period
 # Otherwise the "#" and following would be interpreted as a comment.
 background = "#1e1e1e"
 foreground = "#f8f8f2"
-frame_color = "#29B8DB"
+frame_color = "#23D18B"
 timeout = 5
 
 [urgency_normal]
 background = "#1e1e1e"
 foreground = "#f8f8f2"
-frame_color = "#29B8DB"
+frame_color = "#23D18B"
 timeout = 5
 
 [urgency_critical]
