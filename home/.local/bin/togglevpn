@@ -2,8 +2,8 @@
 
 if [ -n "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2> /dev/null)" ]; then
     mullvad disconnect
-    notify-send "MullvadVPN Status" "❗ Disconnected from us-sea-103!"
+    notify-send "❗ Disconnected from mullvad (us-sea-103)!"
 else
     mullvad connect
-    notify-send "MullvadVPN Status" "✔️ Connected to mullvad-us182!"
+    notify-send "✅ Connected to mullvad (us-sea-103)!"
 fi
