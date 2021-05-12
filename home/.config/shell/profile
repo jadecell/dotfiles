@@ -36,12 +36,8 @@ export PATH="$PATH:/home/jackson/.emacs.d/bin:$(find ~/.local/repos/dotfiles/hom
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export SUDO_ASKPASS="$HOME/.config/dmenu/scripts/dmenu-pass.sh"
-export MOZ_USE_XINPUT2="1"              # Mozilla smooth scrolling/touchpads.
-export _JAVA_AWT_WM_NONREPARENTING=1    # Fix for Java applications in dwm
-
-# Sets up DBUS
-export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
+export MOZ_USE_XINPUT2="1"           # Mozilla smooth scrolling/touchpads.
+export _JAVA_AWT_WM_NONREPARENTING=1 # Fix for Java applications in dwm
 
 # Start the window manager
-[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx "$XINITRC"
+[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg > /dev/null 2>&1 && exec startx "$XINITRC"
