@@ -1,2 +1,5 @@
 # Make gcc run with the stable ebuild
 sys-devel/gcc -~amd64
+
+# Neovim git version
+app-editors/neovim **
