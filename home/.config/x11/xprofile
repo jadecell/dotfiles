@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+run() {
+    ! pidof $1 > /dev/null 2>&1 && $1 &
+}
+
 # Changes some X settings
 xset r rate 300 50 &
 xset s off -dpms &
@@ -18,19 +22,16 @@ killall emacs
 /usr/bin/emacs --daemon &
 
 # Starts the statusbar
-dwmblocks &
+run dwmblocks
 
 # Compositor
-xcompmgr &
+run xcompmgr
 
 # Sets wallpaper
-setbg &
+run setbg
 
 # Changes the window manager name to let Java IDEs to run
 wmname "LG3D" &
 
 # Starts the transmission daemon if not already started
-! pidof transmission-daemon > /dev/null 2>&1 && transmission-daemon &
-
-# Start mullvad vpn if present
-which mullvad && mullvad connect &
+run transmission-daemon

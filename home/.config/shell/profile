@@ -29,7 +29,7 @@ export LESSHISTFILE="-"
 # Default Applications
 export EDITOR="nvim"
 export BROWSER="firefox"
-export TERMINAL="alacritty"
+export TERMINAL="kitty"
 
 # General
 export PATH="$PATH:/home/jackson/.emacs.d/bin:$(find ~/.local/repos/dotfiles/home/.local/bin -type d -printf %p:)"
