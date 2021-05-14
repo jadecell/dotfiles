@@ -69,7 +69,7 @@ esac
 $SWITCHREMOVEKERNELIMAGES && rm -f /boot/*.old
 
 clear
-printf "Want to re-build modules [Y/n]?"
+printf "Want to re-build modules [Y/n]? "
 read -r REBUILDMODULES
 
 case $REBUILDMODULES in
@@ -133,7 +133,7 @@ if [ "$(find /boot -name 'vmlinuz*' | wc -l)" -gt "1" ]; then
             ;;
     esac
 
-    $SWITCHREMOVEOLDKERNELBUILD && emerge -cv "=sys-kernel/gentoo-sources-$CURRENTKERNELVERSION"
+    $SWITCHREMOVEOLDKERNELBUILD && emerge -c "=sys-kernel/gentoo-sources-$CURRENTKERNELVERSION"
 fi
 
 clear
@@ -159,7 +159,7 @@ esac
 $SWITCHGRUBCONFIG && grub-mkconfig -o /boot/grub/grub.cfg
 
 clear
-printf "Reboot now [y/N]? "
+printf "Reboot now [Y/n]? "
 read -r REBOOTNOW
 
 case $REBOOTNOW in
@@ -170,7 +170,7 @@ case $REBOOTNOW in
         SWITCHREBOOTNOW=false
         ;;
     "")
-        SWITCHREBOOTNOW=false
+        SWITCHREBOOTNOW=true
         ;;
     *)
         echo "Invalid option"

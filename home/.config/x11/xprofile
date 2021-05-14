@@ -34,4 +34,4 @@ run setbg
 wmname "LG3D" &
 
 # Starts the transmission daemon if not already started
-run transmission-daemon
+#run transmission-daemon
