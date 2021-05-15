@@ -113,7 +113,8 @@ alias \
     m1115="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1115/" \
     i1113="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1113/" \
     i1213="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1213/" \
-    i1214="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/"
+    i1214="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/" \
+    i1111="$HOME/Nextcloud/School/KPU/Year-1/Summer/INFO-1111/"
 
 # Website updating
 # alias webup="rsync -vrP --delete-after ~/.local/www/mccroryxyz/ root@mccrory.xyz:/var/www/mccrory"

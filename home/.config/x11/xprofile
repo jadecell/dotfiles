@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 run() {
-    ! pidof $1 > /dev/null 2>&1 && $1 &
+    ! pidof $1 > /dev/null 2>&1 && $1 $@ &
 }
 
 # Changes some X settings
@@ -34,4 +34,7 @@ run setbg
 wmname "LG3D" &
 
 # Starts the transmission daemon if not already started
-#run transmission-daemon
+run transmission-daemon
+
+# Connects to the mullvad vpn servers if mullvad is installed
+which mullvad && mullvad connect
