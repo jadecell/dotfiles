@@ -39,25 +39,25 @@
 ! *.color15:    #E6E6E6
 
 ! NVcode colorscheme
-*.foreground:   #d8dee9
-*.background:   #1e1e1e
-*.cursorColor:  #d8dee9
-*.color0:       #3B4252
-*.color8:       #3B4252
-*.color1:       #D54646
-*.color9:       #D54646
-*.color2:       #23D18B
-*.color10:      #23D18B
-*.color3:       #D7BA7D
-*.color11:      #D7BA7D
-*.color4:       #569CD6
-*.color12:      #569CD6
-*.color5:       #C586C0
-*.color13:      #C586C0
-*.color6:       #29B8DB
-*.color14:      #29B8DB
-*.color7:       #abb2bf
-*.color15:      #abb2bf
+! *.foreground:   #d8dee9
+! *.background:   #1e1e1e
+! *.cursorColor:  #d8dee9
+! *.color0:       #3B4252
+! *.color8:       #3B4252
+! *.color1:       #D54646
+! *.color9:       #D54646
+! *.color2:       #23D18B
+! *.color10:      #23D18B
+! *.color3:       #D7BA7D
+! *.color11:      #D7BA7D
+! *.color4:       #569CD6
+! *.color12:      #569CD6
+! *.color5:       #C586C0
+! *.color13:      #C586C0
+! *.color6:       #29B8DB
+! *.color14:      #29B8DB
+! *.color7:       #abb2bf
+! *.color15:      #abb2bf
 
 ! DT's Colorscheme
 ! *.foreground:   #bbc2cf
@@ -81,24 +81,24 @@
 ! *.color15:      #dfdfdf
 
 ! One Dark
-! *.foreground: #abb2bf
-! *.background: #282c34
-! *.color0:     #282c34
-! *.color8:     #282c34
-! *.color1:     #e06c75
-! *.color9:     #e06c75
-! *.color2:     #98c379
-! *.color10:    #98c379
-! *.color3:     #e5c07b
-! *.color11:    #e5c07b
-! *.color4:     #61afef
-! *.color12:    #61afef
-! *.color5:     #c678dd
-! *.color13:    #c678dd
-! *.color6:     #56b6c2
-! *.color14:    #56b6c2
-! *.color7:     #abb2bf
-! *.color15:    #abb2bf
+*.foreground: #abb2bf
+*.background: #282c34
+*.color0:     #282c34
+*.color8:     #282c34
+*.color1:     #e06c75
+*.color9:     #e06c75
+*.color2:     #98c379
+*.color10:    #98c379
+*.color3:     #e5c07b
+*.color11:    #e5c07b
+*.color4:     #61afef
+*.color12:    #61afef
+*.color5:     #c678dd
+*.color13:    #c678dd
+*.color6:     #56b6c2
+*.color14:    #56b6c2
+*.color7:     #abb2bf
+*.color15:    #abb2bf
 
 ! Dwm stuff
 dwm.borderpx: 2

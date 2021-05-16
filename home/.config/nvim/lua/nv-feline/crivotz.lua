@@ -11,19 +11,36 @@ local components = {
     right = {active = {}, inactive = {}}
 }
 
+-- NVCode
+-- local colors = {
+--     bg = '#1e1e1e',
+--     lightbg = '#262626',
+--     black = '#3B4252',
+--     yellow = '#D7BA7D',
+--     cyan = '#29B8DB',
+--     blue = '#569CD6',
+--     green = '#23D18B',
+--     magenta = '#C586C0',
+--     white = '#abb2bf',
+--     fg = '#d8dee9',
+--     grey = '#3c3836',
+--     red = '#D54646'
+-- }
+
+-- OneDark
 local colors = {
-    bg = '#1e1e1e',
-    lightbg = '#262626',
-    black = '#3B4252',
-    yellow = '#D7BA7D',
-    cyan = '#29B8DB',
-    blue = '#569CD6',
-    green = '#23D18B',
-    magenta = '#C586C0',
+    bg = '#181a1f',
+    lightbg = '#292b2f',
+    black = '#282c34',
+    yellow = '#e5c07b',
+    cyan = '#56b6c2',
+    blue = '#61afef',
+    green = '#98c379',
+    magenta = '#c678dd',
     white = '#abb2bf',
-    fg = '#d8dee9',
+    fg = '#abb2bf',
     grey = '#3c3836',
-    red = '#D54646'
+    red = '#e06c75'
 }
 
 local vi_mode_colors = {
