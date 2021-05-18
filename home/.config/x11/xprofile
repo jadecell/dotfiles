@@ -32,9 +32,3 @@ run setbg
 
 # Changes the window manager name to let Java IDEs to run
 wmname "LG3D" &
-
-# Starts the transmission daemon if not already started
-run transmission-daemon
-
-# Connects to the mullvad vpn servers if mullvad is installed
-which mullvad && mullvad connect
