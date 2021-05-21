@@ -107,10 +107,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lazygit.nvim"
   },
-  ["lsp_signature.nvim"] = {
-    loaded = true,
-    path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
-  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/jackson/.local/share/nvim/site/pack/packer/start/lspkind-nvim"

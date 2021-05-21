@@ -8,6 +8,7 @@ glances
 gtop
 htop
 nmon
+kmon
 s-tui
 quit")
 
@@ -24,6 +25,9 @@ case $choice in
 	nmon| \
 	s-tui)
         exec $TERMINAL -e $choice
+	;;
+	kmon)
+	exec $TERMINAL -e sudo -A $choice
 	;;
 	*)
 		exit 1

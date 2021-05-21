@@ -172,7 +172,6 @@ colors:
     magenta: "#C586C0"
     cyan: "#29B8DB"
     white: "#ECEFF4"
-
   # Indexed Colors
   #
   # The indexed colors include all colors from 16 to 256.

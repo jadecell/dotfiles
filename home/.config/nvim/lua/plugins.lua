@@ -40,6 +40,9 @@ return require('packer').startup(function()
     use 'cstrap/python-snippets'
     use 'ylcnfrht/vscode-python-snippet-pack'
 
+    -- Firenvim
+    use {'glacambre/firenvim', run = ':call firenvim#install(0)'}
+
     -- Surround
     use 'tpope/vim-surround'
 
