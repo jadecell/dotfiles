@@ -28,7 +28,7 @@ export LESSHISTFILE="-"
 
 # Default Applications
 export EDITOR="nvim"
-export BROWSER="firefox"
+export BROWSER="brave"
 export TERMINAL="alacritty"
 
 # General
