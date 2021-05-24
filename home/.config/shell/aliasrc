@@ -18,54 +18,54 @@ alias \
     ffmpeg="ffmpeg -hide_banner"
 
 # Pacman stuff
-# alias \
-#     cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+alias \
+    cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
-# p() {
-#     paru -Sl \
-#         | awk '{print $2($4=="" ? "" : " *")}' \
-#         | fzf -q "$1" -m --preview 'cat <(echo {1} | cut -d " " -f 1 | paru -Si -) <(echo {1} | cut -d " " -f 1 | paru -Fl - | awk "{print $2}")' \
-#         | cut -d " " -f 1 \
-#         | xargs -ro paru -S
-# }
+p() {
+    paru -Sl \
+        | awk '{print $2($4=="" ? "" : " *")}' \
+        | fzf -q "$1" -m --preview 'cat <(echo {1} | cut -d " " -f 1 | paru -Si -) <(echo {1} | cut -d " " -f 1 | paru -Fl - | awk "{print $2}")' \
+        | cut -d " " -f 1 \
+        | xargs -ro paru -S
+}
 
 # SoystemD
-# alias \
-#     S="sudo systemctl"
+alias \
+    S="sudo systemctl"
 
 # Portage stuff
-alias \
-    eu="sudo emerge -vuDU --with-bdeps=y @world" \
-    eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
-    es="sudo eix-sync" \
-    e="sudo emerge" \
-    em="sudo emerge --autounmask-continue"
+# alias \
+#     eu="sudo emerge -vuDU --with-bdeps=y @world" \
+#     eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
+#     es="sudo eix-sync" \
+#     e="sudo emerge" \
+#     em="sudo emerge --autounmask-continue"
 
 # Flaggie
-alias \
-    f="sudo flaggie"
+# alias \
+#     f="sudo flaggie"
 
 # Equery shortening
-alias \
-    eqf='equery f' \
-    equ='equery u' \
-    eqh='equery h' \
-    eqa='equery a' \
-    eqb='equery b' \
-    eql='equery l' \
-    eqd='equery d' \
-    eqg='equery g' \
-    eqc='equery c' \
-    eqk='equery k' \
-    eqm='equery m' \
-    eqy='equery y' \
-    eqs='equery s' \
-    eqw='equery w'
+# alias \
+#     eqf='equery f' \
+#     equ='equery u' \
+#     eqh='equery h' \
+#     eqa='equery a' \
+#     eqb='equery b' \
+#     eql='equery l' \
+#     eqd='equery d' \
+#     eqg='equery g' \
+#     eqc='equery c' \
+#     eqk='equery k' \
+#     eqm='equery m' \
+#     eqy='equery y' \
+#     eqs='equery s' \
+#     eqw='equery w'
 
 # Open-RC
-alias \
-    rcu="sudo rc-update" \
-    rcs="sudo rc-service"
+# alias \
+#     rcu="sudo rc-update" \
+#     rcs="sudo rc-service"
 
 # CD stuff
 alias \

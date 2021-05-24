@@ -3,4 +3,3 @@ x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/magnet=torrent.desktop;
 application/x-bittorrent=torrent.desktop;
 x-scheme-handler/mailspring=mailspring.desktop
-text/html=brave-brave-bin.desktop
