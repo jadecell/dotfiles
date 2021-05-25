@@ -4,6 +4,17 @@
 # Show 🌐 if connected to ethernet or ❎ if none.
 # Show 🔒 if a vpn connection is active
 
+VPNICON=""
+if [ -f $HOME/.cache/vpnconnection ]; then
+    . $HOME/.cache/vpnconnection
+
+    if [ $VPNCONNECTION = true ]; then
+        VPNICON="🔒"
+    else
+        VPNICON=""
+    fi
+fi
+
 case $BLOCK_BUTTON in
     1)
         "$TERMINAL" -e nmtui
@@ -24,4 +35,4 @@ case "$(cat /sys/class/net/w*/operstate 2> /dev/null)" in
     up) wifiicon="$(awk '/^\s*w/ { print "📶", int($3 * 100 / 70) "% " }' /proc/net/wireless)" ;;
 esac
 
-printf "%s%s%s\n" "$(sed "s/.*/🔒/" /sys/class/net/tun*/operstate 2> /dev/null)" "$wifiicon" "$(sed "s/down/❎/;s/up/🌐/" /sys/class/net/e*/operstate 2> /dev/null)"
+printf "%s%s%s\n" "$VPNICON" "$wifiicon" "$(sed "s/down/❎/;s/up/🌐/" /sys/class/net/e*/operstate 2> /dev/null)"
