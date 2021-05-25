@@ -5,7 +5,7 @@
 
 declare -a options=("bashtop
 glances
-gtop
+gotop
 htop
 nmon
 kmon
@@ -20,7 +20,7 @@ case $choice in
 	;;
 	bashtop| \
 	glances| \
-	gtop| \
+	gotop| \
 	htop| \
 	nmon| \
 	s-tui)

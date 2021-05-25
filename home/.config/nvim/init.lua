@@ -45,7 +45,8 @@ require('nv-telescope')
 
 -- Modeline
 -- require('nv-feline.6cdh')
-require('nv-feline.crivotz')
+-- require('nv-feline.crivotz')
+require('nv-feline.piano')
 -- require('nv-feline.luizcoro')
 
 -- Autopairs
