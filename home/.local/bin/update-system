@@ -3,8 +3,7 @@ set -eu
 
 printf 'Beginning upgrade.\n'
 
-if [ "$(which pacman > /dev/null 2>&1)" ]; then
-    echo "Arch"
+if [ -x /usr/bin/pacman ]; then
     paru -Syu
     pkill -RTMIN+8 "dwmblocks"
     printf '\nUpgrade complete.\nPress \033[0;32m<Enter>\033[0m to exit window.\n\n'

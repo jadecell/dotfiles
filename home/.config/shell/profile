@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
 ### "bat" as manpager
-# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 ### "nvim" as manpager
-export MANPAGER="nvim -c 'set ft=man' -"
+# export MANPAGER="nvim -c 'set ft=man' -"
 
 # XDG Exports
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -28,8 +28,8 @@ export LESSHISTFILE="-"
 
 # Default Applications
 export EDITOR="nvim"
-export BROWSER="brave"
-export TERMINAL="kitty"
+export BROWSER="firefox-bin"
+export TERMINAL="alacritty"
 
 # General
 export PATH="$PATH:/home/jackson/.emacs.d/bin:$(find ~/.local/repos/dotfiles/home/.local/bin -type d -printf %p:)"
