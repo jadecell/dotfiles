@@ -14,14 +14,14 @@ KERNELCONFIGDESTINATION="/home/jackson/.local/repos/dotfiles/extra/kernelconfigs
 NEWKERNELVERSION="$(eselect kernel list | tail -1 | cut -d'-' -f2)"
 CURRENTKERNELVERSION="$(uname -r | tr '-' ' ' | cut -d' ' -f1)"
 
-# if [ "$NEWKERNELVERSION" != "$CURRENTKERNELVERSION" ]; then
-#     eselect kernel set "linux-$NEWKERNELVERSION-gentoo"
-#     cd "$KERNELCONFIGDIRECTORY" || exit 1
-#     make mrproper
-#     cp "$KERNELCONFIGDESTINATION/$CURRENTKERNELVERSION-gentoo-$(hostname).config" "$KERNELCONFIGLOCATION"
-#     make olddefconfig
-#     UPGRADINGKERNEL=true
-# fi
+if [ "$NEWKERNELVERSION" != "$CURRENTKERNELVERSION" ]; then
+    eselect kernel set "linux-$NEWKERNELVERSION-gentoo"
+    cd "$KERNELCONFIGDIRECTORY" || exit 1
+    make mrproper
+    cp "$KERNELCONFIGDESTINATION/$CURRENTKERNELVERSION-gentoo-$(hostname).config" "$KERNELCONFIGLOCATION"
+    make olddefconfig
+    UPGRADINGKERNEL=true
+fi
 
 cd "$KERNELCONFIGDIRECTORY" && make menuconfig
 

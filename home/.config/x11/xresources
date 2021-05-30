@@ -42,8 +42,8 @@ NVcode colorscheme
 *.foreground:   #d8dee9
 *.background:   #1e1e1e
 *.cursorColor:  #d8dee9
-*.color0:       #3B4252
-*.color8:       #3B4252
+*.color0:       #3b4252
+*.color8:       #3b4252
 *.color1:       #D54646
 *.color9:       #D54646
 *.color2:       #23D18B

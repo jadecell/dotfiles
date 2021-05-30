@@ -14,6 +14,7 @@ media-fonts/nerd-fonts::thegreatmcpain
 dev-vcs/lazygit::guru
 sys-process/gotop::guru
 app-admin/s-tui::guru
+app-backup/timeshift::guru
 
 # Go-overlay packages
 dev-util/shfmt::go-overlay
