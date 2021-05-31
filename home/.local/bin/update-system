@@ -14,9 +14,6 @@ else
 
     eix-sync
 
-    printf '\nTo continue, press \033[0;32m<Enter>\033[0m.\n\n'
-    read -r _
-
     clear
     emerge -auDU --with-bdeps=y @world
     printf '\nUpgrade complete.\nPress \033[0;32m<Enter>\033[0m to exit window.\n\n'
