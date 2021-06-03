@@ -25,11 +25,20 @@ wk.register({
 }, {prefix = "<leader>"})
 
 wk.register({
-    f = {
-        name = "+file",
-        s = {"<cmd>w<cr>", "save file"},
-        u = {"<cmd>SudoWrite<cr>", "save file as root"},
-        q = {"<cmd>wq<cr>", "save and quit the file"}
+    b = {
+        name = "+buffer",
+        n = {"<cmd>bnext<cr>", "next buffer"},
+        p = {"<cmd>bprevious<cr>", "previous buffer"},
+        f = {"<cmd>Telescope buffers<cr>", "find buffer"},
+        b = {"<cmd>BufferPick<cr>", "pick buffer"},
+        c = {"<cmd>BufferClose<cr>", "close buffer"}
+    }
+}, {prefix = "<leader>"})
+
+wk.register({
+    c = {
+        name = "+code",
+        f = {"<cmd>Neoformat<cr>", "format file"}
     }
 }, {prefix = "<leader>"})
 

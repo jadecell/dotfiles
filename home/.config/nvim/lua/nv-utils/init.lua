@@ -41,6 +41,7 @@ nv_utils.define_augroups({
         {'BufNewFile', '*.sol', 'setlocal filetype=solidity'},
         {'InsertEnter', '*', 'norm zz'}, {'BufWritePre', '*', '%s/\\s\\+$//e'},
         {'BufWritePre', 'dunstrc', '!killall dunst'},
+        {'BufWritePost', 'dunstrc', '!dunst &'},
         {'BufWritePost', '*xresources,*xdefaults', '!xrdb %'},
         {'BufWritePost', 'bm-dirs,bm-files', '!genaliases'},
         {
@@ -50,14 +51,6 @@ nv_utils.define_augroups({
         {
             'FileType', 'tex,latex,markdown,txt,md',
             'setlocal spell spelllang=en_ca'
-        },
-        {
-            'User', 'GoyoLeave',
-            'lua require(\'galaxyline\').disable_galaxyline()'
-        },
-        {
-            'User', 'GoyoEnter',
-            'lua require(\'galaxyline\').galaxyline_augroup()'
         }
     }
 })
