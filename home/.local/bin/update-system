@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
 set -eu
 
-printf 'Beginning upgrade.\n'
-
 if [ -x /usr/bin/pacman ]; then
+	printf 'Beginning upgrade.\n'
     paru -Syu
     pkill -RTMIN+8 "dwmblocks"
     printf '\nUpgrade complete.\nPress \033[0;32m<Enter>\033[0m to exit window.\n\n'
@@ -12,6 +11,7 @@ else
     # Run the current script as root with all the arguments if not already being ran as root
     if [ "$(id -u)" -ne "0" ]; then exec sudo "$0" "$@"; fi
 
+	printf 'Beginning upgrade.\n'
     eix-sync
 
     clear
