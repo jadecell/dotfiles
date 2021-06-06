@@ -16,6 +16,17 @@ else
 
     clear
     emerge -auDU --with-bdeps=y @world
+
+	if [ "$(eselect kernel list | wc -l)" -gt "1" ]; then
+		CURRENTKERNELVERSION="$(uname -r | tr '-' ' ' | cut -d' ' -f1)"
+		NEWKERNELVERSION="$(eselect kernel list | tail -1 | cut -d'-' -f2)"
+		eselect kernel set "linux-${NEWKERNELVERSION}-gentoo-dist"
+
+		rm -rf "/boot/*${CURRENTKERNELVERSION:?}*"
+		emerge -c "=sys-kernel/gentoo-kernel-bin-${CURRENTKERNELVERSION}"
+		grub-mkconfig -o /boot/grub/grub.cfg
+	fi
+
     printf '\nUpgrade complete.\nPress \033[0;32m<Enter>\033[0m to exit window.\n\n'
     read -r _
 fi
