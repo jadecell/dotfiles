@@ -1,6 +1,5 @@
 # Src_prepare-overlay packages
 media-fonts/joypixels::src_prepare-overlay
-www-client/brave-bin
 
 # Menelkir packages
 media-sound/pamixer::menelkir
