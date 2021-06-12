@@ -21,7 +21,7 @@ LIGHTGRAY='\033[1;37m'
 NC='\033[0m'
 
 info() {
-	printf "\n[+] ${MAGENTA}$1${NC}\n"
+	printf "\n[+] ${GREEN}$1${NC}\n"
 }
 
 if [ -x /usr/bin/pacman ]; then
@@ -58,28 +58,6 @@ else
 
 		info "Rebuilding dev-libs/boost, sys-devel/llvm, sys-devel/clang and sys-devel/libtool"
         emerge -1 --usepkg=n dev-libs/boost sys-devel/llvm sys-devel/clang sys-devel/libtool
-    fi
-
-    if [ "$(eselect kernel list | wc -l)" -gt "2" ]; then
-
-		info "Detected a new kernel version"
-        CURRENTKERNELVERSION="$(uname -r | tr '-' ' ' | cut -d' ' -f1)"
-        NEWKERNELVERSION="$(eselect kernel list | tail -1 | cut -d'-' -f2)"
-
-		info "Switching to the new kernel version ($NEWKERNELVERSION)"
-        eselect kernel set "linux-${NEWKERNELVERSION}-gentoo-dist" > /dev/null 2>&1
-
-		info "Cleaning up the boot directory"
-        rm -rf "/boot/*${CURRENTKERNELVERSION}*"
-
-		info "Rebuilding modules"
-        emerge @module-rebuild
-
-		info "Removing ${CURRENTKERNELVERSION}'s ebuild from the system"
-        emerge -c "=sys-kernel/gentoo-kernel-bin-${CURRENTKERNELVERSION}"
-
-		info "Regenerating the grub config"
-        grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1
     fi
 
 fi

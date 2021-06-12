@@ -1,5 +1,6 @@
 # Src_prepare-overlay packages
 media-fonts/joypixels::src_prepare-overlay
+app-text/pandoc-bin::src_prepare-overlay
 
 # Menelkir packages
 media-sound/pamixer::menelkir
