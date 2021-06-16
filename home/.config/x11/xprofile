@@ -30,5 +30,8 @@ run xcompmgr
 # Sets wallpaper
 run setbg
 
+# Update the volume module because after reboots it likes to get stuck
+(sleep 5s && pkill -RTMIN+3 dwmblocks) &
+
 # Changes the window manager name to let Java IDEs to run
 wmname "LG3D" &
