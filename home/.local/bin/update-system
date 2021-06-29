@@ -37,10 +37,6 @@ else
     PREEMERGEGCCTIME="$(genlop gcc | tail -2 | cut -d' ' -f10 | tr -d '\n')"
 	info "Running eix-sync to sync the repos"
     eix-sync > /dev/null 2>&1
-	info "Generating metadata cache for the gentoo repo due to it's git sync method"
-	egencache --repo=gentoo --update > /dev/null 2>&1
-	info "Updating eix's list"
-	eix-update > /dev/null 2>&1
 
 	info "Running the main update"
     emerge -auDU --with-bdeps=y @world
@@ -59,6 +55,9 @@ else
 		info "Rebuilding dev-libs/boost, sys-devel/llvm, sys-devel/clang and sys-devel/libtool"
         emerge -1 --usepkg=n dev-libs/boost sys-devel/llvm sys-devel/clang sys-devel/libtool
     fi
+
+	info "Running a depclean to clean all old packages"
+	emerge -c
 
 fi
 

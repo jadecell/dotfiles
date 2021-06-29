@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -e /etc/portage/make.conf ]; then
+    . /etc/portage/make.conf
+    if [ ! -d $PORTDIR/metadata/md5-cache -o -d $PORTDIR/.git ]; then
+        echo "updating metadata cache ..."
+        egencache --repo=gentoo --update
+    fi
+fi
+
+/usr/bin/eix-update

@@ -8,6 +8,7 @@ https://www.gentoo.org/feeds/news.xml "~Gentoo Linux News"
 https://www.archlinux.org/feeds/news/ "tech"
 https://distrowatch.com/news/dwd.xml "distrowatch"
 https://www.kernel.org/feeds/kdist.xml "~Linux Kernel"
+https://packages.gentoo.org/packages/added.atom "~Gentoo packages added"
 ---------------------------------------------------------
 ---OPENSOURCE---
 https://itsfoss.com/feed/ "itsfoss"

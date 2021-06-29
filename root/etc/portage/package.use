@@ -1,7 +1,7 @@
 # package.use# required by app-misc/neofetch-7.1.0::gentoo[X]
 # required by neofetch (argument)
 >=www-client/w3m-0.5.3_p20190105 imlib
-www-client/firefox hwaccel
+www-client/firefox hwaccel pgo lto
 mail-client/thunderbird hwaccel
 x11-misc/xwallpaper jpeg png
 media-gfx/sxiv gif exif savedconfig
@@ -236,4 +236,39 @@ net-print/hplip libnotify static-ppds scanner
 # required by @world (argument)
 >=media-libs/tiff-4.2.0 jpeg
 app-emulation/virtualbox qt5
+net-misc/networkmanager -wext
+dev-libs/boost -threading
 
+# required by x11-misc/qt5ct-1.2-r1::gentoo[dbus]
+# required by qt5ct (argument)
+>=dev-qt/qtgui-5.15.2-r1 dbus
+app-editors/neovim -lua_single_target_lua5-1 lua_single_target_luajit
+dev-lua/luv lua_single_target_luajit -lua_single_target_lua5-1
+# required by app-editors/neovim-9999::gentoo[lua_single_target_luajit]
+# required by =neovim-9999 (argument)
+>=dev-lua/lpeg-1.0.2-r101 lua_targets_luajit
+# required by app-editors/neovim-9999::gentoo[lua_single_target_luajit]
+# required by =neovim-9999 (argument)
+>=dev-lua/mpack-1.0.8-r100 lua_targets_luajit
+# required by x11-libs/xapps-2.2.1::gentoo
+# required by app-backup/timeshift-20.11.1::guru
+# required by timeshift (argument)
+>=dev-libs/libdbusmenu-16.04.0-r1 gtk3
+app-emulation/qemu usbredir spice
+app-emulation/virt-manager gtk
+# required by app-emulation/libvirt-7.4.0::gentoo[virt-network]
+# required by app-emulation/libvirt-glib-4.0.0::gentoo
+# required by app-emulation/virt-manager-3.2.0::gentoo
+# required by virt-manager (argument)
+>=net-dns/dnsmasq-2.85 script
+# required by app-emulation/virt-manager-3.2.0::gentoo[gtk]
+# required by virt-manager (argument)
+>=net-misc/spice-gtk-0.39 usbredir
+# required by www-client/firefox-89.0.1::gentoo[pgo]
+# required by @selected
+# required by @world (argument)
+>=x11-base/xorg-server-1.20.11 xvfb
+# required by games-emulation/desmume-0.9.11_p20210409-r1::gentoo
+# required by desmume (argument)
+>=media-libs/libsdl2-2.0.14-r2 opengl
+media-libs/libsdl2 joystick

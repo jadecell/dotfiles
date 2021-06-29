@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-# check for efistub
-[ ! -d /boot/EFI/boot ] && echo "/boot/EFI/boot is not created, please setup efistub first!" && exit 1
-
 # Run the current script as root with all the arguments if not already being ran as root
 if [ "$(id -u)" -ne "0" ]; then exec sudo "$0" "$@"; fi
 
@@ -45,13 +42,10 @@ case $BUILDNEWKERNEL in
         ;;
 esac
 
-$SWITCHBUILDKERNEL && make -j$CPUTHREADSPLUSONE && make modules_install && genkernel --install --kernel-config=$KERNELCONFIGLOCATION initramfs
+$SWITCHBUILDKERNEL && make -j$CPUTHREADSPLUSONE && make modules_install install && genkernel --install --btrfs --kernel-config=$KERNELCONFIGLOCATION initramfs
 
 BUILTKERNELVERSION="$(grep 'Linux/x86' $KERNELCONFIGLOCATION | tr '-' ' ' | cut -d' ' -f3)"
 cp -f $KERNELCONFIGLOCATION "${KERNELCONFIGDESTINATION}/${BUILTKERNELVERSION}-gentoo-$(hostname).config"
-
-cp arch/x86/boot/bzImage /boot/EFI/boot/bootx64.efi
-mv /boot/*initramfs* /boot/EFI/boot/initramfs.img
 
 clear
 printf "Want to re-build modules [Y/n]? "
@@ -75,21 +69,41 @@ esac
 
 $SWITCHREBUILDMODULES && emerge @module-rebuild
 
+printf "Want to remove duplicate kernel image [Y/n]? "
+read -r REMOVEDUPLICATEIMAGE
+
+case $REMOVEDUPLICATEIMAGE in
+    Y | y)
+        SWITCHREMOVEKERNELIMAGES=true
+        ;;
+    N | n)
+        SWITCHREMOVEKERNELIMAGES=false
+        ;;
+    "")
+        SWITCHREMOVEKERNELIMAGES=true
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHREMOVEKERNELIMAGES && rm -f /boot/*.old
 if [ $UPGRADINGKERNEL ]; then
 
     clear
-    printf "Want to remove the old kernel's ebuild [Y/n]? "
-    read -r REMOVEOLDKERNELEBUILD
+    printf "Want to remove old kernel files in /boot [Y/n]? "
+    read -r REMOVEOLDKERNELFILES
 
-    case $REMOVEOLDKERNELEBUILD in
+    case $REMOVEOLDKERNELFILES in
         Y | y)
-            SWITCHREMOVEOLDKERNELBUILD=true
+            SWITCHOLDKERNELFILESREMOVE=true
             ;;
         N | n)
-            SWITCHREMOVEOLDKERNELBUILD=false
+            SWITCHOLDKERNELFILESREMOVE=false
             ;;
         "")
-            SWITCHREMOVEOLDKERNELBUILD=true
+            SWITCHOLDKERNELFILESREMOVE=true
             ;;
         *)
             echo "Invalid option"
@@ -97,8 +111,29 @@ if [ $UPGRADINGKERNEL ]; then
             ;;
     esac
 
-    $SWITCHREMOVEOLDKERNELBUILD && emerge -c "=sys-kernel/gentoo-sources-$CURRENTKERNELVERSION"
+    $SWITCHOLDKERNELFILESREMOVE && rm -f /boot/*"$CURRENTKERNELVERSION"*
 fi
+
+printf "Re-generate grub config [Y/n]? "
+read -r GRUBCONFIG
+
+case $GRUBCONFIG in
+    Y | y)
+        SWITCHGRUBCONFIG=true
+        ;;
+    N | n)
+        SWITCHGRUBCONFIG=false
+        ;;
+    "")
+        SWITCHGRUBCONFIG=true
+        ;;
+    *)
+        echo "Invalid option"
+        exit 1
+        ;;
+esac
+
+$SWITCHGRUBCONFIG && grub-mkconfig -o /boot/grub/grub.cfg
 
 clear
 printf "Reboot now [Y/n]? "

@@ -3,7 +3,7 @@
 # Source all the settings
 . $HOME/.config/dmenu/settings
 
-declare -a options=("bashtop
+declare -a options=("bpytop
 glances
 gotop
 htop
@@ -18,7 +18,7 @@ case $choice in
 	quit)
 		echo "Program terminated." && exit 1
 	;;
-	bashtop| \
+	bpytop| \
 	glances| \
 	gotop| \
 	htop| \
