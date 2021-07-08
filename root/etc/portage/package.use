@@ -242,8 +242,6 @@ dev-libs/boost -threading
 # required by x11-misc/qt5ct-1.2-r1::gentoo[dbus]
 # required by qt5ct (argument)
 >=dev-qt/qtgui-5.15.2-r1 dbus
-app-editors/neovim -lua_single_target_lua5-1 lua_single_target_luajit
-dev-lua/luv lua_single_target_luajit -lua_single_target_lua5-1
 # required by app-editors/neovim-9999::gentoo[lua_single_target_luajit]
 # required by =neovim-9999 (argument)
 >=dev-lua/lpeg-1.0.2-r101 lua_targets_luajit
@@ -272,3 +270,13 @@ app-emulation/virt-manager gtk
 # required by desmume (argument)
 >=media-libs/libsdl2-2.0.14-r2 opengl
 media-libs/libsdl2 joystick
+# required by x11-libs/pango-1.48.7::gentoo
+# required by media-libs/gst-plugins-base-1.16.3::gentoo[pango]
+# required by media-libs/gst-plugins-good-1.16.3::gentoo
+# required by net-misc/spice-gtk-0.39::gentoo
+# required by app-emulation/virt-manager-3.2.0::gentoo[gtk]
+# required by @selected
+# required by @world (argument)
+>=media-libs/freetype-2.10.4 harfbuzz
+app-editors/neovim lua_single_target_luajit -lua_single_target_lua5-1
+dev-lua/luv lua_single_target_luajit -lua_single_target_lua5-1

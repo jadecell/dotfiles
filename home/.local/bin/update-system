@@ -39,7 +39,7 @@ else
     eix-sync > /dev/null 2>&1
 
 	info "Running the main update"
-    emerge -auDU --with-bdeps=y @world
+    emerge -auDU --with-bdeps=y --autounmask-continue @world
 
     POSTEMERGEGCCTIME="$(genlop gcc | tail -2 | cut -d' ' -f10 | tr -d '\n')"
     if [ "$PREEMERGEGCCTIME" != "$POSTEMERGEGCCTIME" ]; then
