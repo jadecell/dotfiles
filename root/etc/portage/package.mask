@@ -5,5 +5,6 @@
 */*::thegreatmcpain
 */*::bobwya
 */*::tlp
+*/*::crocket-overlay
 
 =sys-libs/glibc-9999

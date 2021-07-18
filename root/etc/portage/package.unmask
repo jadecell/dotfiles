@@ -22,4 +22,5 @@ dev-util/shfmt::go-overlay
 # TLP packages
 app-laptop/tlp::tlp
 
-# Gentoo-overlay packages
+# Crocket-overlay packages
+sys-fs/sanoid::crocket-overlay

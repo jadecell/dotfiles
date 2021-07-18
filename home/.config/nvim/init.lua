@@ -41,7 +41,7 @@ require('nv-barbar')
 require('nv-floaterm')
 
 -- Telescope
-require('nv-telescope')
+-- require('nv-telescope')
 
 -- Modeline
 -- require('nv-feline.6cdh')

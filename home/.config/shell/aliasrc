@@ -89,7 +89,8 @@ alias \
 alias \
     ka="killall" \
     sdn="sudo shutdown -h now" \
-    v="nvim"
+    v="nvim" \
+    ef="e-file"
 
 # LS aliases
 alias \
