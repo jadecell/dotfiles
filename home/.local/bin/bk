@@ -53,7 +53,6 @@ mv /boot/initramfs* /efi/efi/gentoo/initramfs.img
 rm /boot/System.map*
 rm /boot/config*
 
-
 clear
 printf "Reboot now [Y/n]? "
 read -r REBOOTNOW

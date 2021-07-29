@@ -1,16 +1,11 @@
 #!/usr/bin/env sh
 
 # Defining the icons to be used
-NERDICON=" "
+NERDICON=""
 EMOJI="🕘"
 
 # Determining the icon to show depending on the argument passed
-case $1 in
-    dwm) ICON=$EMOJI ;;
-    nerd) ICON=$NERDICON ;;
-    *) ICON="" ;;
-esac
-
+ICON=$NERDICON
 if [ "$1" = "dwm" ]; then
     case "$(date '+%I')" in
         "00") ICON="🕛" ;;
@@ -38,4 +33,4 @@ case $BLOCK_BUTTON in
 esac
 
 dte="$(date +"%a, %b %d %Y (%H:%M:%S)" | sed 's/  / /g')"
-printf "%s%s\n" "$ICON" "$dte"
+printf "%s %s\n" "$ICON" "$dte"

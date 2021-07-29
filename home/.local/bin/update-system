@@ -38,6 +38,9 @@ else
 	info "Running eix-sync to sync the repos"
     eix-sync > /dev/null 2>&1
 
+	info "Running haskell-updater"
+	haskell-updater
+
 	info "Running the main update"
     emerge -auDU --with-bdeps=y --autounmask-continue @world
 

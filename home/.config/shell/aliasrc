@@ -113,7 +113,8 @@ alias \
 
 # Applications
 alias \
-    z="zathura" \
+    z="devour zathura" \
+    mpv="devour mpv" \
     cat="bat"
 
 # University class folders

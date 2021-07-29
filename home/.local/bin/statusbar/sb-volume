@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-NERDMUTE="婢"
-NERDUNMUTE=""
+NERDMUTE="婢 "
+NERDUNMUTE=" "
 
 EMOJIMUTE="🔇"
 EMOJIUNMUTE="🔊"

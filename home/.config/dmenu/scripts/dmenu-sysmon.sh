@@ -3,7 +3,8 @@
 # Source all the settings
 . $HOME/.config/dmenu/settings
 
-declare -a options=("bpytop
+declare -a options=("bottom
+bpytop
 glances
 gotop
 htop
@@ -18,6 +19,7 @@ case $choice in
 	quit)
 		echo "Program terminated." && exit 1
 	;;
+	btm| \
 	bpytop| \
 	glances| \
 	gotop| \
@@ -26,6 +28,9 @@ case $choice in
 	s-tui)
         exec $TERMINAL -e $choice
 	;;
+	bottom)
+		exec $TERMINAL -e btm
+		;;
 	kmon)
 	exec $TERMINAL -e sudo -A $choice
 	;;

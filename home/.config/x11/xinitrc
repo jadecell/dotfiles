@@ -6,4 +6,4 @@ else
     . "$HOME/.xprofile"
 fi
 
-exec dbus-launch dwm
+exec dbus-launch xmonad
