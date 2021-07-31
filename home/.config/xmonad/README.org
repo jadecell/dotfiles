@@ -1,115 +1,52 @@
-#+TITLE: JadeCell's Xmonad and Xmobar Configs
+#+TITLE: XMonad Config
+#+PROPERTY: header-args :tangle xmonad.hs
+#+STARTUP: showeverything
+#+AUTHOR: Derek Taylor
+#+DATE: 06-16-2021
 
-* Colors
-** Black
+* Table Of Contents :toc:
+- [[#about-this-config][About This Config]]
+- [[#imports][Imports]]
+- [[#variables][Variables]]
+- [[#autostart-the-startup-hook][Autostart (The Startup Hook)]]
+- [[#gridselect][Gridselect]]
+- [[#scratchpads][Scratchpads]]
+- [[#layouts][Layouts]]
+- [[#workspaces][Workspaces]]
+- [[#managehook][Managehook]]
+- [[#keybindings][Keybindings]]
+- [[#main][Main]]
 
-#+NAME: color-black
-#+begin_src sh 
-~/.local/bin/gethex black
-#+end_src
+* About This Config
+#+CAPTION: XMonad Scrot
+#+ATTR_HTML: :alt XMonad Scrot :title XMonad Scrot :align left 
+[[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles05-thumb.png]]
 
-** Red
+Xmonad is a dynamically tiling X11 window manager that is written and configured in Haskell.
+- XMonad Official Website: [[https://xmonad.org][https://xmonad.org]]
 
-#+NAME: color-red
-#+begin_src sh
-~/.local/bin/gethex red
-#+end_src
+This is the xmonad configuration of Derek Taylor (DistroTube)
+- My YouTube: [[http://www.youtube.com/c/DistroTube][http://www.youtube.com/c/DistroTube]]
+- My GitLab:  [[http://www.gitlab.com/dwt1/][http://www.gitlab.com/dwt1/]]
 
-** Green
+Keep in mind, that my configs are purposely bloated with examples of what you can do with xmonad. It is written more as a study guide rather than a config that you should download and use.
 
-#+NAME: color-green
-#+begin_src sh
-~/.local/bin/gethex green
-#+end_src
+NOTE: You will also need my xmobar config, which is located here: https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmobar
 
-** Yellow
-
-#+NAME: color-yellow
-#+begin_src sh
-~/.local/bin/gethex yellow
-#+end_src
-
-** Blue
-
-#+NAME: color-blue
-#+begin_src sh
-~/.local/bin/gethex blue
-#+end_src
-
-** Magenta
-
-#+NAME: color-magenta
-#+begin_src sh
-~/.local/bin/gethex magenta
-#+end_src
-
-** Cyan
-
-#+NAME: color-cyan
-#+begin_src sh
-~/.local/bin/gethex cyan
-#+end_src
-
-** White
-
-#+NAME: color-white
-#+begin_src sh
-~/.local/bin/gethex lightwhite
-#+end_src
-
-** Background
-
-#+NAME: color-background
-#+begin_src sh
-~/.local/bin/gethex background
-#+end_src
-
-** Forground
-
-#+NAME: color-foreground
-#+begin_src sh
-~/.local/bin/gethex foreground
-#+end_src
-
-** Seperator
-
-#+NAME: color-seperator
-#+begin_src sh
-~/.local/bin/gethex foreground
-#+end_src
-
-*** Module
-
-#+NAME: module-seperator
-#+begin_src haskell :noweb yes
-<fc=<<color-seperator()>>> <fn=2>|</fn></fc>
-#+end_src
-
-** Trayer
-
-#+NAME: color-trayer
-#+begin_src sh 
-~/.local/bin/gethex background | tr -d '#'
-#+end_src
-
-* --- Start of the xmonad config ---
 * Imports
-** General
+These are Haskell modules that we must import so that we can use their functions later in the config.
 
-All the general imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
+  -- Base
 import XMonad
+import System.Directory
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
-#+end_src
 
-** Actions
-
-All the action imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
+    -- Actions
+import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
@@ -117,1154 +54,595 @@ import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
-#+end_src
 
-** Data
-
-All the data imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-import Data.Char (isSpace)
+    -- Data
+import Data.Char (isSpace, toUpper)
+import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
 import qualified Data.Map as M
-#+end_src
 
-** Hooks
-
-All the hook imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+    -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
-import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
-#+end_src
 
-** Layouts
-*** General
-
-All the general layout imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+    -- Layouts
+import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
-#+end_src
 
-*** Modifiers
-
-All the layout modifiers imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+    -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.Magnifier
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Renamed (renamed, Rename(Replace))
+import XMonad.Layout.Renamed
 import XMonad.Layout.ShowWName
+import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
+import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
+import XMonad.Layout.WindowNavigation
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
-#+end_src
 
-** Prompt
-
-All the prompt imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-import XMonad.Prompt
-import XMonad.Prompt.Input
-import XMonad.Prompt.FuzzyMatch
-import XMonad.Prompt.Man
-import XMonad.Prompt.Pass
-import XMonad.Prompt.Shell (shellPrompt)
-import XMonad.Prompt.Ssh
-import XMonad.Prompt.XMonad
-import Control.Arrow (first)
-#+end_src
-
-** Utilities
-
-All the utility imports needed for operation.
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+   -- Utilities
+import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
-#+end_src
+#+END_SRC
 
-* Default Variables
+* Variables
+It's nice to assign values to stuff that you will use more than once in the config. Setting values for things like font, terminal and editor means you only have to change the value here to make changes globally.
 
-All the default variables to be used in the rest of the configuration. The following table describes all the variables, what their type is, their value, and a description.
-
-| Variable      | Type      | Value                    | Description                             |
-|---------------+-----------+--------------------------+-----------------------------------------|
-| myFont        | String    | Sauce Code Pro Nerd Font | Font to be used                         |
-| myModMask     | KeyMask   | Mod4 (Windows Key)       | What mod key to use                     |
-| myTerminal    | String    | Alacritty                | Terminal emulator                       |
-| myEditor      | String    | Emacs Client             | Editor                                  |
-| myGUIBrowser  | String    | Librewolf                | Web browser                             |
-| myBorderWidth | Dimension | 2                        | Width of the border around the windows  |
-| myNormColor   | String    | color-black              | Unfocused window color                  |
-| myFocusColor  | String    | color-red                | Focuses window color                    |
-| altMask       | KeyMask   | Mod1 (Alt Key)           | Define the alt key so it can used later |
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
 myFont :: String
-myFont = "xft:Sauce Code Pro Nerd Font:bold:size=9:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
 myModMask :: KeyMask
-myModMask = mod4Mask       
+myModMask = mod4Mask        -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty "  
+myTerminal = "alacritty"    -- Sets default terminal
+
+myBrowser :: String
+myBrowser = "qutebrowser "  -- Sets qutebrowser as browser
+
+myEmacs :: String
+myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
 
 myEditor :: String
-myEditor = "emacsclient -c -n -a 'emacs'"
-
-myGUIBrowser :: String
-myGUIBrowser = "firefox" 
+myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
+-- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
 myBorderWidth :: Dimension
-myBorderWidth = 2         
+myBorderWidth = 2           -- Sets border width for windows
 
 myNormColor :: String
-myNormColor   = "<<color-black()>>" 
+myNormColor   = "#282c34"   -- Border color of normal windows
 
 myFocusColor :: String
-myFocusColor  = "<<color-red()>>" 
+myFocusColor  = "#46d9ff"   -- Border color of focused windows
 
-altMask :: KeyMask
-altMask = mod1Mask        
-#+end_src
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+#+END_SRC
 
-* Startup Applications
+* Autostart (The Startup Hook)
+These are commands we want XMonad to execute on startup, such as running a compositor, setting our wallpaper, starting the emacs daemon, and starting our system tray and the applications that belong in it.
 
-Here is a list of applications to start when Xmonad is launched.
-
-The following applications start when Xmonad does:
-
-| Application        | Description                                                            |
-|--------------------+------------------------------------------------------------------------|
-| feh                | Sets the wallpaper                                                     |
-| trayer             | The systemtray                                                         |
-| xset s off -dpms   | Disables the screen timeout and sleeping                               |
-| xset r rate 300 50 | Sets the X rate to a higher number to increase scrolling               |
-| xmodmap            | Redefines some keys to swap caps lock and control to make emacs easier |
-| emacs --daemon     | Starts the emacs daemon                                                |
-| xrdb               | Sets the system color palette to the colors in .Xresources             |
-| fixmonitors.sh     | This sets all monitors to the correct settings                         |
-| dunst              | Starting the dunst notification daemon                                 |
-| setWMNAME "LG3D"   | This sets the window manager's name to "LG3D" for java compatability   |
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
 myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce "feh --bg-scale /home/jackson/.config/wallpaper &"
-          spawnOnce "trayer --edge top --align right --widthtype request --monitor 1 --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x<<color-trayer()>> --height 24 &"
-          spawnOnce "xset s off -dpms &"
-          spawnOnce "xset r rate 300 50 &"
-          spawnOnce "xmodmap /home/jackson/.Xmodmap &"
-          spawnOnce "/usr/bin/emacs --daemon &"
-          spawnOnce "xrdb /home/jackson/.Xresources &"
-          spawnOnce "/bin/sh /home/jackson/.config/fixmonitors.sh &"
-          spawnOnce "killall dunst ; dunst &"
-          setWMName "LG3D"
-#+end_src
+    spawnOnce "lxsession &"
+    spawnOnce "picom &"
+    spawnOnce "nm-applet &"
+    spawnOnce "volumeicon &"
+    spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
+    spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+    spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
+    -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
+    -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
+#+END_SRC
 
-* XPConfigs
-** Primary
+Uncomment only ONE of the following options for setting wallpaper.
+#+BEGIN_SRC haskell
+    spawnOnce "xargs xwallpaper --stretch < ~/.xwallpaper"  -- set last saved with xwallpaper
+    -- spawnOnce "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch"  -- set random xwallpaper
+    -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
+    -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
+    -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+    setWMName "LG3D"
+#+END_SRC
 
-Sets the XP config to all the correct values so it can be used in the search prompts later in the config.
+* Gridselect
+GridSelect displays items (programs, open windows, etc.) in a 2D grid and lets the user select from it with the cursor/hjkl keys or the mouse.
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-jacksonXPConfig :: XPConfig
-jacksonXPConfig = def
-      { font                = myFont
-      , bgColor             = "#0f0f0f"
-      , fgColor             = "#50fa7b"
-      , bgHLight            = "#f8f8f8"
-      , fgHLight            = "#0f0f0f"
-      , borderColor         = "#98971a"
-      , promptBorderWidth   = 0
-      , promptKeymap        = jacksonXPKeymap
-      , position            = Top
---    , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
-      , height              = 24
-      , historySize         = 256
-      , historyFilter       = id
-      , defaultText         = []
-      , autoComplete        = Just 100000  -- set Just 100000 for .1 sec
-      , showCompletionOnTab = False
-      -- , searchPredicate     = isPrefixOf
-      , searchPredicate     = fuzzyMatch
-      , alwaysHighlight     = True
-      , maxComplRows        = Nothing      -- set to Just 5 for 5 rows
-      }
-#+end_src
+#+BEGIN_SRC haskell
+myColorizer :: Window -> Bool -> X (String, String)
+myColorizer = colorRangeFromClassName
+                  (0x28,0x2c,0x34) -- lowest inactive bg
+                  (0x28,0x2c,0x34) -- highest inactive bg
+                  (0xc7,0x92,0xea) -- active bg
+                  (0xc0,0xa7,0x9a) -- inactive fg
+                  (0x28,0x2c,0x34) -- active fg
 
-** Alternate
+-- gridSelect menu layout
+mygridConfig :: p -> GSConfig Window
+mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
+    { gs_cellheight   = 40
+    , gs_cellwidth    = 200
+    , gs_cellpadding  = 6
+    , gs_originFractX = 0.5
+    , gs_originFractY = 0.5
+    , gs_font         = myFont
+    }
 
-This configuration inheirits the full configured configuration but omits the autocomplete so a prompt that you may not want autocomplete with, I can use this prompt configuration instead.
+spawnSelected' :: [(String, String)] -> X ()
+spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
+    where conf = def
+                   { gs_cellheight   = 40
+                   , gs_cellwidth    = 200
+                   , gs_cellpadding  = 6
+                   , gs_originFractX = 0.5
+                   , gs_originFractY = 0.5
+                   , gs_font         = myFont
+                   }
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-jacksonXPConfig' :: XPConfig
-jacksonXPConfig' = jacksonXPConfig
-      { autoComplete        = Nothing
-      }
-#+end_src
+myAppGrid = [ ("Audacity", "audacity")
+                 , ("Deadbeef", "deadbeef")
+                 , ("Emacs", "emacsclient -c -a emacs")
+                 , ("Firefox", "firefox")
+                 , ("Geany", "geany")
+                 , ("Geary", "geary")
+                 , ("Gimp", "gimp")
+                 , ("Kdenlive", "kdenlive")
+                 , ("LibreOffice Impress", "loimpress")
+                 , ("LibreOffice Writer", "lowriter")
+                 , ("OBS", "obs")
+                 , ("PCManFM", "pcmanfm")
+                 ]
+#+END_SRC
 
-* Prompts
-** Search Engines
+* Scratchpads
+Allows to have several floating scratchpads running different applications.  Import Util.NamedScratchpad and bind a key to namedScratchpadSpawnAction.  In the example below, I have created named scratchpads for:
++ alacritty -- my terminal
++ mocp -- a terminal music player
++ qalculate-gtk -- a nice calculator
 
-Defines all the search engine prompts and the bindings. =Note:= this does not actually bind the search engines to their keybinds but only defines what key they should be bound to for binding later in the configuration file.
-
-| Engine     | Binding | Desription                                  |
-|------------+---------+---------------------------------------------|
-| DuckDuckGo | M-S-d   | Searches duckduckgo.com for the query       |
-| Archwiki   | M-S-a   | Searches the archwiki at wiki.archlinux.org |
-| Hoogle     | M-S-h   | Searches the Haskell Google                 |
-| Thesaurus  | M-S-t   | Searches the Thesaurus                      |
-| Vocabulary | M-S-v   | Searches for vocabulary words               |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-archWiki :: S.SearchEngine
-
-archWiki = S.searchEngine "archWiki" "https://wiki.archlinux.org/index.php?search="
-
-searchList :: [(String, S.SearchEngine)]
-searchList = [ ("d", S.duckduckgo)
-             , ("a", archWiki)
-             , ("h", S.hoogle)
-             , ("t", S.thesaurus)
-             , ("v", S.vocabulary)
-             ]
-#+end_src
-
-** Prompt Lists
-*** Primary
-
-These are some other prompts other than search engines that are useful. =Note:= like in the search engine section, the prompts are not being bound here but are being bound later in the configuration file.
-
-| Prompt | Binding | Description       |
-|--------+---------+-------------------|
-| man    | M-M1-m  | Search man pages  |
-| ssh    | M-M1-s  | SSH to a server   |
-| xmonad | M-M1-x  | The Xmonad prompt |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-promptList :: [(String, XPConfig -> X ())]
-promptList = [ ("m", manPrompt)          -- manpages prompt
-             , ("s", sshPrompt)          -- ssh prompt
-             , ("x", xmonadPrompt)       -- xmonad prompt
-             ]
-#+end_src
-
-*** Alternate
-
-This is for custom created prompts. =Note:= like in the search engine section, the prompts are not being bound here but are being bound later in the configuration file.
-
-| Prompt | Binding | Description       |
-|--------+---------+-------------------|
-| qalc   | M-M1-c  | Calculator prompt |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-promptList' :: [(String, XPConfig -> String -> X (), String)]
-promptList' = [ ("c", calcPrompt, "qalc")         -- requires qalculate-gtk
-              ]
-#+end_src
-
-** Custom Prompts
-
-This is for programming the prompts to be listed int he Prompt List section of the configuration.
-
-This is the code for the qalc prompt.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-calcPrompt c ans =
-    inputPrompt c (trim ans) ?+ \input ->
-        liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c
-    where
-        trim  = f . f
-            where f = reverse . dropWhile isSpace
-#+end_src
-
-* XPKeymap
-
-This is the XPKeymap configuration.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-jacksonXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
-jacksonXPKeymap = M.fromList $
-     map (first $ (,) controlMask)   -- control + <key>
-     [ (xK_z, killBefore)            -- kill line backwards
-     , (xK_k, killAfter)             -- kill line forwards
-     , (xK_a, startOfLine)           -- move to the beginning of the line
-     , (xK_e, endOfLine)             -- move to the end of the line
-     , (xK_m, deleteString Next)     -- delete a character foward
-     , (xK_b, moveCursor Prev)       -- move cursor forward
-     , (xK_f, moveCursor Next)       -- move cursor backward
-     , (xK_BackSpace, killWord Prev) -- kill the previous word
-     , (xK_y, pasteString)           -- paste a string
-     , (xK_g, quit)                  -- quit out of prompt
-     , (xK_bracketleft, quit)
-     ]
-     ++
-     map (first $ (,) altMask)       -- meta key + <key>
-     [ (xK_BackSpace, killWord Prev) -- kill the prev word
-     , (xK_f, moveWord Next)         -- move a word forward
-     , (xK_b, moveWord Prev)         -- move a word backward
-     , (xK_d, killWord Next)         -- kill the next word
-     , (xK_n, moveHistory W.focusUp')   -- move up thru history
-     , (xK_p, moveHistory W.focusDown') -- move down thru history
-     ]
-     ++
-     map (first $ (,) 0) -- <key>
-     [ (xK_Return, setSuccess True >> setDone True)
-     , (xK_KP_Enter, setSuccess True >> setDone True)
-     , (xK_BackSpace, deleteString Prev)
-     , (xK_Delete, deleteString Next)
-     , (xK_Left, moveCursor Prev)
-     , (xK_Right, moveCursor Next)
-     , (xK_Home, startOfLine)
-     , (xK_End, endOfLine)
-     , (xK_Down, moveHistory W.focusUp')
-     , (xK_Up, moveHistory W.focusDown')
-     , (xK_Escape, quit)
-     ]
-#+end_src
+#+BEGIN_SRC haskell
+myScratchPads :: [NamedScratchpad]
+myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "mocp" spawnMocp findMocp manageMocp
+                , NS "calculator" spawnCalc findCalc manageCalc
+                ]
+  where
+    spawnTerm  = myTerminal ++ " -t scratchpad"
+    findTerm   = title =? "scratchpad"
+    manageTerm = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+    spawnMocp  = myTerminal ++ " -t mocp -e mocp"
+    findMocp   = title =? "mocp"
+    manageMocp = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w 
+    spawnCalc  = "qalculate-gtk"
+    findCalc   = className =? "Qalculate-gtk"
+    manageCalc = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.5
+                 w = 0.4
+                 t = 0.75 -h
+                 l = 0.70 -w 
+#+END_SRC
 
 * Layouts
-** Spacing
-*** Primary
+Defining the layouts that I want to have available.
 
-Sets the spacing around windows.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
+--Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
-#+end_src
 
-*** Alternate
-
-A variation of the primary except no borders are applied if fewer than two windows. So a single window has no gaps.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+-- Below is a variation of the above except no borders are applied
+-- if fewer than two windows. So a single window has no gaps.
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
-#+end_src
 
-** Modifications
-
-Modifies what tall and floats mean. This adds the spacing around windows, how many windows are allowed on a single workspace and all the geometry.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+-- Defining a bunch of layouts, many that I don't use.
+-- limitWindows n sets maximum number of windows displayed for layout.
+-- mySpacing n sets the gap size around the windows.
 tall     = renamed [Replace "tall"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
            $ limitWindows 12
-           $ mySpacing 6
+           $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
+magnify  = renamed [Replace "magnify"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ magnifier
+           $ limitWindows 12
+           $ mySpacing 8
+           $ ResizableTall 1 (3/100) (1/2) []
+monocle  = renamed [Replace "monocle"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 20 Full
 floats   = renamed [Replace "floats"]
+           $ smartBorders
            $ limitWindows 20 simplestFloat
-#+end_src
+grid     = renamed [Replace "grid"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 12
+           $ mySpacing 8
+           $ mkToggle (single MIRROR)
+           $ Grid (16/10)
+spirals  = renamed [Replace "spirals"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ mySpacing' 8
+           $ spiral (6/7)
+threeCol = renamed [Replace "threeCol"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 7
+           $ ThreeCol 1 (3/100) (1/2)
+threeRow = renamed [Replace "threeRow"]
+           $ smartBorders
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] (smartBorders Simplest)
+           $ limitWindows 7
+           -- Mirror takes a layout and rotates it by 90 degrees.
+           -- So we are applying Mirror to the ThreeCol layout.
+           $ Mirror
+           $ ThreeCol 1 (3/100) (1/2)
+tabs     = renamed [Replace "tabs"]
+           -- I cannot add spacing to this layout because it will
+           -- add spacing between window and tabs which looks bad.
+           $ tabbed shrinkText myTabTheme
+tallAccordion  = renamed [Replace "tallAccordion"]
+           $ Accordion
+wideAccordion  = renamed [Replace "wideAccordion"]
+           $ Mirror Accordion
 
-** ShowWNameTheme
+-- setting colors for tabs layout and tabs sublayout.
+myTabTheme = def { fontName            = myFont
+                 , activeColor         = "#46d9ff"
+                 , inactiveColor       = "#313846"
+                 , activeBorderColor   = "#46d9ff"
+                 , inactiveBorderColor = "#282c34"
+                 , activeTextColor     = "#282c34"
+                 , inactiveTextColor   = "#d0d0d0"
+                 }
 
-The show window name theme configuration.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+-- Theme for showWName which prints current workspace when you change workspaces.
 myShowWNameTheme :: SWNConfig
 myShowWNameTheme = def
-    { swn_font              = "xft:Sans:bold:size=60"
+    { swn_font              = "xft:Ubuntu:bold:size=60"
     , swn_fade              = 1.0
-    , swn_bgcolor           = "#000000"
-    , swn_color             = "#FFFFFF"
+    , swn_bgcolor           = "#1c1f24"
+    , swn_color             = "#ffffff"
     }
-#+end_src
 
-** Layout Hook
-
-Sets what layouts are availiable for use by Xmonad. The following layouts are set to be used by keybindings:
-
-    - Master / Stack
-    - Floating
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
-               mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+-- The layout hook
+myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
+               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
-               myDefaultLayout =     tall
+               myDefaultLayout =     withBorder myBorderWidth tall
+                                 ||| magnify
+                                 ||| noBorders monocle
                                  ||| floats
-#+end_src
-
-* Xmobar Escape
-
-The xmobar escape configuration.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-xmobarEscape :: String -> String
-xmobarEscape = concatMap doubleLts
-  where
-        doubleLts '<' = "<<"
-        doubleLts x   = [x]
-#+end_src
+                                 ||| noBorders tabs
+                                 ||| grid
+                                 ||| spirals
+                                 ||| threeCol
+                                 ||| threeRow
+                                 ||| tallAccordion
+                                 ||| wideAccordion
+#+END_SRC
 
 * Workspaces
+I have made my workspaces in xmobar "clickable." Clickable workspaces means the mouse can be used to switch workspaces. This requires /xdotool/ to be installed. You need to use UnsafeStdInReader instead of simply StdInReader in your xmobar config so you can pass actions to it.
 
-Sets all the workspace configuration. Sets what the workspaces are named, how they are ordered, and if they are clickable. =Note:= for clicking to work, the following package is needed: "/xdo/".
+#+begin_src haskell
+-- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-myWorkspaces :: [String]
-myWorkspaces = clickable . (map xmobarEscape)
-               $ ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-  where
-        clickable l = [ "<action=xdotool key super+" ++ show (n) ++ "> " ++ ws ++ " </action>" |
-                      (i,ws) <- zip [1..9] l,
-                      let n = i ]
-#+end_src
+clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
+    where i = fromJust $ M.lookup ws myWorkspaceIndices
+#+END_SRC
 
-* Hooks
-** Manage
+* Managehook
+Sets some rules for certain programs. Examples include forcing certain programs to always float, or to always appear on a certain workspace.  Forcing programs to a certain workspace with a doShift requires xdotool if you are using clickable workspaces. You need the className or title of the program. Use xprop to get this info.
 
-Sets the manage hook for window rules.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
+     -- 'doFloat' forces a window to float.  Useful for dialog boxes and such.
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
-     -- I'm doing it this way because otherwise I would have to write out
-     -- the full name of my workspaces.
-     [ (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     ]
-#+end_src
+     -- I'm doing it this way because otherwise I would have to write out the full
+     -- name of my workspaces and the names would be very long if using clickable workspaces.
+     [ className =? "confirm"         --> doFloat
+     , className =? "file_progress"   --> doFloat
+     , className =? "dialog"          --> doFloat
+     , className =? "download"        --> doFloat
+     , className =? "error"           --> doFloat
+     , className =? "Gimp"            --> doFloat
+     , className =? "notification"    --> doFloat
+     , className =? "pinentry-gtk-2"  --> doFloat
+     , className =? "splash"          --> doFloat
+     , className =? "toolbar"         --> doFloat
+     , title =? "Oracle VM VirtualBox Manager"  --> doFloat
+     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
+     , className =? "brave-browser"   --> doShift ( myWorkspaces !! 1 )
+     , className =? "qutebrowser"     --> doShift ( myWorkspaces !! 1 )
+     , className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
+     , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
+     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     , isFullscreen -->  doFullFloat
+     ] <+> namedScratchpadManageHook myScratchPads
+#+END_SRC
 
-** Log
+* Keybindings
+I am using the Xmonad.Util.EZConfig module which allows keybindings to be written in simpler, emacs-like format.  The Super/Windows key is 'M' (the modkey).  The ALT key is 'M1'.  SHIFT is 'S' and CTR is 'C'.
 
-The log hook for fade amounts.
+| A FEW KEYBINDINGS       | ASSOCIATED ACTION                                            |
+|-------------------------+--------------------------------------------------------------|
+| MODKEY + RETURN         | opens terminal (alacritty)                                   |
+| MODKEY + SHIFT + RETURN | opens run launcher (dmenu)                                   |
+| MODKEY + TAB            | rotates through the available layouts                        |
+| MODKEY + SPACE          | toggles fullscreen on/off (useful for watching videos)       |
+| MODKEY + SHIFT + c      | closes window with focus                                     |
+| MODKEY + SHIFT + r      | restarts xmonad                                              |
+| MODKEY + SHIFT + q      | quits xmonad                                                 |
+| MODKEY + 1-9            | switch focus to workspace (1-9)                              |
+| MODKEY + SHIFT + 1-9    | send focused window to workspace (1-9)                       |
+| MODKEY + j              | windows focus down (switches focus between windows in stack) |
+| MODKEY + k              | windows focus up (switches focus between windows in stack)   |
+| MODKEY + SHIFT + j      | windows swap down (swap windows in the stack)                |
+| MODKEY + SHIFT + k      | windows swap up (swap the windows in the stack)              |
+| MODKEY + h              | shrink window (decreases window width)                       |
+| MODKEY + l              | expand window (increases window width)                       |
+| MODKEY + w              | switches focus to monitor 1                                  |
+| MODKEY + e              | switches focus to monitor 2                                  |
+| MODKEY + r              | switches focus to monitor 3                                  |
+| MODKEY + period         | switch focus to next monitor                                 |
+| MODKEY + comma          | switch focus to prev monitor                                 |
+| MODKEY + SPACE          | toggles fullscreen on/off (useful for watching videos)       |
+| MODKEY + t              | force floating window back into tiling                       |
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 1.0
-#+end_src
-
-* Key Bindings
-
-Starts the key bindings array.
-
-What the letters mean:
-
-| Symbol | Description |
-|--------+-------------|
-| M      | Modkey      |
-| S      | Shift       |
-| C      | Control     |
-| M1     | Alt         |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
 myKeys :: [(String, X ())]
-myKeys = [ ("M-C-r", spawn "xmonad --recompile")      
-        , ("M-S-r", spawn "xmonad --restart")       
-        , ("M-S-q", spawn "~/.config/dmenu/scripts/dmenu-prompt.sh 'Quit XMonad?' 'killall xinit'")
-#+end_src
+myKeys =
+    -- Xmonad
+        [ ("M-C-r", spawn "xmonad --recompile")  -- Recompiles xmonad
+        , ("M-S-r", spawn "xmonad --restart")    -- Restarts xmonad
+        , ("M-S-q", io exitSuccess)              -- Quits xmonad
 
-** Xmonad
+    -- Run Prompt
+        , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
 
-General Xmonad-related keybindings.
+    -- Other Dmenu Prompts
+    -- In Xmonad and many tiling window managers, M-p is the default keybinding to
+    -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
+        , ("M-p a", spawn "dm-sounds")    -- choose an ambient background
+        , ("M-p b", spawn "dm-setbg")     -- set a background
+        , ("M-p c", spawn "dm-colpick")   -- pick color from our scheme
+        , ("M-p e", spawn "dm-confedit")  -- edit config files
+        , ("M-p i", spawn "dm-maim")      -- screenshots (images)
+        , ("M-p k", spawn "dm-kill")      -- kill processes
+        , ("M-p m", spawn "dm-man")       -- manpages
+        , ("M-p o", spawn "dm-bookman")   -- qutebrowser bookmarks/history
+        , ("M-p p", spawn "passmenu")     -- passmenu
+        , ("M-p q", spawn "dm-logout")    -- logout menu
+        , ("M-p r", spawn "dm-reddit")    -- reddio (a reddit viewer)
+        , ("M-p s", spawn "dm-websearch") -- search various search engines
 
-| Key Binding | Description              |
-|-------------+--------------------------|
-| M-C-r       | Recompile Xmonad         |
-| M-S-r       | Restart Xmonad           |
-| M-S-q       | Quits the Xmonad session |
+    -- Useful programs to have a keybinding for launch
+        , ("M-<Return>", spawn (myTerminal))
+        , ("M-b", spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
+        , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-#+end_src
+    -- Kill windows
+        , ("M-S-c", kill1)     -- Kill the currently focused client
+        , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
-** Personal Applications
-
-Launches all my custom applications.
-
-| Key Binding | Description                                                                 |
-|-------------+-----------------------------------------------------------------------------|
-| M-Enter     | Spawn the terminal defined in the default variables section                 |
-| M-w         | Spawn the browser defined in the default variables section                  |
-| M-S-s       | Spawn spotify                                                               |
-| M-u         | Spawn a terminal to update the system                                       |
-| M-m         | Spawn a terminal and launch neomutt                                         |
-| M-r         | Spawn a terminal and launch ranger                                          |
-| M-S-w       | Spawn the simple terminal (st) and launch ranger on my wallpapers directory |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-<Return>", spawn myTerminal)
-        , ("M-w", spawn myGUIBrowser)
-        , ("M-S-s", spawn "spotify")
-        , ("M-u", spawn (myTerminal ++ "-e paru -Syu"))
-        , ("M-m", spawn (myTerminal ++ "-e neomutt"))
-        , ("M-r", spawn "st -e ranger")
-        , ("M-S-w", spawn "st -e ranger ~/.local/repos/wallpapers")
-#+end_src
-
-** Prompts
-
-Prompt keybindings.
-
-| Key Binding | Description                                                           |
-|-------------+-----------------------------------------------------------------------|
-| M-S-Enter   | Launches a prompt to fuzzy find and launch applications (like dmenu). |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-S-<Return>", shellPrompt jacksonXPConfig)   
-#+end_src
-
-** Windows
-
-Window modifications.
-
-| Key Binding | Description              |
-|-------------+--------------------------|
-| M-S-c       | Kills the focused window |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-S-c", kill1)                           
-#+end_src
-
-*** Floating
-
-Floating window modifications.
-
-| Key Binding | Description                                 |
-|-------------+---------------------------------------------|
-| M-f         | Toggles floating mode of the focused window |
-| M-Delete    | Set the floating window to tiling           |
-| M-S-Delete  | Set all floating windows to tiling          |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-f", sendMessage (T.Toggle "floats"))       
-        , ("M-<Delete>", withFocused $ windows . W.sink) 
-        , ("M-S-<Delete>", sinkAll)                      
-#+end_src
-
-*** Navigation
-
-Window navigation.
-
-| Key Binding | Description                                                     |
-|-------------+-----------------------------------------------------------------|
-| M-j         | Focus the next window                                           |
-| M-k         | Focus the previous window                                       |
-| M-S-j       | Swap focused window with the next window                        |
-| M-S-k       | Swap focused window with the previous window                    |
-| M-Backspace | Moves focused window to master and maintain the order of others |
-| M1-S-Tab    | Rotate all windows except master and keep focus in place        |
-| M1-C-Tab    | Rotate all the windows in the current stack                     |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-j", windows W.focusDown)       
-        , ("M-k", windows W.focusUp)        
-        , ("M-S-j", windows W.swapDown)    
-        , ("M-S-k", windows W.swapUp)     
-        , ("M-<Backspace>", promote)     
-        , ("M1-S-<Tab>", rotSlavesDown) 
-        , ("M1-C-<Tab>", rotAllDown)   
-#+end_src
-
-** Layouts
-
-Layout bindings.
-
-| Key Binding     | Description                                   |
-|-----------------+-----------------------------------------------|
-| M-tab           | Switches to the next layout                   |
-| M-C-M1-Up       | Arrange windows up                            |
-| M-C-M1-Down     | Arrange windows down                          |
-| M-Space         | Toggles the focused window to full screen     |
-| M-S-Space       | Toggle struts                                 |
-| M-S-n           | Toggle noborder                               |
-| M-KP_Multiply   | Increase number of clients in the master pane |
-| M-KP_Divide     | Decrease number of clients in the master pane |
-| M-S-KP_Multiply | Increase number of windows                    |
-| M-S-KP_Divide   | Decrease number of windows                    |
-| M-h             | Shrink horizontal window                      |
-| M-l             | Expand horizontal window                      |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-<Tab>", sendMessage NextLayout)  
-        , ("M-C-M1-<Up>", sendMessage Arrange)
-        , ("M-C-M1-<Down>", sendMessage DeArrange)
-        , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
-        , ("M-S-<Space>", sendMessage ToggleStruts)     
-        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS) 
-        , ("M-<KP_Multiply>", sendMessage (IncMasterN 1))
-        , ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))
-        , ("M-S-<KP_Multiply>", increaseLimit)          
-        , ("M-S-<KP_Divide>", decreaseLimit)           
-        , ("M-h", sendMessage Shrink)     
-        , ("M-l", sendMessage Expand)    
-#+end_src
-
-** Workspaces
-
-Workspace bindings.
-
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| M-.         | Switch focus to next monitor     |
-| M-,         | Switch focus to previous monitor |
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+    -- Workspaces
         , ("M-.", nextScreen)  -- Switch focus to next monitor
         , ("M-,", prevScreen)  -- Switch focus to prev monitor
-#+end_src
+        , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
+        , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
-** Dmenu Scripts
+    -- Floating windows
+        , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
+        , ("M-t", withFocused $ windows . W.sink)  -- Push floating window back to tile
+        , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
 
-Dmenu script bindings.
+    -- Increase/decrease spacing (gaps)
+        , ("C-M1-j", decWindowSpacing 4)         -- Decrease window spacing
+        , ("C-M1-k", incWindowSpacing 4)         -- Increase window spacing
+        , ("C-M1-h", decScreenSpacing 4)         -- Decrease screen spacing
+        , ("C-M1-l", incScreenSpacing 4)         -- Increase screen spacing
 
-| Key Binding | Description                |
-|-------------+----------------------------|
-| M-C-p       | Power prompt               |
-| M-C-t       | Timer prompt               |
-| M-C-s       | SSH prompt                 |
-| M-C-y       | System monitor prompt      |
-| M-C-m       | Mount prompt               |
-| M-C-S-m     | Unmount prompt             |
-| M-C-e       | Edit configurations prompt |
-| M-C-c       | Calculator prompt          |
-| M-C-S-s     | Scrot prompt               |
-| M-C-u       | Emoji/Unicode prompt       |
+    -- Grid Select (CTR-g followed by a key)
+        , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
+        , ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
+        , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("M-C-p", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-power.sh")
-        , ("M-C-t", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-timer.sh")
-        , ("M-C-s", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-ssh.sh")
-        , ("M-C-y", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-sysmon.sh")
-        , ("M-C-m", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-mount.sh")
-        , ("M-C-S-m", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-umount.sh")
-        , ("M-C-e", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-edit-configs.sh")
-        , ("M-C-c", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-calc.sh")
-        , ("M-C-S-s", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-scrot.sh")
-        , ("M-C-u", spawn "/bin/sh ~/.config/dmenu/scripts/dmenu-unicode.sh")
-#+end_src
+    -- Windows navigation
+        , ("M-m", windows W.focusMaster)  -- Move focus to the master window
+        , ("M-j", windows W.focusDown)    -- Move focus to the next window
+        , ("M-k", windows W.focusUp)      -- Move focus to the prev window
+        , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
+        , ("M-S-j", windows W.swapDown)   -- Swap focused window with next window
+        , ("M-S-k", windows W.swapUp)     -- Swap focused window with prev window
+        , ("M-<Backspace>", promote)      -- Moves focused window to master, others maintain order
+        , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
+        , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
 
-** Emacs
+    -- Layouts
+        , ("M-<Tab>", sendMessage NextLayout)           -- Switch to next layout
+        , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
-Emacs and emacs applications bindings.
+    -- Increase/decrease windows in the master pane or the stack
+        , ("M-S-<Up>", sendMessage (IncMasterN 1))      -- Increase # of clients master pane
+        , ("M-S-<Down>", sendMessage (IncMasterN (-1))) -- Decrease # of clients master pane
+        , ("M-C-<Up>", increaseLimit)                   -- Increase # of windows
+        , ("M-C-<Down>", decreaseLimit)                 -- Decrease # of windows
 
-| Key Binding | Description                   |
-|-------------+-------------------------------|
-| C-e e       | Launch an emacs client        |
-| C-e b       | Launch a list of open buffers |
-| C-e d       | Launch dired                  |
-| C-e n       | Launch elfeed                 |
-| C-e s       | Launch the eshell             |
+    -- Window resizing
+        , ("M-h", sendMessage Shrink)                   -- Shrink horiz window width
+        , ("M-l", sendMessage Expand)                   -- Expand horiz window width
+        , ("M-M1-j", sendMessage MirrorShrink)          -- Shrink vert window width
+        , ("M-M1-k", sendMessage MirrorExpand)          -- Expand vert window width
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("C-e e", spawn "emacsclient -c -a 'emacs'")       
-        , ("C-e b", spawn "emacsclient -c -a 'emacs' --eval '(ibuffer)'") 
-        , ("C-e d", spawn "emacsclient -c -a 'emacs' --eval '(dired nil)'")
-        , ("C-e n", spawn "emacsclient -c -a 'emacs' --eval '(elfeed)'")  
-        , ("C-e s", spawn "emacsclient -c -a 'emacs' --eval '(eshell)'") 
-#+end_src
+    -- Sublayouts
+    -- This is used to push windows to tabbed sublayouts, or pull them out of it.
+        , ("M-C-h", sendMessage $ pullGroup L)
+        , ("M-C-l", sendMessage $ pullGroup R)
+        , ("M-C-k", sendMessage $ pullGroup U)
+        , ("M-C-j", sendMessage $ pullGroup D)
+        , ("M-C-m", withFocused (sendMessage . MergeAll))
+        -- , ("M-C-u", withFocused (sendMessage . UnMerge))
+        , ("M-C-/", withFocused (sendMessage . UnMergeAll))
+        , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
+        , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
 
-** Multimedia keys
+    -- Scratchpads
+    -- Toggle show/hide these programs.  They run on a hidden workspace.
+    -- When you toggle them to show, it brings them to your current workspace.
+    -- Toggle them to hide and it sends them back to hidden workspace (NSP).
+        , ("C-s t", namedScratchpadAction myScratchPads "terminal")
+        , ("C-s m", namedScratchpadAction myScratchPads "mocp")
+        , ("C-s c", namedScratchpadAction myScratchPads "calculator")
 
-Sets the multimedia keys to their bindings.
+    -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
+    -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
+        , ("M-<F1>", spawn "sxiv -r -q -t -o ~/wallpapers/*")
+        , ("M-<F2>", spawn "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch")
+        --, ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
-| Key Binding | Description                                         |
-|-------------+-----------------------------------------------------|
-| Mute        | Toggles the mute of the audio source                |
-| LowerVolume | Lower the volume by 2 of the audio source           |
-| RaiseVolume | Raise the volume by 2 and set the max volume to 100 |
-| Play        | Toggle play/pause on spotify                        |
-| Stop        | Stops all music on spotify                          |
-| Prev        | Go to the previous song on spotify                  |
-| Next        | Skip to the next song on spotify                    |
+    -- Controls for mocp music player (SUPER-u followed by a key)
+        , ("M-u p", spawn "mocp --play")
+        , ("M-u l", spawn "mocp --next")
+        , ("M-u h", spawn "mocp --previous")
+        , ("M-u <Space>", spawn "mocp --toggle-pause")
 
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-        , ("<XF86AudioMute>",   spawn "pulsemixer --toggle-mute")
-        , ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -2")
-        , ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +2 && pulsemixer --max-volume 100")
-        , ("<XF86AudioPlay>", spawn "playerctl -p spotify play-pause")
-        , ("<XF86AudioStop>", spawn "playerctl -p spotify stop")
-        , ("<XF86AudioPrev>", spawn "playerctl -p spotify previous")
-        , ("<XF86AudioNext>", spawn "playerctl -p spotify next")
+    -- Emacs (CTRL-e followed by a key)
+        -- , ("C-e e", spawn myEmacs)                 -- start emacs
+        , ("C-e e", spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))   -- emacs dashboard
+        , ("C-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))   -- list buffers
+        , ("C-e d", spawn (myEmacs ++ ("--eval '(dired nil)'"))) -- dired
+        , ("C-e i", spawn (myEmacs ++ ("--eval '(erc)'")))       -- erc irc client
+        , ("C-e m", spawn (myEmacs ++ ("--eval '(mu4e)'")))      -- mu4e email
+        , ("C-e n", spawn (myEmacs ++ ("--eval '(elfeed)'")))    -- elfeed rss
+        , ("C-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))    -- eshell
+        , ("C-e t", spawn (myEmacs ++ ("--eval '(mastodon)'")))  -- mastodon.el
+        -- , ("C-e v", spawn (myEmacs ++ ("--eval '(vterm nil)'"))) -- vterm if on GNU Emacs
+        , ("C-e v", spawn (myEmacs ++ ("--eval '(+vterm/here nil)'"))) -- vterm if on Doom Emacs
+        -- , ("C-e w", spawn (myEmacs ++ ("--eval '(eww \"distrotube.com\")'"))) -- eww browser if on GNU Emacs
+        , ("C-e w", spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distrotube.com\"))'"))) -- eww browser if on Doom Emacs
+        -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
+        , ("C-e a", spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")))
+
+    -- Multimedia Keys
+        , ("<XF86AudioPlay>", spawn (myTerminal ++ "mocp --play"))
+        , ("<XF86AudioPrev>", spawn (myTerminal ++ "mocp --previous"))
+        , ("<XF86AudioNext>", spawn (myTerminal ++ "mocp --next"))
+        , ("<XF86AudioMute>", spawn "amixer set Master toggle")
+        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
+        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+        , ("<XF86HomePage>", spawn "qutebrowser https://www.youtube.com/c/DistroTube")
+        , ("<XF86Search>", spawn "dmsearch")
+        , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
+        , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
+        , ("<XF86Eject>", spawn "toggleeject")
+        , ("<Print>", spawn "dmscrot")
         ]
-#+end_src
+    -- The following lines are needed for named scratchpads.
+          where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
+                nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
+#+END_SRC
 
-** Prompts
+* Main
+This is the "main" of XMonad. This where everything in our configs comes together and works.
 
-Assigns the keybindings listed in the prompt sections to their keybindings.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-          ++ [("M-S-" ++ k, S.promptSearch jacksonXPConfig' f) | (k,f) <- searchList ]
-        -- ++ [("M-S-s-" ++ k, S.selectSearch f) | (k,f) <- searchList ]
-#+end_src
-
-* Main Function
-
-Starts the main function call.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
+#+BEGIN_SRC haskell
 main :: IO ()
 main = do
-#+end_src
-
-** Launch Bars
-
-Launches all the xmobar sessions for each of the monitors with their respective configurations.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/jackson/.config/xmobar/xmobarrc0"
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/jackson/.config/xmobar/xmobarrc1"
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/jackson/.config/xmobar/xmobarrc2"
-#+end_src
-
-** The Xmonad Function Call
-
-Calls the xmonad function with all the settings listed in the configuration file.
-
-#+begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
-    xmonad $ ewmh def
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
-        -- Run xmonad commands from command line with "xmonadctl command". Commands include:
-        -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
-        -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
-#+end_src
-
-** Sets The Variables To Be Used
-
-Sets all the variables that xmonad will use.
-
-#+Begin_src haskell :tangle ~/.config/xmonad/xmonad.hs
     -- Launching three instances of xmobar on their monitors.
+    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc0"
+    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc1"
+    xmproc2 <- spawnPipe "xmobar -x 2 $HOME/.config/xmobar/xmobarrc2"
     -- the xmonad, ya know...what the WM is named after!
-        , handleEventHook    = serverModeEventHookCmd
-                               <+> serverModeEventHook
-                               <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-                               <+> docksEventHook
+    xmonad $ ewmh def
+        { manageHook         = myManageHook <+> manageDocks
+        , handleEventHook    = docksEventHook
+                               -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
+                               -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
+                               -- it adds a border around the window if screen does not have focus. So, my solution
+                               -- is to use a keybinding to toggle fullscreen noborders instead.  (M-<Space>)
+                               -- <+> fullscreenEventHook
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook
+        , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-#+end_src
-
-** Log Hook
-
-Sets up xmobar's settings so all the colors are correct and the order.
-
-| Variable          | Description                       |
-|-------------------+-----------------------------------|
-| ppCurrent         | Current workspace                 |
-| ppVisible         | Visible but not current workspace |
-| ppHidden          | Hidden workspaces                 |
-| ppHiddenNoWindows | Hidden workspaces (no windows)    |
-| ppTitle           | Title of active window            |
-| ppSep             | Separators                        |
-| ppUrgent          | Urgent workspace                  |
-| ppOrder           | Order of the stdout               |
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmonad/xmonad.hs
-        , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "<<color-blue()>>" "" . wrap "[" "]"
-                        , ppVisible = xmobarColor "<<color-magenta()>>" ""
-                        , ppHidden = xmobarColor "<<color-green()>>" "" . wrap "*" ""
-                        , ppHiddenNoWindows = xmobarColor "<<color-white()>>" ""
-                        , ppTitle = xmobarColor "<<color-red()>>" "" . shorten 60 
-                        , ppSep =  "<<module-seperator>> "
-                        , ppUrgent = xmobarColor "<<color-red()>>" "" . wrap "!" "!"
-                        , ppOrder  = \(ws:l:t) -> [ws]++t
-                        }
+        , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
+              -- the following variables beginning with 'pp' are settings for xmobar.
+              { ppOutput = \x -> hPutStrLn xmproc0 x                          -- xmobar on monitor 1
+                              >> hPutStrLn xmproc1 x                          -- xmobar on monitor 2
+                              >> hPutStrLn xmproc2 x                          -- xmobar on monitor 3
+              , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"           -- Current workspace
+              , ppVisible = xmobarColor "#98be65" "" . clickable              -- Visible but not current workspace
+              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable -- Hidden workspaces
+              , ppHiddenNoWindows = xmobarColor "#c792ea" ""  . clickable     -- Hidden workspaces (no windows)
+              , ppTitle = xmobarColor "#b3afc2" "" . shorten 60               -- Title of active window
+              , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"                    -- Separator character
+              , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
+              , ppExtras  = [windowCount]                                     -- # of windows current workspace
+              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]                    -- order of things in xmobar
+              }
         } `additionalKeysP` myKeys
-#+end_src
-
-* --- End of the xmonad config ---
-* Xmobar
-
-Xmobar configurations.
-
-** Fonts
-*** Primary
-
-#+NAME: font-primary
-#+begin_src haskell
-"xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=true"
-#+end_src
-
-*** Alternate
-
-#+NAME: font-alt1
-#+begin_src haskell
-"xft:Sauce Code Pro Nerd Font:weight=bold:pixelsize=13:antialias=true:hinting=true"
-#+end_src
-
-#+NAME: font-alt2
-#+begin_src haskell
-"xft:Sauce Code Pro Nerd Font:weight=bold:pixelsize=16:antialias=true:hinting=true"
-#+end_src
-
-#+NAME: font-alt3
-#+begin_src haskell
-"xft:FontAwesome:pixelsize=13"
-#+end_src
-
-** Modules
-*** Kernel
-
-#+NAME: module-kernel
-#+begin_src haskell :noweb yes
-<fc=<<color-yellow()>>><fn=2> </fn>%uname%</fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-kernel
-#+begin_src haskell
-Run Com "uname" ["-r"] "" 3600
-#+end_src
-
-*** Cpu
-
-#+NAME: module-cpu
-#+begin_src haskell :noweb yes
-<fc=<<color-red()>>> %cpu% </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-cpu
-#+begin_src haskell
-Run Cpu ["-t", "<fn=1>\xf108 </fn> <total>%","-H","100","--high","red"] 20
-#+end_src
-
-*** Memory
-
-#+NAME: module-memory
-#+begin_src haskell :noweb yes
-<fc=<<color-blue()>>><fn=1> %memory% </fn></fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-memory
-#+begin_src haskell
-Run Com "/home/jackson/.local/bin/memory" [] "" 1
-#+end_src
-
-*** Disk Usage
-
-#+NAME: module-diskusage
-#+begin_src haskell :noweb yes
-<fc=<<color-magenta()>>>  %disku%  </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-diskusage
-#+begin_src haskell
-Run DiskU [("/", "<fn=1>\xf0c7 </fn> <free> free")] [] 60
-#+end_src
-
-*** Volume
-
-#+NAME: module-volume
-#+begin_src haskell :noweb yes
-<fc=<<color-blue()>>> <fn=1> %volume% </fn> </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-volume
-#+begin_src haskell
-Run Com "/home/jackson/.local/bin/volume" [] "" 1
-#+end_src
-
-*** Uptime
-
-#+NAME: module-uptime
-#+begin_src haskell :noweb yes
-<fc=<<color-green()>>>  %uptime%  </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-uptime
-#+begin_src haskell
-Run Uptime ["-t", "<fn=1>\xf062 </fn> <hours>h <minutes>m"] 60
-#+end_src
-
-*** Date
-
-#+NAME: module-date
-#+begin_src haskell :noweb yes
-<fc=<<color-cyan()>>> %date% </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-date
-#+begin_src haskell
-Run Date "<fn=1>\xf133 </fn> %b %d %Y (%H:%M:%S)" "date" 1
-#+end_src
-
-*** Corona
-
-#+NAME: module-corona
-#+begin_src haskell :noweb yes
-<fc=<<color-green()>>> <fn=1>%corona%</fn> </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-corona
-#+begin_src haskell :noweb yes
-Run Com "/home/jackson/.local/bin/corona" [] "" 1
-#+end_src
-
-*** Weather
-
-#+NAME: module-weather
-#+begin_src haskell :noweb yes
-<fc=<<color-yellow()>>><fn=1> %weather% </fn></fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-weather
-#+begin_src haskell :noweb yes
-Run Com "/home/jackson/.local/bin/weather" [] "" 1800
-#+end_src
-
-*** Cpu Temperature
-
-#+NAME: module-cputemp
-#+begin_src haskell :noweb yes
-<fc=<<color-red()>>><fn=1> %cputemp% </fn> </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-cputemp
-#+begin_src haskell :noweb yes
-Run Com "/home/jackson/.local/bin/cputemp" [] "" 10
-#+end_src
-
-*** Pacman Updates
-
-#+NAME: module-pacupdates
-#+begin_src haskell :noweb yes
-<fc=<<color-magenta()>>><fn=1>  </fn> %pacupdate% </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-pacupdates
-#+begin_src haskell :noweb yes
-Run Com "/home/jackson/.local/bin/pacupdate" [] "" 300
-#+end_src
- 
-*** Battery
-
-#+NAME: module-battery
-#+begin_src haskell :noweb yes
-<fc=<<color-green()>>><fn=1> %battery% </fn> </fc>
-#+end_src
-
-**** Command
-
-#+NAME: command-battery
-#+begin_src haskell :noweb yes
-Run Com "/home/jackson/.local/bin/battery" [] "" 2
-#+end_src
-
-*** System Tray
-
-#+NAME: module-systray
-#+begin_src haskell :noweb yes
-%trayerpad%
-#+end_src
-
-**** Command
-
-#+NAME: command-systray
-#+begin_src haskell :noweb yes
-Run Com "/home/jackson/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 1
-#+end_src
-
-*** UnsafeSTDINReader
-
-#+NAME: module-unsafestdinreader
-#+begin_src haskell :noweb yes
-%UnsafeStdinReader%
-#+end_src
-
-**** Command
-
-#+NAME: command-unsafestdinreader
-#+begin_src haskell :noweb yes
-Run UnsafeStdinReader
-#+end_src
-
-** Icons
-
-#+NAME: xpm-icon-root
-#+begin_src haskell
-"/home/jackson/.xmonad/xpm/"
-#+end_src
-
-** Computers
-*** Desktop
-**** Monitor 1
-
-The configuration for monitor 1.
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmobar/xmobarrc0
-Config { font    = <<font-primary>>
-       , additionalFonts = [ <<font-alt1>>
-                           , <<font-alt2>>
-                           , <<font-alt3>>
-                           ]
-       , bgColor = "<<color-background()>>"
-       , fgColor = "<<color-foreground()>>"
-       , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 24 }
-       , lowerOnStart = True
-       , hideOnStart = False
-       , allDesktops = True
-       , persistent = True
-       , iconRoot = <<xpm-icon-root>>
-       , commands = [
-                      <<command-date>>
-                    , <<command-uptime>>
-                    , <<command-cpu>>
-                    , <<command-diskusage>>
-                    , <<command-kernel>>
-                    , <<command-memory>>
-                    , <<command-volume>>
-                    , <<command-unsafestdinreader>>
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = " <<module-unsafestdinreader>> }{ <<module-kernel>> <<module-seperator>> <<module-cpu>> <<module-seperator>> <<module-memory>> <<module-seperator>> <<module-diskusage>> <<module-seperator>> <<module-volume>> <<module-seperator>> <<module-uptime>> <<module-seperator>> <<module-date>> "
-       }
-#+end_src
-
-**** Monitor 2
-
-The configuration for monitor 2.
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmobar/xmobarrc1
-Config { font    = <<font-primary>>
-       , additionalFonts = [ <<font-alt1>>
-                           , <<font-alt2>>
-                           , <<font-alt3>>
-                           ]
-       , bgColor = "<<color-background()>>"
-       , fgColor = "<<color-foreground()>>"
-       , position = Static { xpos = 1920 , ypos = 0, width = 1920, height = 24 }
-       , lowerOnStart = True
-       , hideOnStart = False
-       , allDesktops = True
-       , persistent = True
-       , iconRoot = <<xpm-icon-root>>  -- default: "."
-       , commands = [
-                      <<command-date>>
-                    , <<command-uptime>>
-                    , <<command-kernel>>
-                    , <<command-cpu>>
-                    , <<command-diskusage>>
-                    , <<command-kernel>>
-                    , <<command-volume>>
-                    , <<command-memory>>
-                    , <<command-cputemp>>
-                    , <<command-systray>>
-                    , <<command-pacupdates>>
-                    , <<command-unsafestdinreader>>
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = " <<module-unsafestdinreader>> }{ <<>> <<>> <<module-cpu>> <<module-seperator>> <<module-memory>> <<module-seperator>> <<module-pacupdates>> <<module-seperator>> <<module-volume>> <<module-seperator>> <<module-cputemp>> <<module-seperator>> <<module-uptime>> <<module-seperator>> <<module-date>> <<module-seperator>> <<module-systray>>"
-       }
-#+end_src
-
-**** Monitor 3
-
-The configuration for monitor 3.
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmobar/xmobarrc2
-Config { font    = <<font-primary>>
-       , additionalFonts = [ <<font-alt1>>
-                           , <<font-alt2>>
-                           , <<font-alt3>>
-                           ]
-       , bgColor = "<<color-background()>>"
-       , fgColor = "<<color-foreground()>>"
-       , position = Static { xpos = 3840 , ypos = 0, width = 1920, height = 24 }
-       , lowerOnStart = True
-       , hideOnStart = False
-       , allDesktops = True
-       , persistent = True
-       , iconRoot = <<xpm-icon-root>>  -- default: "."
-       , commands = [
-                      <<command-date>>
-                    , <<command-uptime>>
-                    , <<command-cpu>>
-                    , <<command-diskusage>>
-                    , <<command-kernel>>
-                    , <<command-volume>>
-                    , <<command-memory>>
-                    , <<command-corona>>
-                    , <<command-unsafestdinreader>>
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = " <<module-unsafestdinreader>> }{ <<module-kernel>> <<module-seperator>> <<module-cpu>> <<module-seperator>> <<module-memory>> <<module-seperator>> <<module-diskusage>> <<module-seperator>> <<module-volume>> <<module-seperator>> <<module-corona>> <<module-seperator>> <<module-date>> "
-       }
-#+end_src
-*** Laptop
-**** Monitor 1
-
-The configuration for monitor 1.
-
-#+begin_src haskell :noweb yes :tangle ~/.config/xmobar/xmobarrc_laptop
-Config { font    = <<font-primary>>
-       , additionalFonts = [ <<font-alt1>>
-                           , <<font-alt2>>
-                           , <<font-alt3>>
-                           ]
-       , bgColor = "<<color-background()>>"
-       , fgColor = "<<color-foreground()>>"
-       , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 24 }
-       , lowerOnStart = True
-       , hideOnStart = False
-       , allDesktops = True
-       , persistent = True
-       , iconRoot = <<xpm-icon-root>>
-       , commands = [
-                      <<command-date>>
-                    , <<command-cpu>>
-                    , <<command-battery>>
-                    , <<command-kernel>>
-                    , <<command-memory>>
-                    , <<command-weather>>
-                    , <<command-volume>>
-                    , <<command-systray>>
-                    , <<command-unsafestdinreader>>
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = " <<module-unsafestdinreader>> }{ <<module-kernel>> <<module-seperator>> <<module-cpu>> <<module-seperator>> <<module-memory>> <<module-seperator>> <<module-battery>> <<module-seperator>> <<module-volume>> <<module-seperator>> <<module-weather>> <<module-seperator>> <<module-date>> <<module-seperator>> <<module-systray>> "
-       }
-#+end_src
-
-
+#+END_SRC

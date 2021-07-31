@@ -12,7 +12,7 @@ xset s off -dpms &
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources" &
 
 # Switch Capslock with L-CTRL for a better emacs experience
-xmodmap "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xmodmap" &
+#xmodmap "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xmodmap" &
 
 # Fixes monitor placement and resolution
 ~/.config/fixmonitors.sh &

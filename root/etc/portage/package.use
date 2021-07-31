@@ -7,7 +7,7 @@ x11-misc/xwallpaper jpeg png
 media-gfx/sxiv gif exif savedconfig
 app-office/libreoffice -branding
 app-admin/sysstat lm-sensors
-media-fonts/nerd-fonts -hack -firacode jetbrainsmono
+media-fonts/nerd-fonts -hack firacode jetbrainsmono sourcecodepro
 app-editors/emacs -xwidgets gui png tiff gtk dynamic-loading libxml2 -harfbuzz -cairo
 sys-devel/clang-runtime -sanitize
 # required by net-misc/nextcloud-client-3.1.3::gentoo

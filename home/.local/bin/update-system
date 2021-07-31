@@ -34,7 +34,7 @@ else
 
 	info "Beginning upgrade."
 
-    PREEMERGEGCCTIME="$(genlop gcc | tail -2 | cut -d' ' -f10 | tr -d '\n')"
+    PREEMERGEGCCTIME="$(genlop gcc | tail -2 | cut -d' ' -f9 | tr -d '\n')"
 	info "Running eix-sync to sync the repos"
     eix-sync > /dev/null 2>&1
 
@@ -44,7 +44,10 @@ else
 	info "Running the main update"
     emerge -auDU --with-bdeps=y --autounmask-continue @world
 
-    POSTEMERGEGCCTIME="$(genlop gcc | tail -2 | cut -d' ' -f10 | tr -d '\n')"
+	info "Running emerge @preserved-rebuild if needed"
+	emerge @preserved-rebuild
+
+    POSTEMERGEGCCTIME="$(genlop gcc | tail -2 | cut -d' ' -f9 | tr -d '\n')"
     if [ "$PREEMERGEGCCTIME" != "$POSTEMERGEGCCTIME" ]; then
 
 		info "Detected a gcc update"
@@ -59,10 +62,7 @@ else
         emerge -1 --usepkg=n dev-libs/boost sys-devel/llvm sys-devel/clang sys-devel/libtool
     fi
 
-	info "Running a depclean to clean all old packages"
-	emerge -c
-
 fi
 
-printf '\nUpgrade complete.\nPress \033[0;32m<Enter>\033[0m to exit window.\n\n'
+printf "\nUpgrade complete.\nPress ${CYAN}<Enter>${NC} to exit window.\n\n"
 read -r _
