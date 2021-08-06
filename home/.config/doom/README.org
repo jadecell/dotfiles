@@ -350,10 +350,10 @@ This adds a keybinding to format sheel scripts to *SPC-c-s*
 | grip-preview-use-webkit  | Use embedded webkit to preview                               |
 
 #+begin_src emacs-lisp
-(load! "~/.config/doom/private/grip-mode-credentials.el")
-(setq grip-binary-path "/usr/bin/grip")
-(setq grip-update-after-change nil)
-(setq grip-preview-use-webkit nil)
+;(load! "~/.config/doom/private/grip-mode-credentials.el")
+;(setq grip-binary-path "/usr/bin/grip")
+;(setq grip-update-after-change nil)
+;(setq grip-preview-use-webkit nil)
 #+end_src
 
 Adds a keybinding to start the markdown live preview to *SPC-c-m*

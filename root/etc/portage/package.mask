@@ -6,5 +6,6 @@
 */*::bobwya
 */*::tlp
 */*::crocket-overlay
+*/*::brave-overlay
 
 =sys-libs/glibc-9999

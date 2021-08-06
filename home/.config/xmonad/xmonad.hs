@@ -75,7 +75,7 @@ myTerminal :: String
 myTerminal = "alacritty"    -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox "  -- Sets qutebrowser as browser
+myBrowser = "brave-bin "  -- Sets qutebrowser as browser
 
 myEmacs :: String
 myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
@@ -91,7 +91,7 @@ myNormColor :: String
 myNormColor   = "#212121"   -- Border color of normal windows
 
 myFocusColor :: String
-myFocusColor  = "#23D18B"   -- Border color of focused windows
+myFocusColor  = "#d54646"   -- Border color of focused windows
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -307,7 +307,7 @@ myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
         [ ("M-C-r", spawn "rm -rf ~/.xmonad && xmonad --recompile")  -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart")    -- Restarts xmonad
+        , ("M-S-r", spawn "rm -rf ~/.xmonad && xmonad --recompile && xmonad --restart")    -- Restarts xmonad
         , ("M-S-q", io exitSuccess)              -- Quits xmonad
 
     -- Run Prompt

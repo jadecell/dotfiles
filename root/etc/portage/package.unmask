@@ -1,6 +1,5 @@
 # Src_prepare-overlay packages
 app-text/pandoc-bin::src_prepare-overlay
-www-client/brave-bin::src_prepare-overlay
 
 # Menelkir packages
 media-sound/pamixer::menelkir
@@ -24,3 +23,6 @@ app-laptop/tlp::tlp
 
 # Crocket-overlay packages
 sys-fs/sanoid::crocket-overlay
+
+# Brave-overlay
+www-client/brave-bin::brave-overlay

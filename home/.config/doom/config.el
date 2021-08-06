@@ -127,10 +127,10 @@
     :desc "Format shell code"
     "c s" #'shfmt-buffer)
 
-(load! "~/.config/doom/private/grip-mode-credentials.el")
-(setq grip-binary-path "/usr/bin/grip")
-(setq grip-update-after-change nil)
-(setq grip-preview-use-webkit nil)
+;(load! "~/.config/doom/private/grip-mode-credentials.el")
+;(setq grip-binary-path "/usr/bin/grip")
+;(setq grip-update-after-change nil)
+;(setq grip-preview-use-webkit nil)
 
 (map!
     :leader

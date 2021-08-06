@@ -281,3 +281,7 @@ media-libs/libsdl2 joystick
 app-editors/neovim lua_single_target_luajit -lua_single_target_lua5-1
 dev-lua/luv lua_single_target_luajit -lua_single_target_lua5-1
 x11-misc/xmobar timezone xpm
+www-client/ungoogled-chromium widevine pgo
+# required by www-client/ungoogled-chromium-92.0.4515.131-r1::pf4public
+# required by ungoogled-chromium (argument)
+>=net-libs/nodejs-16.6.1 inspector
