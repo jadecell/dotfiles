@@ -1,2 +1,4 @@
+x11-misc/picom-jonaburg **
+x11-misc/picom **
 # Make gcc run with the stable ebuild
 #sys-devel/gcc -~amd64

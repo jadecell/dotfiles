@@ -447,9 +447,9 @@ main = do
               -- the following variables beginning with 'pp' are settings for xmobar.
               { ppOutput = \x -> hPutStrLn xmproc0 x                          -- xmobar on monitor 1
                               >> hPutStrLn xmproc1 x                          -- xmobar on monitor 2
-              , ppCurrent = xmobarColor "#23D18B" "" . wrap "[" "]"           -- Current workspace
+              , ppCurrent = xmobarColor "#23D18B" "" . wrap "<box type=Bottom width=2 color=#23d18b>" "</box>"           -- Current workspace
               , ppVisible = xmobarColor "#23D18B" "" . clickable              -- Visible but not current workspace
-              , ppHidden = xmobarColor "#D7BA7D" "" . wrap "*" "" . clickable -- Hidden workspaces
+              , ppHidden = xmobarColor "#D7BA7D" "" . wrap "<box type=Top width=2 color=#D7BA7D>" "</box>" . clickable -- Hidden workspaces
               , ppHiddenNoWindows = xmobarColor "#C586C0" ""  . clickable     -- Hidden workspaces (no windows)
               , ppTitle = xmobarColor "#d8dee9" "" . shorten 60               -- Title of active window
               , ppSep =  "<fc=#d8dee9> <fn=1>|</fn> </fc>"                    -- Separator character

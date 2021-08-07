@@ -25,7 +25,8 @@ killall emacs
 # run dwmblocks
 
 # Compositor
-run xcompmgr
+killall picom
+picom --experimental-backends &
 
 # Sets wallpaper
 run setbg

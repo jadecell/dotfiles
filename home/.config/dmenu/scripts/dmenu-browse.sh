@@ -3,8 +3,8 @@
 # Source all the settings
 . $HOME/.config/dmenu/settings
 
-# Uses default browser else firefox
-DMBROWSER="${BROWSER:-firefox}"
+# Uses default browser else brave
+DMBROWSER="${BROWSER:-brave-bin}"
 declare -a options=( "amazon - https://www.amazon.ca/s?k="
                      "archaur - https://aur.archlinux.org/packages/?O=0&K="
                      "archpkg - https://archlinux.org/packages/?sort=&q="

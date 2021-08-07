@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 
-VPNICON=" "
+VPNICON=" "
 if [ -f $HOME/.cache/vpnconnection ]; then
     . $HOME/.cache/vpnconnection
 
     if [ $VPNCONNECTION = true ]; then
-        VPNICON=" "
+        VPNICON=" "
     else
-        VPNICON=" "
+        VPNICON=" "
     fi
 fi
 printf "%s" "$VPNICON"
