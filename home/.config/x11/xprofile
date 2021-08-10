@@ -39,4 +39,4 @@ trayer --edge top --align right --widthtype request --padding 6 --SetDockType tr
 # wmname "LG3D" &
 
 # Launch pipewire
-dbus-launch --sh-syntax --exit-with-session; pulseaudio --kill; pipewire &
+#dbus-launch --sh-syntax --exit-with-session; pulseaudio --kill; pipewire &
