@@ -4,8 +4,8 @@ app-text/pandoc-bin::src_prepare-overlay
 # Menelkir packages
 media-sound/pamixer::menelkir
 
-# Thegreatmcpain packages
-media-fonts/nerd-fonts::thegreatmcpain
+# Gentoo-zh packages
+media-fonts/nerd-fonts::gentoo-zh
 
 # Bobwya packages
 

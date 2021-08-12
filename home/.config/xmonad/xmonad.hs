@@ -91,28 +91,13 @@ myNormColor :: String
 myNormColor   = "#212121"   -- Border color of normal windows
 
 myFocusColor :: String
-myFocusColor  = "#d54646"   -- Border color of focused windows
+myFocusColor  = "#29b8db"   -- Border color of focused windows
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myStartupHook :: X ()
 myStartupHook = do
-    -- spawnOnce "lxsession &"
-    -- spawnOnce "picom &"
-    -- spawnOnce "nm-applet &"
-    -- spawnOnce "volumeicon &"
-    -- spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
-    -- spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-    -- spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
-    -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
-    -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
-
-    -- spawnOnce "xargs xwallpaper --stretch < ~/.xwallpaper"  -- set last saved with xwallpaper
-    -- spawnOnce "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch"  -- set random xwallpaper
-    -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
-    -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
-    -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
     setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
@@ -161,21 +146,12 @@ myAppGrid = [ ("Audacity", "audacity")
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "spotify" spawnSpot findSpot manageSpot
                 , NS "calculator" spawnCalc findCalc manageCalc
                 ]
   where
     spawnTerm  = "st -t scratchpad"
     findTerm   = title =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
-    spawnSpot  = "st -t spotify -e devour spotify"
-    findSpot   = className =? "Spotify"
-    manageSpot = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -296,8 +272,6 @@ myManageHook = composeAll
      , className =? "notification"    --> doFloat
      , className =? "pinentry-gtk-2"  --> doFloat
      , className =? "splash"          --> doFloat
-     , className =? "toolbar"         --> doFloat
-     , className =? "Spotify"         --> doFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      , isFullscreen -->  doFullFloat
@@ -330,6 +304,7 @@ myKeys =
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
         , ("M-n", spawn (myTerminal ++ " -e newsboat"))
+        , ("M-m", spawn (myTerminal ++ " -e ncmpcpp"))
         , ("M-t", spawn (myTerminal ++ " -e tremc"))
         , ("M-u", spawn (myTerminal ++ " -e update-system"))
         , ("M-S-v", spawn "togglevpn")
@@ -361,7 +336,7 @@ myKeys =
         , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Windows navigation
-        , ("M-m", windows W.focusMaster)  -- Move focus to the master window
+        , ("M-S-m", windows W.focusMaster)  -- Move focus to the master window
         , ("M-j", windows W.focusDown)    -- Move focus to the next window
         , ("M-k", windows W.focusUp)      -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster) -- Swap the focused window and the master window
@@ -404,7 +379,6 @@ myKeys =
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("C-s t", namedScratchpadAction myScratchPads "terminal")
-        , ("C-s s", namedScratchpadAction myScratchPads "spotify")
         , ("C-s c", namedScratchpadAction myScratchPads "calculator")
 
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
@@ -412,10 +386,10 @@ myKeys =
         , ("M-<F1>", spawn "sxiv -r -q -t -o ~/.local/repos/wallpapers/*")
 
     -- Multimedia Keys
-        , ("<XF86AudioPlay>", spawn "playerctl -p spotify play-pause")
-        , ("<XF86AudioPrev>", spawn "playerctl -p spotify previous")
-        , ("<XF86AudioNext>", spawn "playerctl -p spotify next")
-        , ("<XF86AudioStop>", spawn "playerctl -p spotify stop")
+        , ("<XF86AudioPlay>", spawn "/home/jackson/.local/bin/music-control toggle")
+        , ("<XF86AudioPrev>", spawn "/home/jackson/.local/bin/music-control prev")
+        , ("<XF86AudioNext>", spawn "/home/jackson/.local/bin/music-control next")
+        , ("<XF86AudioStop>", spawn "/home/jackson/.local/bin/music-control stop")
         ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))

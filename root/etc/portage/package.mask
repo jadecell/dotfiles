@@ -2,10 +2,10 @@
 */*::guru
 */*::src_prepare-overlay
 */*::menelkir
-*/*::thegreatmcpain
 */*::bobwya
 */*::tlp
 */*::crocket-overlay
 */*::brave-overlay
+*/*::gentoo-zh
 
 =sys-libs/glibc-9999

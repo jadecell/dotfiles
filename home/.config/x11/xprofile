@@ -24,6 +24,9 @@ killall emacs
 # Starts the statusbar
 # run dwmblocks
 
+# Starts mpd
+run mpd
+
 # Compositor
 killall picom
 picom --experimental-backends &
