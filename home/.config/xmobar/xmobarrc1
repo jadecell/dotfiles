@@ -23,7 +23,6 @@ Config { font    = "xft:Sauce Code Pro Nerd Fonts:weight=bold:pixelsize=12:antia
                     , Run Com "/home/jackson/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-clock" ["nerd"] "clock" 1
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-kernel" ["nerd"] "kernel" 7200
-                    , Run Com "/home/jackson/.local/bin/statusbar/sb-volume" ["nerd"] "volume" 1
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-cputemp" ["desktop"] "cputemp" 1
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-vpnicon" [] "vpnicon" 1
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-news-nerd" [] "news" 1
@@ -35,4 +34,4 @@ Config { font    = "xft:Sauce Code Pro Nerd Fonts:weight=bold:pixelsize=12:antia
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader% }{ <box type=Bottom width=2 color=#29B8DB><fc=#29B8DB> <fn=1> %music% </fn> </fc> </box>   <box type=Bottom width=2 color=#c586c0><fc=#c586c0> <fn=1> %news% </fn> </fc> </box>   <box type=Bottom width=2 color=#ffffff><fc=#ffffff> <fn=1> %weather% </fn> </fc> </box>   <box type=Bottom width=2 color=#23d18b><fc=#23d18b> <fn=1> %volume% </fn> </fc> </box>   <box type=Bottom width=2 color=#569cd6><fc=#569cd6>  %cpu%  </fc> </box>   <box type=Bottom width=2 color=#d54646><fc=#d54646>  %memory%  </fc> </box>   <box type=Bottom width=2 color=#d7ba7d> <fc=#d7ba7d><fn=1> %cputemp% </fn> </fc> </box>   <box type=Bottom width=2 color=#29b8db><fc=#29b8db> <fn=1> %clock% </fn></fc></box>   <box type=Bottom width=2 color=#d7ba7d><fc=#d7ba7d> <fn=1> %vpnicon% </fn></fc> </box> %trayerpad%"
+       , template = " %UnsafeStdinReader% }{ <box type=Bottom width=2 color=#c586c0><fc=#c586c0> <fn=1> %news% </fn> </fc> </box>   <box type=Bottom width=2 color=#ffffff><fc=#ffffff> <fn=1> %weather% </fn> </fc> </box>   <box type=Bottom width=2 color=#23d18b><fc=#23d18b> <fn=1> %music% </fn> </fc> </box>   <box type=Bottom width=2 color=#569cd6><fc=#569cd6>  %cpu%  </fc> </box>   <box type=Bottom width=2 color=#d54646><fc=#d54646>  %memory%  </fc> </box>   <box type=Bottom width=2 color=#d7ba7d> <fc=#d7ba7d><fn=1> %cputemp% </fn> </fc> </box>   <box type=Bottom width=2 color=#29b8db><fc=#29b8db> <fn=1> %clock% </fn></fc></box>   <box type=Bottom width=2 color=#d7ba7d><fc=#d7ba7d> <fn=1> %vpnicon% </fn></fc> </box> %trayerpad%"
