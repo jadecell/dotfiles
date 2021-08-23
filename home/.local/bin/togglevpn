@@ -4,11 +4,12 @@
 . $HOME/.cache/vpnconnection
 
 if [ $VPNCONNECTION = false ]; then
-    sudo -A wg-quick up mlvd-us182
+    sudo -A wg-quick up mlvd-us178
     echo "VPNCONNECTION=true" > $HOME/.cache/vpnconnection
-    notify-send "✅ Mullvad VPN" "Connected to mullvad-us182!"
+    notify-send "🔐Mullvad VPN" "Connected to mullvad-us182"
 else
-	sudo -A wg-quick down mlvd-us182
+	pidof transmission-daemon && notify-send "🔒Mullvad VPN" "Please stop transmisson-daemon before trying that." && exit 0
+	sudo -A wg-quick down mlvd-us178
     echo "VPNCONNECTION=false" > $HOME/.cache/vpnconnection
-    notify-send "❗ Mullvad VPN" "Disconnected from mullvad-us182!"
+    notify-send "🔓Mullvad VPN" "Disconnected from mullvad-us182"
 fi

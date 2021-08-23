@@ -23,6 +23,7 @@ killall emacs
 
 # Starts the statusbar
 # run dwmblocks
+~/.dwm/bar &
 
 # Starts mpd
 pidof mpd || mpd &
@@ -37,9 +38,9 @@ run setbg
 # Update the volume module because after reboots it likes to get stuck
 (sleep 5s && pkill -RTMIN+3 dwmblocks) &
 
-trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x1e1e1e  --height 22 &
+#trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x1e1e1e  --height 22 &
 # Changes the window manager name to let Java IDEs to run
 # wmname "LG3D" &
 
 # Launch pipewire
-#dbus-launch --sh-syntax --exit-with-session; pulseaudio --kill; pipewire &
+dbus-launch --sh-syntax --exit-with-session; pulseaudio --kill; pipewire &

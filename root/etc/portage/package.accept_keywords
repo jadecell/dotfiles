@@ -1,4 +1,6 @@
 x11-misc/picom-jonaburg **
 x11-misc/picom **
+x11-libs/libXft -~amd64
+dev-ruby/asciidoctor -~amd64
 # Make gcc run with the stable ebuild
 #sys-devel/gcc -~amd64
