@@ -153,25 +153,25 @@ colors:
 
   # Colors
   normal:
-    black: "#3B4252"
-    red: "#D54646"
-    green: "#23D18B"
-    yellow: "#D7BA7D"
-    blue: "#569CD6"
-    magenta: "#C586C0"
-    cyan: "#29B8DB"
+    black: "#1e222a"
+    red: "#e06c75"
+    green: "#7ec7a2"
+    yellow: "#ebcb8b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#61afef"
     white: "#abb2bf"
 
   # Bright colors
   bright:
-    black: "#3B4252"
-    red: "#D54646"
-    green: "#23D18B"
-    yellow: "#D7BA7D"
-    blue: "#569CD6"
-    magenta: "#C586C0"
-    cyan: "#29B8DB"
-    white: "#ECEFF4"
+    black: "#1e222a"
+    red: "#e06c75"
+    green: "#7ec7a2"
+    yellow: "#ebcb8b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#61afef"
+    white: "#abb2bf"
   # Indexed Colors
   #
   # The indexed colors include all colors from 16 to 256.

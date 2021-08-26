@@ -22,8 +22,8 @@ killall emacs
 /usr/bin/emacs --daemon &
 
 # Starts the statusbar
-# run dwmblocks
-~/.dwm/bar &
+run dwmblocks
+#slstatus &
 
 # Starts mpd
 pidof mpd || mpd &

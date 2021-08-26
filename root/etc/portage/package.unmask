@@ -13,7 +13,7 @@ media-fonts/nerd-fonts::gentoo-zh
 dev-vcs/lazygit::guru
 sys-process/gotop::guru
 app-admin/s-tui::guru
-app-backup/timeshift::guru
+app-misc/pfetch::guru
 
 # Go-overlay packages
 dev-util/shfmt::go-overlay

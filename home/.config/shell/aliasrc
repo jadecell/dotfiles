@@ -101,6 +101,7 @@ alias \
     ka="killall" \
     sdn="sudo shutdown -h now" \
     v="nvim" \
+    c="vscode" \
     ef="e-file"
 
 # LS aliases
