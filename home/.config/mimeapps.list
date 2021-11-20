@@ -1,6 +1,8 @@
 [Default Applications]
-x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/msteams=teams.desktop;
 x-scheme-handler/magnet=torrent.desktop;
 application/x-bittorrent=torrent.desktop;
-x-scheme-handler/mailspring=mailspring.desktop
-text/html=brave-brave-bin.desktop
+text/html=firefox.desktop;
+application/json=text.desktop;
+application/pdf=pdf.desktop;
+application/x-sh=text.desktop;

@@ -1,35 +1,34 @@
 #!/usr/bin/env sh
 
-# Use $XINITRC variable if file exists.
-[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+# Use $XINITRC variable if file exists. [ -f "$XINITRC" ] && alias startx="startx $XINITRC"
 
-# sudo not required for some system commands
+# sudo required for some system commands
 for x in mount umount updatedb su pacman; do
-    alias $x="sudo $x"
+	alias $x="sudo $x"
 done
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-    cp="cp -iv" \
-    mv="mv -iv" \
-    rm="rm -vI" \
-    bc="bc -ql" \
-    mkdir="mkdir -pv" \
-    ffmpeg="ffmpeg -hide_banner"
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	mkdir="mkdir -pv" \
+	ffmpeg="ffmpeg -hide_banner"
 
 # Pacman stuff
-# alias \
-#     cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
-#     p='paru' \
-#     P='pacman'
-#
-# pf() {
-#     paru -Sl \
-#         | awk '{print $2($4=="" ? "" : " *")}' \
-#         | fzf -q "$1" -m --preview 'cat <(echo {1} | cut -d " " -f 1 | paru -Si -) <(echo {1} | cut -d " " -f 1 | paru -Fl - | awk "{print $2}")' \
-#         | cut -d " " -f 1 \
-#         | xargs -ro paru -S
-# }
+alias \
+	cleanup='sudo pacman -Rns $(pacman -Qtdq)' \
+	p='paru' \
+ 	P='pacman'
+
+pf() {
+	paru -Sl |
+ 		awk '{print $2($4=="" ? "" : " *")}' |
+ 		fzf -q "$1" -m --preview 'cat <(echo {1} | cut -d " " -f 1 | paru -Si -) <(echo {1} | cut -d " " -f 1 | paru -Fl - | awk "{print $2}")' |
+ 		cut -d " " -f 1 |
+ 		xargs -ro paru -S
+}
 
 # youtube-dl
 alias yta-aac="youtube-dl --extract-audio --audio-format aac "
@@ -44,113 +43,114 @@ alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 
 # soystemD
 # alias \
-#     S="sudo systemctl"
+# 	S="sudo systemctl"
 
 # Portage stuff
-alias \
-    eu="sudo emerge -vuDU --with-bdeps=y @world" \
-    eum="sudo emerge -vuDU --autounmask-continue --with-bdeps=y @world" \
-    es="sudo eix-sync" \
-    e="sudo emerge" \
-    em="sudo emerge --autounmask-continue"
+#alias \
+	#eu="sudo emerge -uDU --with-bdeps=y @world" \
+	#eum="sudo emerge -uDU --autounmask-continue --with-bdeps=y @world" \
+	#es="sudo eix-sync" \
+	#e="sudo emerge" \
+	#em="sudo emerge --autounmask-continue"
 
 # Flaggie
-alias \
-    f="sudo flaggie"
+#alias \
+	#f="sudo flaggie"
 
 # Equery shortening
-alias \
-    eqf='equery f' \
-    equ='equery u' \
-    eqh='equery h' \
-    eqa='equery a' \
-    eqb='equery b' \
-    eql='equery l' \
-    eqd='equery d' \
-    eqg='equery g' \
-    eqc='equery c' \
-    eqk='equery k' \
-    eqm='equery m' \
-    eqy='equery y' \
-    eqs='equery s' \
-    eqw='equery w'
+#alias \
+	#eqf='equery f' \
+	#equ='equery u' \
+	#eqh='equery h' \
+	#eqa='equery a' \
+	#eqb='equery b' \
+	#eql='equery l' \
+	#eqd='equery d' \
+	#eqg='equery g' \
+	#eqc='equery c' \
+	#eqk='equery k' \
+	#eqm='equery m' \
+	#eqy='equery y' \
+	#eqs='equery s' \
+	#eqw='equery w'
 
 # Open-RC
-alias \
-    rcu="sudo rc-update" \
-    rcs="sudo rc-service"
+#alias \
+	#rcu="sudo rc-update" \
+	#rcs="sudo rc-service"
 
 # CD stuff
 alias \
-    ..='cd ..' \
-    ...='cd ../..' \
-    .3='cd ../../..' \
-    .4='cd ../../..' \
-    .5='cd ../../../..' \
-    .6='cd ../../../../..'
+	..='cd ..' \
+	...='cd ../..' \
+	.3='cd ../../..' \
+	.4='cd ../../..' \
+	.5='cd ../../../..' \
+	.6='cd ../../../../..'
 
 # Colorize commands when possible.
 alias \
-    grep="grep --color=auto" \
-    diff="diff --color=auto" \
-    egrep='egrep --color=auto' \
-    fgrep='fgrep --color=auto'
+	grep="grep --color=auto" \
+	eselect="eselect --color=auto" \
+	diff="diff --color=auto" \
+	egrep='egrep --color=auto' \
+	fgrep='fgrep --color=auto'
 
 # These common commands are just too long! Abbreviate them.
 alias \
-    ka="killall" \
-    sdn="sudo shutdown -h now" \
-    v="lvim" \
-    c="vscode" \
-    ef="e-file"
+	ka="killall" \
+	sdn="sudo shutdown -h now" \
+	v="nvim" \
+	c="vscode" \
+	cat="bat"
 
 # LS aliases
 alias \
-    ls='lsd -al --color=always --group-dirs first' \
-    la='lsd -a --color=always --group-dirs first' \
-    ll='lsd -l --color=always --group-dirs first' \
-    lt='lsd -aT --color=always --group-dirs first' \
-    l.='lsd -a | egrep "^\."'
+	ls='lsd -Al --color=always --group-dirs first' \
+	la='lsd -A --color=always --group-dirs first' \
+	ll='lsd -l --color=always --group-dirs first' \
+	lt='lsd -AT --color=always --group-dirs first' \
+	l.='lsd -A | grep -E "^\."'
 
 # Git aliases
 alias \
-    g='/usr/bin/git' \
-    gs='/usr/bin/git status' \
-    ga='/usr/bin/git add -u' \
-    gaa='/usr/bin/git add .' \
-    gc='/usr/bin/git commit -m' \
-    gp="/usr/bin/git push origin master" \
-    gpa="/usr/bin/git push gitlab master && /usr/bin/git push github master" \
-    lg="lazygit"
+	g='/usr/bin/git' \
+	gs='/usr/bin/git status' \
+	ga='/usr/bin/git add -u' \
+	gaa='/usr/bin/git add .' \
+	gc='/usr/bin/git commit -m' \
+	gp="/usr/bin/git push origin master" \
+	gpa="/usr/bin/git push gitlab master && /usr/bin/git push github master" \
+	lg="lazygit"
 
 # Applications
 alias \
-    z="devour zathura" \
-    mpv="devour mpv" \
-    cat="bat"
+	z="zathura" \
+	se="sudoedit"
 
 # University class folders
 alias \
-    m1140="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1140/" \
-    m1115="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1115/" \
-    i1113="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1113/" \
-    i1213="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1213/" \
-    i1214="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/" \
-    i1111="$HOME/Nextcloud/School/KPU/Year-1/Summer/INFO-1111/"
+	m1140="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1140/" \
+	m1115="$HOME/Nextcloud/School/KPU/Year-1/Term-1/MATH-1115/" \
+	i1113="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1113/" \
+	i1213="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1213/" \
+	i1214="$HOME/Nextcloud/School/KPU/Year-1/Term-1/INFO-1214/" \
+	i1111="$HOME/Nextcloud/School/KPU/Year-1/Summer/INFO-1111/"
 
 # Website updating
 # alias webup="rsync -vrP --delete-after ~/.local/www/mccroryxyz/ root@mccrory.xyz:/var/www/mccrory"
 webup() {
-    folder=$(pwd | cut -d'/' -f6)
-    /usr/bin/rsync -vrP --delete-after "$(pwd)/" "root@mccrory.xyz:/var/www/$folder"
+	folder=$(pwd | cut -d'/' -f6)
+	/usr/bin/rsync -rtvzP "$(pwd)/" "root@mccrory.xyz:/var/www/$folder"
 }
 
 # Make stuff
 alias \
-    smi="sudo make install" \
-    msmi="make && sudo make install"
+	smi="sudo make install" \
+	msmi="make && sudo make install"
 
 # fzf
-se() {
-    du -a ~/.local/bin/* ~/.config/* ~/.config/dmenu/scripts/* | awk '{print $2}' | fzf | xargs -r $EDITOR
+sec() {
+	du -a ~/.local/bin/* ~/.local/bin/cron/* ~/.local/bin/statusbar/* ~/.config/* ~/.config/dmenu/scripts/* | awk '{print $2}' | fzf | xargs -r $EDITOR
+	[ "$EDITOR" = "code" ] && exit
 }

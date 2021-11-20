@@ -4,8 +4,7 @@
 . $HOME/.config/dmenu/settings
 
 declare options=("quit
-mccrory.xyz
-jacksonmccrory.com")
+mccrory.xyz")
 
 choice=$(echo -e "${options[@]}" | dmenu $DMENU_ARGUMENTS -p 'SSH to: ')
 

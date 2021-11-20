@@ -10,7 +10,7 @@ env:
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  TERM: alacritty
+  TERM: xterm-256color
 
 window:
   dynamic_title: true
@@ -35,8 +35,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 2
-    y: 2
+    x: 6
+    y: 6
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
@@ -69,7 +69,7 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: Sauce Code Pro Nerd Font
+    family: RobotoMono Nerd Font
     style: Medium
   #bold:
   #family: JetBrains Mono
@@ -98,7 +98,7 @@ font:
   #style: Bold Italic
 
   # Point size
-  size: 12
+  size: 13
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -120,8 +120,8 @@ draw_bold_text_with_bright_colors: false
 colors:
   # Default colors
   primary:
-    background: "#1e1e1e"
-    foreground: "#d8dee9"
+    background: "#1a1b26"
+    foreground: "#c0caf5"
 
     # Bright and dim foreground colors
     #
@@ -136,8 +136,8 @@ colors:
   # Colors which should be used to draw the terminal cursor. If these are unset,
   # the cursor color will be the inverse of the cell color.
   cursor:
-    text: "#191919"
-    cursor: "#d8dee9"
+    text: "#292e42"
+    cursor: "#c0caf5"
 
   vi_mode_cursor:
     text: CellBackground
@@ -148,30 +148,107 @@ colors:
   # background is unset, selection color will be the inverse of the cell colors.
   # If only text is unset the cell text color will remain the same.
   selection:
-    text: "#191919"
-    background: "#d8dee9"
+    text: "#292e42"
+    background: "#c0caf5"
 
-  # Colors
   normal:
-    black: "#1e222a"
-    red: "#e06c75"
-    green: "#7ec7a2"
-    yellow: "#ebcb8b"
-    blue: "#61afef"
-    magenta: "#c678dd"
-    cyan: "#61afef"
-    white: "#abb2bf"
+    black: "#1f2335"
+    red: "#db4b4b"
+    green: "#9ece6a"
+    yellow: "#e0af68"
+    blue: "#7aa2f7"
+    magenta: "#bb9af7"
+    cyan: "#2ac3de"
+    white: "#c0caf5"
 
   # Bright colors
   bright:
-    black: "#1e222a"
-    red: "#e06c75"
-    green: "#7ec7a2"
-    yellow: "#ebcb8b"
-    blue: "#61afef"
-    magenta: "#c678dd"
-    cyan: "#61afef"
-    white: "#abb2bf"
+    black: "#3b4261"
+    red: "#db4b4b"
+    green: "#9ece6a"
+    yellow: "#e0af68"
+    blue: "#7aa2f7"
+    magenta: "#bb9af7"
+    cyan: "#2ac3de"
+    white: "#c0caf5"
+
+  # Dim colors
+  dim:
+    black: "#676f78"
+    red: "#b55454"
+    green: "#78a670"
+    yellow: "#faf380"
+    blue: "#707fd0"
+    magenta: "#c583d0"
+    cyan: "#8adaf1"
+    white: "#e0e3e7"
+
+
+# colors:
+#   # Default colors
+#   primary:
+#     background: "#191919"
+#     foreground: "#d8dee9"
+
+#     # Bright and dim foreground colors
+#     #
+#     # The dimmed foreground color is calculated automatically if it is not present.
+#     # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
+#     # is `false`, the normal foreground color will be used.
+#     #dim_foreground: '#9a9a9a'
+#     #bright_foreground: '#ffffff'
+
+#   # Cursor colors
+#   #
+#   # Colors which should be used to draw the terminal cursor. If these are unset,
+#   # the cursor color will be the inverse of the cell color.
+#   cursor:
+#     text: "#191919"
+#     cursor: "#d8dee9"
+
+#   vi_mode_cursor:
+#     text: CellBackground
+#     cursor: CellForeground
+#   # Selection colors
+
+#   # Colors which should be used to draw the selection area. If selection
+#   # background is unset, selection color will be the inverse of the cell colors.
+#   # If only text is unset the cell text color will remain the same.
+#   selection:
+#     text: "#191919"
+#     background: "#d8dee9"
+
+#   normal:
+#     black: "#191919"
+#     red: "#b02626"
+#     green: "#40a62f"
+#     yellow: "#f2e635"
+#     blue: "#314ad0"
+#     magenta: "#b30ad0"
+#     cyan: "#32d0fc"
+#     white: "#acadb1"
+
+#   # Bright colors
+#   bright:
+#     black: "#36393d"
+#     red: "#ce2727"
+#     green: "#47c930"
+#     yellow: "#fff138"
+#     blue: "#2e4bea"
+#     magenta: "#cc15ed"
+#     cyan: "#54d9ff"
+#     white: "#dbdbdb"
+
+#   # Dim colors
+#   dim:
+#     black: "#676f78"
+#     red: "#b55454"
+#     green: "#78a670"
+#     yellow: "#faf380"
+#     blue: "#707fd0"
+#     magenta: "#c583d0"
+#     cyan: "#8adaf1"
+#     white: "#e0e3e7"
   # Indexed Colors
   #
   # The indexed colors include all colors from 16 to 256.

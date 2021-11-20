@@ -8,7 +8,6 @@ https://www.gentoo.org/feeds/news.xml "~Gentoo Linux News"
 https://www.archlinux.org/feeds/news/ "tech"
 https://distrowatch.com/news/dwd.xml "distrowatch"
 https://www.kernel.org/feeds/kdist.xml "~Linux Kernel"
-https://packages.gentoo.org/packages/added.atom "~Gentoo packages added"
 ---------------------------------------------------------
 ---OPENSOURCE---
 https://itsfoss.com/feed/ "itsfoss"
@@ -20,4 +19,3 @@ https://www.zdnet.com/topic/linux/rss.xml
 ---LUKE---
 https://lukesmith.xyz/rss.xml
 https://notrelated.libsyn.com/rss
-https://videos.lukesmith.xyz/feeds/videos.xml?sort=-publishedAt&filter=local "Luke's Peertube"

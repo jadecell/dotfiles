@@ -1,11 +1,12 @@
 # Mask all overlay packages intially
 */*::guru
+*/*::thegreatmcpain
 */*::src_prepare-overlay
 */*::menelkir
 */*::bobwya
 */*::tlp
 */*::crocket-overlay
 */*::brave-overlay
-*/*::gentoo-zh
+*/*::brother-overlay
 
 =sys-libs/glibc-9999

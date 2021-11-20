@@ -1,11 +1,9 @@
 # Src_prepare-overlay packages
 app-text/pandoc-bin::src_prepare-overlay
+sys-boot/etcher-bin::src_prepare-overlay
 
 # Menelkir packages
 media-sound/pamixer::menelkir
-
-# Gentoo-zh packages
-media-fonts/nerd-fonts::gentoo-zh
 
 # Bobwya packages
 
@@ -14,6 +12,8 @@ dev-vcs/lazygit::guru
 sys-process/gotop::guru
 app-admin/s-tui::guru
 app-misc/pfetch::guru
+app-misc/dragon::guru
+app-misc/lf::guru
 
 # Go-overlay packages
 dev-util/shfmt::go-overlay
@@ -22,7 +22,19 @@ dev-util/shfmt::go-overlay
 app-laptop/tlp::tlp
 
 # Crocket-overlay packages
-sys-fs/sanoid::crocket-overlay
+app-misc/task-spooler::crocket-overlay
+net-p2p/stig::crocket-overlay
 
 # Brave-overlay
 www-client/brave-bin::brave-overlay
+
+# Nymphos packages
+app-misc/lf::nymphos
+
+# TheGreatMcPain packages
+sys-auth/pam-gnupg::thegreatmcpain
+app-text/urlview::thegreatmcpain
+media-fonts/nerd-fonts::thegreatmcpain
+
+# Brother packages
+net-print/brother-genml1-bin::brother-overlay

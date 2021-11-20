@@ -1,9 +1,13 @@
 #!/usr/bin/env sh
 
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
-    . "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
+	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
 else
-    . "$HOME/.xprofile"
+	. "$HOME/.xprofile"
 fi
 
-exec dbus-launch dwm
+#Gnome keyring auto-unlock
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+
+exec dwm

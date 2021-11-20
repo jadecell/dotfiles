@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=torrent
-Exec=/usr/bin/env transadd %U
+Exec=/home/jackson/.local/bin/transadd %U

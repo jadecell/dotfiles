@@ -27,7 +27,7 @@ Config { font    = "xft:Sauce Code Pro Nerd Fonts:weight=bold:pixelsize=12:antia
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-cputemp" ["desktop"] "cputemp" 1
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-vpnicon" [] "vpnicon" 1
                     , Run Com "/home/jackson/.local/bin/statusbar/sb-news-nerd" [] "news" 1
-                    , Run Com "/bin/cat" ["/home/jackson/.cache/xmobar-weather"] "weather" 7200
+                  --  , Run Com "/bin/cat" ["/home/jackson/.cache/xmobar-weather"] "weather" 7200
                       -- Prints out the left side items such as workspaces, layout, etc.
                       -- The workspaces are 'clickable' in my configs.
                     , Run UnsafeStdinReader
