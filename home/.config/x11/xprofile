@@ -19,7 +19,8 @@ killall udiskie
 udiskie &
 
 # Fixes monitor placement and resolution
-~/.config/fixmonitors.sh &
+#~/.config/fixmonitors.sh &
+nvidia-settings --load-config-only &
 
 # Starts the emacs daemon
 killall emacs
