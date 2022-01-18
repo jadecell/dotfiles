@@ -2,7 +2,7 @@
 
 hostname="$(uname -n)"
 case $hostname in
-orion) temp=$(sensors | grep Tctl | cut -d'+' -f2 | sed -e 's/\ //g') ;;
+hydra) temp=$(sensors | grep Tctl | cut -d'+' -f2 | sed -e 's/\ //g') ;;
 nova) temp=$(sensors | grep 'temp1:' | head -1 | cut -d'+' -f2 | sed -e 's/\ //g') ;;
 esac
 

@@ -19,8 +19,8 @@ killall udiskie
 udiskie &
 
 # Fixes monitor placement and resolution
-#~/.config/fixmonitors.sh &
-nvidia-settings --load-config-only &
+~/.config/fixmonitors.sh &
+#nvidia-settings --load-config-only &
 
 # Starts the emacs daemon
 killall emacs
@@ -34,7 +34,8 @@ run dwmblocks
 #slstatus &
 
 # Starts mpd
-pidof mpd || mpd &
+#pidof mpd || mpd &
+run xcompmgr
 
 # Sets wallpaper
 run setbg

@@ -100,7 +100,7 @@ alias \
 alias \
 	ka="killall" \
 	sdn="sudo shutdown -h now" \
-	v="nvim" \
+	v="lvim" \
 	c="vscode" \
 	cat="bat"
 

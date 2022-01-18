@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ssh -p 21000 jadecell@server742.andy10gbit.xyz

@@ -1,4 +1,4 @@
-#files: 792	version: 5.8
+#files: 787	version: 5.8
 
 _comps=(
 '-' '_precommand'
@@ -633,7 +633,6 @@ _comps=(
 'killall' '_killall'
 'killall5' '_killall'
 'kioclient' '_kfmclient'
-'kitty' '_kitty'
 'knock' '_knock'
 'konqueror' '_webbrowser'
 'kpartx' '_kpartx'
@@ -733,7 +732,6 @@ _comps=(
 'mencal' '_mencal'
 'mere' '_mere'
 'merge' '_rcs'
-'meson' '_meson'
 'metaflac' '_flac'
 'mformat' '_mtools'
 'mgv' '_pspdf'
@@ -826,7 +824,6 @@ _comps=(
 'nginx' '_nginx'
 'ngrep' '_ngrep'
 'nice' '_nice'
-'ninja' '_ninja'
 'nkf' '_nkf'
 'nl' '_nl'
 'nm' '_nm'
@@ -992,7 +989,6 @@ _comps=(
 'pyhtmlizer' '_twisted'
 'qdbus' '_qdbus'
 'qiv' '_qiv'
-'qpdf' '_qpdf'
 'quilt' '_quilt'
 'r' '_fc'
 'rake' '_rake'
@@ -1469,7 +1465,6 @@ _comps=(
 'ypwhich' '_yp'
 'ypxfr' '_yp'
 'ytalk' '_other_accounts'
-'yt-dlp' '_yt-dlp'
 'zargs' '_zargs'
 'zathura' '_zathura'
 'zcalc' '_zcalc'
@@ -1630,14 +1625,13 @@ bindkey '^[~' _bash_complete-word
 
 autoload -Uz _alacritty _bat _bootctl _busctl _cargo \
             _coredumpctl _curl _fd _hostnamectl _journalctl \
-            _kernel-install _kitty _libinput _localectl _loginctl \
-            _lsd _machinectl _meson _mkinitcpio _mpv \
-            _networkctl _ninja _pacman _paru _playerctl \
-            _pulseaudio _qpdf _resolvectl _rg _sd_hosts_or_user_at_host \
-            _sd_machines _sd_outputmodes _sd_unit_files _starship _systemctl \
-            _systemd _systemd-analyze _systemd-delta _systemd-inhibit _systemd-nspawn \
-            _systemd-path _systemd-run _systemd-tmpfiles _timedatectl _udevadm \
-            _udiskie _udiskie-mount _udiskie-umount _xwallpaper _yt-dlp \
+            _kernel-install _libinput _localectl _loginctl _lsd \
+            _machinectl _mkinitcpio _mpv _networkctl _pacman \
+            _paru _playerctl _pulseaudio _resolvectl _rg \
+            _sd_hosts_or_user_at_host _sd_machines _sd_outputmodes _sd_unit_files _starship \
+            _systemctl _systemd _systemd-analyze _systemd-delta _systemd-inhibit \
+            _systemd-nspawn _systemd-path _systemd-run _systemd-tmpfiles _timedatectl \
+            _udevadm _udiskie _udiskie-mount _udiskie-umount _xwallpaper \
             _zathura _cdr _all_labels _all_matches _alternative \
             _approximate _arg_compile _arguments _bash_completions _cache_invalid \
             _call_function _combination _complete _complete_debug _complete_help \

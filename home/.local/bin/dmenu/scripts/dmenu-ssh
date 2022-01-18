@@ -4,16 +4,28 @@
 . $HOME/.config/dmenu/settings
 
 declare options=("quit
-seedbox
+public
+private
 mccrory.xyz")
 
 choice=$(echo -e "${options[@]}" | dmenu $DMENU_ARGUMENTS -p 'SSH to: ')
 
+priv_con() {
+    ssh -p 21000 jadecell@server742.andy10gbit.xyz
+}
+
 case "$choice" in
-    "seedbox")
-    $TERMINAL -e ssh "jadecell@server433.seedhost.eu"
+    
+    "private")
+    $TERMINAL -e connect_private_seedbox
     exit 0
     ;;
+
+    "public")
+    $TERMINAL -e ssh "jadecell@dog.seedhost.eu"
+    exit 0
+    ;;
+
     quit)
         echo "Program terminated." && exit 1
     ;;

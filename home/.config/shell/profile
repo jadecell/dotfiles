@@ -27,7 +27,7 @@ export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
 export LESSHISTFILE="-"
 
 # Default Applications
-export EDITOR="nvim"
+export EDITOR="lvim"
 export BROWSER="firefox"
 export TERMINAL="alacritty"
 
