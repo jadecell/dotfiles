@@ -19,12 +19,12 @@ killall udiskie
 udiskie &
 
 # Fixes monitor placement and resolution
-#~/.config/fixmonitors.sh &
+~/.config/fixmonitors.sh &
 #nvidia-settings --load-config-only &
 
 # Starts the emacs daemon
-killall emacs
-/usr/bin/emacs --daemon &
+#killall emacs
+#/usr/bin/emacs --daemon &
 
 # Starts the statusbar
 run dwmblocks
@@ -55,4 +55,4 @@ killall polkit-dumb-agent
 /usr/bin/polkit-dumb-agent &
 
 # Nextcloud
-#pidof nextcloud >/dev/null 2>&1 || nextcloud --background &
+pidof nextcloud >/dev/null 2>&1 || nextcloud --background &

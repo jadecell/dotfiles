@@ -2,7 +2,8 @@
 # Run the current script as root with all the arguments if not already being ran as root
 
 if [ -x /usr/bin/pacman ]; then
-	checkupdates | wc -l >/home/jackson/.cache/pkgcount
+  checkupdates > /home/jackson/.cache/pkglist
+	 cat /home/jackson/.cache/pkglist | wc -l  >/home/jackson/.cache/pkgcount
 else
 	if [ "$(id -u)" -ne "0" ]; then exec sudo "$0" "$@"; fi
 	eix-sync >/dev/null 2>&1

@@ -13,11 +13,8 @@ cupd="$(/bin/cat /home/jackson/.cache/pkgcount)"
 
 case $BLOCK_BUTTON in
 1)
-	$TERMINAL -e paru -Syu
-	pkill -RTMIN+8 dwmblocks
-	;;
-3) notify-send "📦 Package updates module" "\- Left click to update system
-- Right click to show this menu" ;;
+  notify-send "📦 Package to update" "$(cat /home/jackson/.cache/pkglist | cut -d' ' -f1)" ;;
+
 6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
